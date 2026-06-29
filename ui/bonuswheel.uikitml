@@ -1,0 +1,98 @@
+<style>
+.root {
+  flexDirection: column;
+  alignItems: center;
+  justifyContent: center;
+  gap: 12;
+  padding: 20;
+  width: 420;
+  backgroundColor: rgba(10, 0, 30, 0.95);
+  borderRadius: 16;
+  borderWidth: 2;
+  borderColor: rgba(255, 200, 0, 0.6);
+}
+.header {
+  fontSize: 22;
+  color: rgba(255, 200, 0, 1);
+  textAlign: center;
+}
+.wheel-info {
+  fontSize: 16;
+  color: rgba(200, 200, 220, 1);
+  textAlign: center;
+}
+.prize {
+  fontSize: 28;
+  color: rgba(0, 255, 200, 1);
+  textAlign: center;
+}
+.segments {
+  flexDirection: column;
+  gap: 4;
+  width: 380;
+}
+.seg-row {
+  flexDirection: row;
+  justifyContent: space-between;
+  width: 380;
+}
+.seg {
+  fontSize: 12;
+  color: rgba(150, 150, 180, 1);
+  width: 90;
+  textAlign: center;
+}
+.seg-active {
+  fontSize: 14;
+  color: rgba(255, 255, 0, 1);
+  width: 90;
+  textAlign: center;
+}
+.btn {
+  fontSize: 16;
+  color: rgba(0, 0, 0, 1);
+  backgroundColor: rgba(255, 200, 0, 0.9);
+  padding: 8;
+  borderRadius: 8;
+  width: 180;
+  textAlign: center;
+}
+.btn-collect {
+  fontSize: 16;
+  color: rgba(0, 0, 0, 1);
+  backgroundColor: rgba(0, 255, 150, 0.9);
+  padding: 8;
+  borderRadius: 8;
+  width: 180;
+  textAlign: center;
+}
+</style>
+<template>
+  <container class="root">
+    <text class="header">BONUS WHEEL</text>
+    <text id="wheel-status" class="wheel-info">Spin the wheel for prizes!</text>
+    <text id="wheel-prize" class="prize"></text>
+    <container class="segments">
+      <container class="seg-row">
+        <text id="seg-0" class="seg">5x</text>
+        <text id="seg-1" class="seg">10x</text>
+        <text id="seg-2" class="seg">15x</text>
+        <text id="seg-3" class="seg">20x</text>
+      </container>
+      <container class="seg-row">
+        <text id="seg-4" class="seg">25x</text>
+        <text id="seg-5" class="seg">50x</text>
+        <text id="seg-6" class="seg">75x</text>
+        <text id="seg-7" class="seg">100x</text>
+      </container>
+      <container class="seg-row">
+        <text id="seg-8" class="seg">150x</text>
+        <text id="seg-9" class="seg">200x</text>
+        <text id="seg-10" class="seg">10x</text>
+        <text id="seg-11" class="seg">25x</text>
+      </container>
+    </container>
+    <text id="btn-wheel-spin" class="btn">SPIN WHEEL</text>
+    <text id="btn-wheel-collect" class="btn-collect">COLLECT</text>
+  </container>
+</template>

@@ -30,22 +30,25 @@ import {
   GridHelper,
   LineBasicMaterial,
   TorusKnotGeometry,
+  RingGeometry,
+  CircleGeometry,
 } from '@iwsdk/core';
 
 // ─────────────────────── TYPES & CONSTANTS ───────────────────────
 
-type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard';
+type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration';
 
 interface SymbolDef {
   name: string;
   color: string;
   emissive: string;
-  geoType: 'box' | 'sphere' | 'octahedron' | 'cone' | 'cylinder' | 'torus' | 'icosahedron' | 'torusknot';
+  geoType: 'box' | 'sphere' | 'octahedron' | 'cone' | 'cylinder' | 'torus' | 'icosahedron' | 'torusknot' | 'ring';
   pay3: number;
   pay4: number;
   pay5: number;
   isWild?: boolean;
   isScatter?: boolean;
+  isBonus?: boolean;
   weight: number;
 }
 
@@ -60,6 +63,24 @@ const SYMBOLS: SymbolDef[] = [
   { name: 'Diamond', color: '#ff00ff', emissive: '#cc00cc', geoType: 'octahedron', pay3: 50, pay4: 200, pay5: 1000, weight: 5 },
   { name: 'Wild', color: '#ffffff', emissive: '#aaaaff', geoType: 'torus', pay3: 100, pay4: 500, pay5: 2000, isWild: true, weight: 3 },
   { name: 'Scatter', color: '#00ffff', emissive: '#00cccc', geoType: 'icosahedron', pay3: 5, pay4: 20, pay5: 50, isScatter: true, weight: 6 },
+  { name: 'Bonus', color: '#ff6600', emissive: '#cc4400', geoType: 'ring', pay3: 0, pay4: 0, pay5: 0, isBonus: true, weight: 4 },
+];
+
+interface MachineConfig {
+  name: string;
+  desc: string;
+  volatility: string;
+  weightMods: number[]; // multipliers for each symbol's weight
+  payMult: number; // payout multiplier
+  minLevel: number;
+}
+
+const MACHINES: MachineConfig[] = [
+  { name: 'Classic', desc: 'Balanced payouts, steady play', volatility: 'Medium', weightMods: [1,1,1,1,1,1,1,1,1,1,1], payMult: 1.0, minLevel: 1 },
+  { name: 'High Roller', desc: 'Fewer wins, bigger payouts', volatility: 'High', weightMods: [1.3,1.3,1.2,1.2,0.8,0.8,0.6,0.4,0.5,0.8,0.7], payMult: 1.5, minLevel: 5 },
+  { name: 'Diamond Rush', desc: 'More diamonds appear', volatility: 'Med-High', weightMods: [0.9,0.9,0.9,0.9,0.9,0.9,0.8,2.5,0.8,0.8,0.8], payMult: 1.0, minLevel: 10 },
+  { name: 'Scatter Frenzy', desc: 'Scatters everywhere!', volatility: 'Medium', weightMods: [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.7,2.5,1.0], payMult: 0.9, minLevel: 15 },
+  { name: 'Jackpot Hunter', desc: 'More wilds, jackpot focus', volatility: 'Very High', weightMods: [1.1,1.1,1.0,1.0,0.7,0.7,0.7,0.5,2.5,0.6,1.0], payMult: 1.2, minLevel: 20 },
 ];
 
 const PAYLINES: number[][] = [
@@ -144,7 +165,36 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'five_kind', name: 'Five of a Kind', desc: 'Get 5 matching symbols on a payline', check: s => s.fiveOfKind >= 1 },
   { id: 'level_25', name: 'Seasoned Player', desc: 'Reach level 25', check: s => s.level >= 25 },
   { id: 'level_50', name: 'Slot Legend', desc: 'Reach level 50', check: s => s.level >= 50 },
+  { id: 'expanding_wild', name: 'Expanding Wild', desc: 'Trigger an expanding wild', check: s => s.expandingWilds >= 1 },
+  { id: 'expanding_wild_5', name: 'Wild Column', desc: 'Trigger 5 expanding wilds', check: s => s.expandingWilds >= 5 },
+  { id: 'hold_respin', name: 'Hold and Win', desc: 'Win from a hold respin', check: s => s.holdRespinWins >= 1 },
+  { id: 'mega_win_ach', name: 'MEGA WIN', desc: 'Get a Mega Win (100x+)', check: s => s.biggestWinMultiplier >= 100 },
+  { id: 'ultra_win_ach', name: 'ULTRA WIN', desc: 'Get an Ultra Win (500x+)', check: s => s.biggestWinMultiplier >= 500 },
+  { id: 'bonus_collect_500', name: 'Wheel Fortune', desc: 'Collect 500+ from bonus wheel', check: s => s.bestBonusWheelWin >= 500 },
+  { id: 'all_daily', name: 'Daily Sweep', desc: 'Complete all 3 daily challenges', check: s => s.dailySweeps >= 1 },
+  { id: 'respin_3', name: 'Lucky Respin', desc: 'Win 3 hold respins', check: s => s.holdRespinWins >= 3 },
+  { id: 'spin_1000', name: 'Veteran', desc: 'Complete 1000 spins', check: s => s.totalSpins >= 1000 },
 ];
+
+// Daily challenge templates
+interface DailyChallengeTemplate {
+  text: string;
+  field: keyof SaveData;
+  targetFn: (seed: number) => number;
+  rewardFn: (seed: number) => number;
+  getProgress: (s: SaveData, start: number) => number;
+}
+
+const DAILY_TEMPLATES: DailyChallengeTemplate[] = [
+  { text: 'Complete {n} spins', field: 'totalSpins', targetFn: s => 10 + (s % 4) * 10, rewardFn: s => 50 + (s % 3) * 25, getProgress: (s, st) => s.totalSpins - st },
+  { text: 'Win {n} times', field: 'totalWins', targetFn: s => 3 + (s % 3) * 2, rewardFn: s => 75 + (s % 3) * 25, getProgress: (s, st) => s.totalWins - st },
+  { text: 'Win {n} credits', field: 'totalCreditsWon', targetFn: s => 100 + (s % 5) * 50, rewardFn: s => 100 + (s % 3) * 50, getProgress: (s, st) => s.totalCreditsWon - st },
+  { text: 'Get {n} win streak', field: 'bestWinStreak', targetFn: s => 2 + (s % 2), rewardFn: () => 150, getProgress: (s, _st) => s.currentWinStreak },
+  { text: 'Bet {n} total credits', field: 'totalCreditsBet', targetFn: s => 50 + (s % 4) * 25, rewardFn: s => 60 + (s % 3) * 30, getProgress: (s, st) => s.totalCreditsBet - st },
+  { text: 'Trigger {n} free spins', field: 'freeSpinsTriggered', targetFn: () => 1, rewardFn: () => 200, getProgress: (s, st) => s.freeSpinsTriggered - st },
+];
+
+const BONUS_WHEEL_PRIZES = [5, 10, 15, 20, 25, 50, 75, 100, 150, 200, 10, 25];
 
 interface SaveData {
   credits: number;
@@ -187,6 +237,14 @@ interface SaveData {
   sfxVol: number;
   musicVol: number;
   leaderboard: { score: number; machine: string; date: string }[];
+  expandingWilds: number;
+  holdRespinWins: number;
+  bestBonusWheelWin: number;
+  dailySweeps: number;
+  dailyStartSnapshot: number[];
+  dailyClaimed: boolean[];
+  holdSpinsUsed: number;
+  totalBonusWheelWins: number;
 }
 
 function defaultSave(): SaveData {
@@ -201,6 +259,9 @@ function defaultSave(): SaveData {
     xp: 0, level: 1, currentMachine: 0, currentTheme: 0, coinValueIdx: 2, linesActive: 20,
     achievements: [], masterVol: 80, sfxVol: 80, musicVol: 50,
     leaderboard: [],
+    expandingWilds: 0, holdRespinWins: 0, bestBonusWheelWin: 0, dailySweeps: 0,
+    dailyStartSnapshot: [], dailyClaimed: [false, false, false],
+    holdSpinsUsed: 0, totalBonusWheelWins: 0,
   };
 }
 
@@ -216,7 +277,10 @@ function saveSave(s: SaveData) {
   try { localStorage.setItem('neon-slots-save', JSON.stringify(s)); } catch {}
 }
 
-// Seeded PRNG
+function dateSeed(): number {
+  const d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+}
+
 function mulberry32(seed: number) {
   return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0;
     let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
@@ -224,25 +288,46 @@ function mulberry32(seed: number) {
     return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 }
 
-function dateSeed(): number {
-  const d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+function todayStr(): string {
+  return new Date().toISOString().slice(0, 10);
 }
+
 
 // ─────────────────────── REEL STRIP GENERATION ───────────────────────
 
-function generateReelStrip(rng: () => number): number[] {
+function generateReelStrip(rng: () => number, machineIdx: number): number[] {
   const strip: number[] = [];
-  const totalWeight = SYMBOLS.reduce((s, sym) => s + sym.weight, 0);
+  const machine = MACHINES[machineIdx];
+  const weights = SYMBOLS.map((sym, i) => sym.weight * machine.weightMods[i]);
+  const totalWeight = weights.reduce((s, w) => s + w, 0);
   for (let i = 0; i < REEL_STRIP_LEN; i++) {
     let r = rng() * totalWeight;
     let picked = 0;
-    for (let j = 0; j < SYMBOLS.length; j++) {
-      r -= SYMBOLS[j].weight;
+    for (let j = 0; j < weights.length; j++) {
+      r -= weights[j];
       if (r <= 0) { picked = j; break; }
     }
     strip.push(picked);
   }
   return strip;
+}
+
+// ─────────────────────── DAILY CHALLENGES ───────────────────────
+
+function getDailyChallenges(seed: number): { text: string; target: number; reward: number; templateIdx: number }[] {
+  const rng = mulberry32(seed);
+  const challenges: { text: string; target: number; reward: number; templateIdx: number }[] = [];
+  const used = new Set<number>();
+  for (let i = 0; i < 3; i++) {
+    let idx: number;
+    do { idx = Math.floor(rng() * DAILY_TEMPLATES.length); } while (used.has(idx));
+    used.add(idx);
+    const tmpl = DAILY_TEMPLATES[idx];
+    const target = tmpl.targetFn(seed + i);
+    const reward = tmpl.rewardFn(seed + i);
+    challenges.push({ text: tmpl.text.replace('{n}', String(target)), target, reward, templateIdx: idx });
+  }
+  return challenges;
 }
 
 // ─────────────────────── AUDIO MANAGER ───────────────────────
@@ -290,16 +375,33 @@ class AudioManager {
   
   smallWin() {
     if (!this.ctx) return;
-    [660, 880, 1100].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sine', 0.2, 0.15), i * 80);
-    });
+    [660, 880, 1100].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.2, 0.15), i * 80); });
   }
 
   bigWin() {
     if (!this.ctx) return;
-    [440, 554, 659, 880, 1100, 1320].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sine', 0.3, 0.2), i * 100);
-    });
+    [440, 554, 659, 880, 1100, 1320].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.3, 0.2), i * 100); });
+  }
+
+  megaWin() {
+    if (!this.ctx) return;
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        this.playTone(440 + i * 88, 'sine', 0.35, 0.22);
+        this.playTone(330 + i * 66, 'triangle', 0.25, 0.15);
+      }, i * 100);
+    }
+  }
+
+  ultraWin() {
+    if (!this.ctx) return;
+    for (let i = 0; i < 16; i++) {
+      setTimeout(() => {
+        this.playTone(330 + i * 110, 'sine', 0.4, 0.25);
+        this.playTone(220 + i * 55, 'triangle', 0.35, 0.18);
+        this.playTone(165 + i * 33, 'sawtooth', 0.3, 0.08);
+      }, i * 90);
+    }
   }
 
   jackpotWin() {
@@ -314,44 +416,48 @@ class AudioManager {
 
   scatter() {
     if (!this.ctx) return;
-    [1100, 1320, 1540, 1760].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'triangle', 0.25, 0.2), i * 60);
-    });
+    [1100, 1320, 1540, 1760].forEach((f, i) => { setTimeout(() => this.playTone(f, 'triangle', 0.25, 0.2), i * 60); });
   }
 
   bonusTrigger() {
     if (!this.ctx) return;
-    [330, 440, 550, 660, 880].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sine', 0.3, 0.2), i * 100);
-    });
+    [330, 440, 550, 660, 880].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.3, 0.2), i * 100); });
   }
 
   wheelTick() { this.playTone(600 + Math.random() * 400, 'triangle', 0.05, 0.12); }
+  wheelResult() {
+    if (!this.ctx) return;
+    [880, 1100, 1320, 1540, 1760, 2200].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.25, 0.2), i * 70); });
+  }
   
   gambleWin() {
-    [660, 880, 1100, 1320].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sine', 0.2, 0.18), i * 80);
-    });
+    [660, 880, 1100, 1320].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.2, 0.18), i * 80); });
   }
 
   gambleLose() {
-    [440, 330, 220].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sawtooth', 0.3, 0.12), i * 120);
-    });
+    [440, 330, 220].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sawtooth', 0.3, 0.12), i * 120); });
   }
 
   click() { this.playTone(1000, 'sine', 0.05, 0.08); }
 
   achievement() {
-    [880, 1100, 1320, 1540, 1760].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'sine', 0.2, 0.12), i * 70);
-    });
+    [880, 1100, 1320, 1540, 1760].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.2, 0.12), i * 70); });
   }
 
   levelUp() {
-    [440, 554, 659, 880, 1100, 1320].forEach((f, i) => {
-      setTimeout(() => this.playTone(f, 'triangle', 0.25, 0.15), i * 80);
-    });
+    [440, 554, 659, 880, 1100, 1320].forEach((f, i) => { setTimeout(() => this.playTone(f, 'triangle', 0.25, 0.15), i * 80); });
+  }
+
+  expandingWild() {
+    if (!this.ctx) return;
+    [440, 660, 880, 1100, 1320].forEach((f, i) => { setTimeout(() => this.playTone(f, 'sine', 0.3, 0.2), i * 60); });
+  }
+
+  holdRespin() {
+    if (!this.ctx) return;
+    this.playTone(550, 'triangle', 0.15, 0.15);
+    setTimeout(() => this.playTone(660, 'triangle', 0.15, 0.15), 100);
+    setTimeout(() => this.playTone(880, 'sine', 0.2, 0.2), 200);
   }
 
   startDrone() {
@@ -362,18 +468,13 @@ class AudioManager {
     freqs.forEach((f, i) => {
       const osc = this.ctx!.createOscillator();
       const g = this.ctx!.createGain();
-      osc.type = types[i];
-      osc.frequency.value = f;
+      osc.type = types[i]; osc.frequency.value = f;
       g.gain.value = 0.06;
       const lfo = this.ctx!.createOscillator();
       const lfoG = this.ctx!.createGain();
-      lfo.frequency.value = 0.15;
-      lfoG.gain.value = 0.02;
-      lfo.connect(lfoG);
-      lfoG.connect(g.gain);
-      lfo.start();
-      osc.connect(g); g.connect(this.musicGain);
-      osc.start();
+      lfo.frequency.value = 0.15; lfoG.gain.value = 0.02;
+      lfo.connect(lfoG); lfoG.connect(g.gain); lfo.start();
+      osc.connect(g); g.connect(this.musicGain); osc.start();
       this.droneOscs.push(osc, lfo);
     });
   }
@@ -393,7 +494,7 @@ class ParticlePool {
   particles: Particle[] = [];
   private pool: Particle[] = [];
 
-  constructor(private scene: any, max: number = 150) {
+  constructor(private scene: any, max: number = 200) {
     for (let i = 0; i < max; i++) {
       const geo = new SphereGeometry(0.015, 4, 4);
       const mat = new MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: AdditiveBlending });
@@ -424,6 +525,10 @@ class ParticlePool {
     }
   }
 
+  megaBurst(x: number, y: number, z: number, colors: string[], count: number = 40) {
+    colors.forEach(color => this.burst(x + (Math.random() - 0.5), y + (Math.random() - 0.5) * 0.5, z, color, Math.ceil(count / colors.length)));
+  }
+
   update(dt: number) {
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i];
@@ -443,6 +548,7 @@ class ParticlePool {
   }
 }
 
+
 // ─────────────────────── MAIN GAME ───────────────────────
 
 async function main() {
@@ -461,11 +567,15 @@ async function main() {
   const particles = new ParticlePool(world.scene);
 
   // Reel state
-  const reelStrips: number[][] = [];
+  let reelStrips: number[][] = [];
   const rng = Math.random;
-  for (let r = 0; r < REELS; r++) reelStrips.push(generateReelStrip(rng));
+  function regenerateReels() {
+    reelStrips = [];
+    for (let r = 0; r < REELS; r++) reelStrips.push(generateReelStrip(rng, save.currentMachine));
+  }
+  regenerateReels();
   
-  const currentGrid: number[][] = []; // currentGrid[reel][row] = symbol index
+  const currentGrid: number[][] = [];
   for (let r = 0; r < REELS; r++) {
     currentGrid.push([]);
     for (let row = 0; row < ROWS; row++) {
@@ -477,7 +587,6 @@ async function main() {
   let spinning = false;
   let reelSpinning: boolean[] = [false, false, false, false, false];
   let reelOffsets: number[] = [0, 0, 0, 0, 0];
-  let reelTargetOffsets: number[] = [0, 0, 0, 0, 0];
   let reelSpeeds: number[] = [0, 0, 0, 0, 0];
   let targetGrid: number[][] = [];
   let spinStartTime = 0;
@@ -489,10 +598,11 @@ async function main() {
   let freeSpinMultiplier = 2;
 
   // Bonus wheel
-  let bonusWheelActive = false;
   let bonusWheelAngle = 0;
   let bonusWheelSpeed = 0;
-  const BONUS_WHEEL_PRIZES = [5, 10, 15, 20, 25, 50, 75, 100, 150, 200, 10, 25];
+  let bonusWheelSpinning = false;
+  let bonusWheelResult = -1;
+  let bonusWheelBet = 0;
 
   // Gamble
   let gambleWinAmount = 0;
@@ -500,7 +610,6 @@ async function main() {
   let currentGambleStreak = 0;
 
   // Auto-spin
-  let autoSpinCount = 0;
   let autoSpinRemaining = 0;
 
   // Win display
@@ -509,28 +618,54 @@ async function main() {
   let lastWinAmount = 0;
   let winningLines: { line: number; symbols: number; symbolIdx: number; payout: number }[] = [];
 
+  // Win celebration
+  let celebrationTimer = 0;
+  let winTier: 'normal' | 'big' | 'mega' | 'ultra' = 'normal';
+
+  // Expanding wilds
+  let expandingWildReels: number[] = [];
+  let expandingWildTimer = 0;
+  let expandingWildAnimating = false;
+
+  // Hold/Respin
+  let holdReelsAvailable = false;
+  let heldReels: boolean[] = [false, false, false, false, false];
+  let isRespin = false;
+
+  // Daily challenges
+  let dailyChallenges = getDailyChallenges(dateSeed());
+  function initDailyChallenges() {
+    const today = todayStr();
+    if (save.dailyLastDate !== today) {
+      save.dailyLastDate = today;
+      save.dailyStartSnapshot = [save.totalSpins, save.totalWins, save.totalCreditsWon, save.bestWinStreak, save.totalCreditsBet, save.freeSpinsTriggered];
+      save.dailyClaimed = [false, false, false];
+      saveSave(save);
+    }
+    dailyChallenges = getDailyChallenges(dateSeed());
+  }
+  initDailyChallenges();
+
   // ─────────────── SCENE SETUP ───────────────
 
-  // Holodeck environment
+  const decoMeshes: Mesh[] = [];
+
   function buildEnvironment() {
     const c = new Color(theme.bg);
     world.scene.background = c;
     world.scene.fog = new FogExp2(new Color(theme.fog).getHex(), 0.08);
 
-    // Floor grid
     const floorGrid = new GridHelper(20, 20, new Color(theme.grid).getHex(), new Color(theme.grid).getHex());
     (floorGrid.material as LineBasicMaterial).opacity = 0.15;
     (floorGrid.material as LineBasicMaterial).transparent = true;
     world.scene.add(floorGrid);
 
-    // Ceiling grid
     const ceilGrid = new GridHelper(20, 20, new Color(theme.grid).getHex(), new Color(theme.grid).getHex());
     ceilGrid.position.y = 4;
     (ceilGrid.material as LineBasicMaterial).opacity = 0.08;
     (ceilGrid.material as LineBasicMaterial).transparent = true;
     world.scene.add(ceilGrid);
 
-    // Lights
     const ambient = new AmbientLight(0x222244, 0.4);
     world.scene.add(ambient);
     const dir = new DirectionalLight(0xffffff, 0.5);
@@ -544,7 +679,6 @@ async function main() {
     accentL2.position.set(3, 2.5, -2);
     world.scene.add(accentL2);
 
-    // Floating decorations
     const decoGeos = [
       new TorusGeometry(0.15, 0.05, 8, 16),
       new BoxGeometry(0.2, 0.2, 0.2),
@@ -569,21 +703,17 @@ async function main() {
     }
   }
 
-  const decoMeshes: Mesh[] = [];
-
   // ─────────────── SLOT MACHINE 3D ───────────────
 
   const machineGroup = new Group();
   machineGroup.position.set(MACHINE_X, 0, MACHINE_Z);
   world.scene.add(machineGroup);
 
-  // Machine body
   const bodyMat = new MeshStandardMaterial({ color: new Color(theme.machine).getHex(), metalness: 0.5, roughness: 0.4 });
   const body = new Mesh(new BoxGeometry(3.2, 2.8, 0.6), bodyMat);
   body.position.set(0, MACHINE_Y, 0);
   machineGroup.add(body);
 
-  // Machine frame (neon edges)
   const frameMat = new MeshBasicMaterial({ color: new Color(theme.frame).getHex(), transparent: true, opacity: 0.8 });
   const edgeParts: { w: number; h: number; d: number; x: number; y: number; z: number }[] = [
     { w: 3.3, h: 0.05, d: 0.05, x: 0, y: MACHINE_Y + 1.42, z: 0.32 },
@@ -597,17 +727,12 @@ async function main() {
     machineGroup.add(m);
   });
 
-  // Reel background
   const reelBgMat = new MeshStandardMaterial({ color: new Color(theme.reelBg).getHex(), metalness: 0.2, roughness: 0.8 });
   const reelBg = new Mesh(new BoxGeometry(REELS * REEL_SPACING_X + 0.3, ROWS * REEL_SPACING_Y + 0.2, 0.05), reelBgMat);
   reelBg.position.set(0, MACHINE_Y + 0.2, 0.28);
   machineGroup.add(reelBg);
 
-  // Reel dividers
   for (let r = 0; r < REELS - 1; r++) {
-    const divX = -((REELS - 1) * REEL_SPACING_X) / 2 + (r + 1) * REEL_SPACING_X - REEL_SPACING_X / 2 + REEL_SPACING_X / 2;
-    const divX2 = (-(REELS - 1) / 2 + r + 1) * REEL_SPACING_X - REEL_SPACING_X / 2 + REEL_SPACING_X / 2;
-    // Simplified: evenly spaced dividers
     const x = (r + 1 - (REELS - 1) / 2 - 0.5) * REEL_SPACING_X;
     const div = new Mesh(new BoxGeometry(0.02, ROWS * REEL_SPACING_Y + 0.15, 0.03),
       new MeshBasicMaterial({ color: new Color(theme.frame).getHex(), transparent: true, opacity: 0.3 }));
@@ -615,7 +740,6 @@ async function main() {
     machineGroup.add(div);
   }
 
-  // Symbol meshes
   function createSymbolMesh(symIdx: number): Mesh {
     const sym = SYMBOLS[symIdx];
     let geo: any;
@@ -629,6 +753,7 @@ async function main() {
       case 'torus': geo = new TorusGeometry(s * 0.35, s * 0.12, 8, 16); break;
       case 'icosahedron': geo = new IcosahedronGeometry(s * 0.45); break;
       case 'torusknot': geo = new TorusKnotGeometry(s * 0.3, s * 0.08, 32, 8); break;
+      case 'ring': geo = new RingGeometry(s * 0.2, s * 0.45, 12); break;
       default: geo = new BoxGeometry(s, s, s);
     }
     const mat = new MeshStandardMaterial({
@@ -640,13 +765,11 @@ async function main() {
     });
     const mesh = new Mesh(geo, mat);
 
-    // Wireframe overlay
     const wireMat = new MeshBasicMaterial({ color: new Color(sym.color).getHex(), wireframe: true, transparent: true, opacity: 0.4 });
     const wire = new Mesh(geo.clone(), wireMat);
     wire.scale.setScalar(1.08);
     mesh.add(wire);
 
-    // Glow
     const glowMat = new MeshBasicMaterial({ color: new Color(sym.color).getHex(), transparent: true, opacity: 0.15, blending: AdditiveBlending });
     const glow = new Mesh(new SphereGeometry(s * 0.7, 8, 8), glowMat);
     mesh.add(glow);
@@ -654,7 +777,6 @@ async function main() {
     return mesh;
   }
 
-  // Grid of symbol meshes
   const symbolMeshes: Mesh[][] = [];
   for (let r = 0; r < REELS; r++) {
     symbolMeshes.push([]);
@@ -677,10 +799,8 @@ async function main() {
     symbolMeshes[reel][row] = newMesh;
   }
 
-  // Payline indicators (small dots on left side)
   const paylineIndicators: Mesh[] = [];
   for (let i = 0; i < 20; i++) {
-    const row = i < 10 ? i : i - 10;
     const side = i < 10 ? -1 : 1;
     const y = MACHINE_Y + 0.2 + ((ROWS - 1) / 2 - PAYLINES[i][0]) * REEL_SPACING_Y;
     const x = side * ((REELS * REEL_SPACING_X) / 2 + 0.25);
@@ -693,7 +813,6 @@ async function main() {
     paylineIndicators.push(dot);
   }
 
-  // Jackpot display bar on top
   const jackpotBar = new Mesh(
     new BoxGeometry(2.5, 0.3, 0.1),
     new MeshStandardMaterial({ color: 0x220044, emissive: 0x110022, emissiveIntensity: 0.5, metalness: 0.6, roughness: 0.3 })
@@ -701,10 +820,64 @@ async function main() {
   jackpotBar.position.set(0, MACHINE_Y + 1.6, 0.1);
   machineGroup.add(jackpotBar);
 
-  // Machine accent light
   const machineLight = new PointLight(new Color(theme.glow).getHex(), 2, 5);
   machineLight.position.set(0, MACHINE_Y + 0.5, 1.5);
   machineGroup.add(machineLight);
+
+  // ─────────────── BONUS WHEEL 3D ───────────────
+
+  const wheelGroup = new Group();
+  wheelGroup.position.set(MACHINE_X + 2.5, MACHINE_Y + 0.5, MACHINE_Z + 0.5);
+  wheelGroup.visible = false;
+  world.scene.add(wheelGroup);
+
+  // Wheel disc
+  const wheelDisc = new Mesh(
+    new CircleGeometry(0.8, 24),
+    new MeshStandardMaterial({ color: 0x1a0a2a, metalness: 0.4, roughness: 0.5 })
+  );
+  wheelDisc.rotation.y = -Math.PI / 2;
+  wheelGroup.add(wheelDisc);
+
+  // Wheel segments (12 colored wedges)
+  const segColors = ['#ff2244', '#ffcc00', '#00ff88', '#00ccff', '#ff00ff', '#ff8800',
+    '#ff2244', '#ffcc00', '#00ff88', '#00ccff', '#ff00ff', '#ff8800'];
+  for (let i = 0; i < 12; i++) {
+    const segAngle = (Math.PI * 2) / 12;
+    const segGeo = new RingGeometry(0.3, 0.75, 3, 1, i * segAngle, segAngle * 0.9);
+    const segMat = new MeshBasicMaterial({
+      color: new Color(segColors[i]).getHex(),
+      transparent: true,
+      opacity: 0.6,
+      side: 2,
+    });
+    const seg = new Mesh(segGeo, segMat);
+    seg.rotation.y = -Math.PI / 2;
+    seg.position.x = 0.01;
+    wheelGroup.add(seg);
+  }
+
+  // Wheel pointer
+  const pointer = new Mesh(
+    new ConeGeometry(0.06, 0.15, 4),
+    new MeshBasicMaterial({ color: 0xffcc00 })
+  );
+  pointer.rotation.z = Math.PI / 2;
+  pointer.position.set(-0.02, 0.82, 0);
+  wheelGroup.add(pointer);
+
+  // Wheel frame ring
+  const wheelFrame = new Mesh(
+    new TorusGeometry(0.8, 0.03, 8, 24),
+    new MeshBasicMaterial({ color: new Color(theme.frame).getHex(), transparent: true, opacity: 0.8 })
+  );
+  wheelFrame.rotation.y = -Math.PI / 2;
+  wheelGroup.add(wheelFrame);
+
+  // Wheel light
+  const wheelLight = new PointLight(0xffcc00, 1.5, 4);
+  wheelLight.position.set(-0.3, 0, 0);
+  wheelGroup.add(wheelLight);
 
   buildEnvironment();
 
@@ -715,9 +888,9 @@ async function main() {
   }
 
   function spinReels() {
-    if (spinning || state === 'paused') return;
+    if (spinning || state === 'paused' || state === 'bonus_wheel' || state === 'gamble' || state === 'win_celebration') return;
     const bet = getBet();
-    if (save.credits < bet && freeSpinsRemaining <= 0) {
+    if (save.credits < bet && freeSpinsRemaining <= 0 && !isRespin) {
       showToast('Not enough credits!');
       return;
     }
@@ -725,28 +898,35 @@ async function main() {
     if (!audio.isReady()) audio.init();
     audio.startDrone();
 
-    if (freeSpinsRemaining <= 0) {
+    if (freeSpinsRemaining <= 0 && !isRespin) {
       save.credits -= bet;
       save.totalCreditsBet += bet;
       save.jackpotPool += bet * 0.02;
-    } else {
+    } else if (freeSpinsRemaining > 0) {
       freeSpinsRemaining--;
     }
 
-    save.totalSpins++;
+    if (!isRespin) save.totalSpins++;
     if (bet >= COIN_VALUES[COIN_VALUES.length - 1] * 20) save.maxBetPlaced = true;
     
-    const machineName = THEMES[save.currentMachine || 0].name;
+    const machineName = MACHINES[save.currentMachine].name;
     if (!save.machinesPlayed.includes(machineName)) save.machinesPlayed.push(machineName);
     if (!save.themesUsed.includes(theme.name)) save.themesUsed.push(theme.name);
 
     spinning = true;
     state = 'spinning';
     spinStartTime = 0;
+    expandingWildReels = [];
+    expandingWildAnimating = false;
+    holdReelsAvailable = false;
 
     // Generate target
     targetGrid = [];
     for (let r = 0; r < REELS; r++) {
+      if (isRespin && heldReels[r]) {
+        targetGrid.push([...currentGrid[r]]);
+        continue;
+      }
       targetGrid.push([]);
       const offset = Math.floor(Math.random() * REEL_STRIP_LEN);
       for (let row = 0; row < ROWS; row++) {
@@ -754,27 +934,73 @@ async function main() {
       }
     }
 
-    reelSpinning = [true, true, true, true, true];
-    reelSpeeds = [15, 15, 15, 15, 15];
+    if (isRespin) {
+      reelSpinning = heldReels.map(h => !h);
+    } else {
+      reelSpinning = [true, true, true, true, true];
+    }
+    reelSpeeds = reelSpinning.map(s => s ? 15 : 0);
     reelOffsets = [0, 0, 0, 0, 0];
+
+    isRespin = false;
+    heldReels = [false, false, false, false, false];
 
     updateHUD();
     saveSave(save);
   }
 
+  function applyExpandingWilds(): boolean {
+    let expanded = false;
+    for (let r = 0; r < REELS; r++) {
+      let hasWild = false;
+      for (let row = 0; row < ROWS; row++) {
+        if (SYMBOLS[currentGrid[r][row]].isWild) { hasWild = true; break; }
+      }
+      if (hasWild) {
+        let alreadyFull = true;
+        for (let row = 0; row < ROWS; row++) {
+          if (!SYMBOLS[currentGrid[r][row]].isWild) { alreadyFull = false; break; }
+        }
+        if (!alreadyFull) {
+          expandingWildReels.push(r);
+          for (let row = 0; row < ROWS; row++) {
+            const wildIdx = SYMBOLS.findIndex(s => s.isWild);
+            currentGrid[r][row] = wildIdx;
+            updateSymbolMesh(r, row, wildIdx);
+          }
+          expanded = true;
+          save.expandingWilds++;
+        }
+      }
+    }
+    return expanded;
+  }
+
   function evaluateWin() {
     const bet = getBet();
     const lineBet = COIN_VALUES[save.coinValueIdx];
+    const machinePayMult = MACHINES[save.currentMachine].payMult;
     winningLines = [];
     let totalWin = 0;
     let wildCount = 0;
     let scatterCount = 0;
+    let bonusCount = 0;
+
+    // Check expanding wilds first
+    const didExpand = applyExpandingWilds();
+    if (didExpand) {
+      audio.expandingWild();
+      expandingWildAnimating = true;
+      expandingWildTimer = 0;
+      showToast('EXPANDING WILD!');
+    }
 
     // Count specials
     for (let r = 0; r < REELS; r++) {
       for (let row = 0; row < ROWS; row++) {
         if (SYMBOLS[currentGrid[r][row]].isWild) wildCount++;
         if (SYMBOLS[currentGrid[r][row]].isScatter) scatterCount++;
+        if (SYMBOLS[currentGrid[r][row]].isBonus) bonusCount++;
       }
     }
 
@@ -784,22 +1010,21 @@ async function main() {
     // Check paylines
     for (let lineIdx = 0; lineIdx < save.linesActive; lineIdx++) {
       const line = PAYLINES[lineIdx];
-      const firstSym = currentGrid[0][line[0]];
-      const firstDef = SYMBOLS[firstSym];
       
-      // Find the base symbol (skip wilds at start)
       let baseSym = -1;
       for (let r = 0; r < REELS; r++) {
         const sym = currentGrid[r][line[r]];
-        if (!SYMBOLS[sym].isWild && !SYMBOLS[sym].isScatter) {
+        if (!SYMBOLS[sym].isWild && !SYMBOLS[sym].isScatter && !SYMBOLS[sym].isBonus) {
           baseSym = sym;
           break;
         }
       }
-      if (baseSym === -1 && SYMBOLS[firstSym].isWild) baseSym = SYMBOLS.findIndex(s => s.isWild);
-      if (baseSym === -1) continue;
+      if (baseSym === -1) {
+        const firstSym = currentGrid[0][line[0]];
+        if (SYMBOLS[firstSym].isWild) baseSym = SYMBOLS.findIndex(s => s.isWild);
+        else continue;
+      }
 
-      // Count matching from left
       let matchCount = 0;
       for (let r = 0; r < REELS; r++) {
         const sym = currentGrid[r][line[r]];
@@ -815,7 +1040,7 @@ async function main() {
         else if (matchCount === 4) payout = symDef.pay4;
         else if (matchCount === 5) payout = symDef.pay5;
 
-        payout *= lineBet;
+        payout *= lineBet * machinePayMult;
         if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) payout *= freeSpinMultiplier;
 
         winningLines.push({ line: lineIdx, symbols: matchCount, symbolIdx: baseSym, payout });
@@ -839,13 +1064,30 @@ async function main() {
       else scatterPay = scatterDef.pay5 * bet;
       totalWin += scatterPay;
 
-      // Trigger free spins
       const freeCount = scatterCount === 3 ? 10 : scatterCount === 4 ? 15 : 20;
       freeSpinsRemaining += freeCount;
       freeSpinsTotal += freeCount;
       save.freeSpinsTriggered++;
       audio.scatter();
       showToast(`${freeCount} FREE SPINS!`);
+    }
+
+    // Bonus wheel trigger: 3+ bonus symbols
+    if (bonusCount >= 3) {
+      save.bonusWheelTriggered++;
+      bonusWheelBet = bet;
+      audio.bonusTrigger();
+      showToast('BONUS WHEEL!');
+      // Start bonus wheel after win display
+      setTimeout(() => {
+        state = 'bonus_wheel';
+        wheelGroup.visible = true;
+        bonusWheelAngle = 0;
+        bonusWheelSpeed = 0;
+        bonusWheelSpinning = false;
+        bonusWheelResult = -1;
+        updateBonusWheelPanel();
+      }, totalWin > 0 ? 2000 : 500);
     }
 
     // Jackpot check: 5 wilds on line 1
@@ -862,7 +1104,8 @@ async function main() {
       save.totalWins++;
       save.totalCreditsWon += totalWin;
       save.biggestWin = Math.max(save.biggestWin, totalWin);
-      save.biggestWinMultiplier = Math.max(save.biggestWinMultiplier, totalWin / bet);
+      const winMult = totalWin / bet;
+      save.biggestWinMultiplier = Math.max(save.biggestWinMultiplier, winMult);
       save.currentWinStreak++;
       save.bestWinStreak = Math.max(save.bestWinStreak, save.currentWinStreak);
       save.peakCredits = Math.max(save.peakCredits, save.credits);
@@ -881,19 +1124,53 @@ async function main() {
 
       if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) freeSpinsWinnings += totalWin;
 
-      // Win effects
-      if (totalWin >= bet * 50) {
+      // Determine win tier
+      if (winMult >= 500) {
+        winTier = 'ultra';
+        audio.ultraWin();
+        celebrationTimer = 0;
+        state = 'win_celebration';
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => particles.megaBurst(
+            MACHINE_X + (Math.random() - 0.5) * 3, MACHINE_Y + Math.random() * 2, MACHINE_Z + 1,
+            ['#ff00ff', '#00ffff', '#ffcc00', '#ff2244', '#00ff88'], 30
+          ), i * 200);
+        }
+      } else if (winMult >= 100) {
+        winTier = 'mega';
+        audio.megaWin();
+        celebrationTimer = 0;
+        state = 'win_celebration';
+        for (let i = 0; i < 6; i++) {
+          setTimeout(() => particles.megaBurst(
+            MACHINE_X + (Math.random() - 0.5) * 2.5, MACHINE_Y + Math.random() * 1.5, MACHINE_Z + 1,
+            ['#ff00ff', '#ffcc00', '#00ffff'], 25
+          ), i * 200);
+        }
+      } else if (winMult >= 10) {
+        winTier = 'big';
         audio.bigWin();
+        celebrationTimer = 0;
+        state = 'win_celebration';
         for (let i = 0; i < 5; i++) {
           setTimeout(() => particles.burst(
-            MACHINE_X + (Math.random() - 0.5) * 2,
-            MACHINE_Y + Math.random() * 1.5,
-            MACHINE_Z + 1, theme.glow, 20
+            MACHINE_X + (Math.random() - 0.5) * 2, MACHINE_Y + Math.random() * 1.5, MACHINE_Z + 1, theme.glow, 20
           ), i * 200);
         }
       } else {
+        winTier = 'normal';
         audio.smallWin();
         particles.burst(MACHINE_X, MACHINE_Y + 0.2, MACHINE_Z + 0.8, theme.accent, 15);
+        showingWin = true;
+        winDisplayTimer = 0;
+        state = 'showing_win';
+        gambleWinAmount = totalWin;
+      }
+
+      // Update celebration panel
+      if (state === 'win_celebration') {
+        gambleWinAmount = totalWin;
+        updateWinCelebration();
       }
 
       // Highlight winning lines
@@ -905,16 +1182,20 @@ async function main() {
         }
       });
 
-      showingWin = true;
-      winDisplayTimer = 0;
-      state = 'showing_win';
-
-      gambleWinAmount = totalWin;
+      // Leaderboard
+      save.leaderboard.push({ score: totalWin, machine: MACHINES[save.currentMachine].name, date: todayStr() });
+      save.leaderboard.sort((a, b) => b.score - a.score);
+      if (save.leaderboard.length > 20) save.leaderboard.length = 20;
     } else {
       save.currentWinStreak = 0;
       lastWinAmount = 0;
 
-      if (freeSpinsRemaining > 0) {
+      // Hold/Respin chance: 15% chance on non-winning spin (not during free spins or auto)
+      if (freeSpinsRemaining <= 0 && autoSpinRemaining <= 0 && Math.random() < 0.15 && bonusCount < 3) {
+        holdReelsAvailable = true;
+        showToast('HOLD available! Press H or use XR A button');
+        state = 'playing';
+      } else if (freeSpinsRemaining > 0) {
         setTimeout(() => spinReels(), 800);
       } else if (autoSpinRemaining > 0) {
         autoSpinRemaining--;
@@ -926,15 +1207,42 @@ async function main() {
     }
 
     checkAchievements();
+    checkDailyChallenges();
     updateHUD();
     saveSave(save);
+  }
 
-    // Update leaderboard
-    if (totalWin > 0) {
-      save.leaderboard.push({ score: totalWin, machine: THEMES[save.currentMachine || 0].name, date: new Date().toISOString().slice(0, 10) });
-      save.leaderboard.sort((a, b) => b.score - a.score);
-      if (save.leaderboard.length > 20) save.leaderboard.length = 20;
+  function triggerHoldRespin() {
+    if (!holdReelsAvailable) return;
+    holdReelsAvailable = false;
+    audio.holdRespin();
+    
+    // Auto-hold reels with the best symbols
+    const reelScores: number[] = [];
+    for (let r = 0; r < REELS; r++) {
+      let score = 0;
+      for (let row = 0; row < ROWS; row++) {
+        const sym = SYMBOLS[currentGrid[r][row]];
+        if (sym.isWild) score += 100;
+        else if (sym.isScatter) score += 50;
+        else if (sym.isBonus) score += 40;
+        else score += sym.pay3;
+      }
+      reelScores.push(score);
     }
+    
+    // Hold the best 2-3 reels
+    const sorted = reelScores.map((s, i) => ({ s, i })).sort((a, b) => b.s - a.s);
+    const holdCount = 2 + (Math.random() < 0.3 ? 1 : 0);
+    heldReels = [false, false, false, false, false];
+    for (let i = 0; i < holdCount; i++) {
+      heldReels[sorted[i].i] = true;
+    }
+    
+    save.holdSpinsUsed++;
+    isRespin = true;
+    showToast('HOLD & RESPIN!');
+    setTimeout(() => spinReels(), 600);
   }
 
   function startGamble() {
@@ -988,6 +1296,118 @@ async function main() {
     updateHUD();
   }
 
+  // ─────────────── BONUS WHEEL LOGIC ───────────────
+
+  function spinBonusWheel() {
+    if (bonusWheelSpinning) return;
+    bonusWheelSpinning = true;
+    bonusWheelSpeed = 8 + Math.random() * 4;
+    bonusWheelResult = -1;
+    setText(bonusWheelEntity, 'wheel-status', 'Spinning...');
+    setText(bonusWheelEntity, 'wheel-prize', '');
+  }
+
+  function resolveBonusWheel() {
+    const segAngle = (Math.PI * 2) / 12;
+    const normalAngle = ((bonusWheelAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    const segIdx = Math.floor(normalAngle / segAngle) % 12;
+    bonusWheelResult = segIdx;
+    const prizeMult = BONUS_WHEEL_PRIZES[segIdx];
+    const prizeAmount = prizeMult * bonusWheelBet;
+    
+    save.credits += prizeAmount;
+    save.totalCreditsWon += prizeAmount;
+    save.peakCredits = Math.max(save.peakCredits, save.credits);
+    save.totalBonusWheelWins += prizeAmount;
+    save.bestBonusWheelWin = Math.max(save.bestBonusWheelWin, prizeAmount);
+    
+    audio.wheelResult();
+    particles.burst(wheelGroup.position.x, wheelGroup.position.y, wheelGroup.position.z + 0.5, '#ffcc00', 25);
+    
+    setText(bonusWheelEntity, 'wheel-status', `Landed on ${prizeMult}x!`);
+    setText(bonusWheelEntity, 'wheel-prize', `+${prizeAmount.toFixed(2)} CREDITS`);
+    
+    // Highlight winning segment
+    for (let i = 0; i < 12; i++) {
+      setText(bonusWheelEntity, `seg-${i}`, i === segIdx ? `>>> ${BONUS_WHEEL_PRIZES[i]}x <<<` : `${BONUS_WHEEL_PRIZES[i]}x`);
+    }
+    
+    checkAchievements();
+    updateHUD();
+    saveSave(save);
+  }
+
+  function collectBonusWheel() {
+    state = 'playing';
+    wheelGroup.visible = false;
+    bonusWheelSpinning = false;
+    if (freeSpinsRemaining > 0) {
+      setTimeout(() => spinReels(), 500);
+    } else if (autoSpinRemaining > 0) {
+      autoSpinRemaining--;
+      save.autoSpinsCompleted++;
+      setTimeout(() => spinReels(), 500);
+    }
+    updateHUD();
+  }
+
+  function updateBonusWheelPanel() {
+    for (let i = 0; i < 12; i++) {
+      setText(bonusWheelEntity, `seg-${i}`, `${BONUS_WHEEL_PRIZES[i]}x`);
+    }
+    setText(bonusWheelEntity, 'wheel-status', 'Press SPIN to spin the wheel!');
+    setText(bonusWheelEntity, 'wheel-prize', '');
+  }
+
+  // ─────────────── DAILY CHALLENGES ───────────────
+
+  function checkDailyChallenges() {
+    if (save.dailyLastDate !== todayStr()) return;
+    const snap = save.dailyStartSnapshot;
+    if (snap.length < 6) return;
+    
+    let allDone = true;
+    for (let i = 0; i < 3; i++) {
+      if (save.dailyClaimed[i]) continue;
+      const ch = dailyChallenges[i];
+      const tmpl = DAILY_TEMPLATES[ch.templateIdx];
+      const progress = tmpl.getProgress(save, snap[ch.templateIdx < snap.length ? ch.templateIdx : 0]);
+      if (progress >= ch.target) {
+        save.dailyClaimed[i] = true;
+        save.credits += ch.reward;
+        save.dailyCompleted++;
+        audio.achievement();
+        showToast(`Daily done: +${ch.reward} credits!`);
+      } else {
+        allDone = false;
+      }
+    }
+    
+    if (allDone && save.dailyClaimed.every(c => c)) {
+      // Bonus for completing all 3
+      const bonus = 250;
+      save.credits += bonus;
+      save.dailySweeps++;
+      showToast(`All dailies done! +${bonus} bonus!`);
+    }
+  }
+
+  function updateDailyPanel() {
+    setText(dailyEntity, 'daily-date', todayStr());
+    const snap = save.dailyStartSnapshot;
+    for (let i = 0; i < 3; i++) {
+      const ch = dailyChallenges[i];
+      const tmpl = DAILY_TEMPLATES[ch.templateIdx];
+      const progress = snap.length >= 6 ? Math.min(ch.target, tmpl.getProgress(save, snap[ch.templateIdx < snap.length ? ch.templateIdx : 0])) : 0;
+      const done = save.dailyClaimed[i];
+      setText(dailyEntity, `ch-text-${i}`, ch.text);
+      setText(dailyEntity, `ch-prog-${i}`, done ? 'DONE' : `${Math.max(0, Math.floor(progress))}/${ch.target}`);
+      setText(dailyEntity, `ch-reward-${i}`, `+${ch.reward}`);
+    }
+    const allDone = save.dailyClaimed.every(c => c);
+    setText(dailyEntity, 'daily-bonus', allDone ? 'All complete! Bonus claimed!' : 'Complete all 3 for +250 bonus!');
+  }
+
   // ─────────────── UI HELPERS ───────────────
 
   const toastQueue: string[] = [];
@@ -1006,21 +1426,21 @@ async function main() {
     setText(hudEntity, 'win', lastWinAmount > 0 ? `WIN: ${lastWinAmount.toFixed(2)}` : '');
     setText(hudEntity, 'jackpot', `JACKPOT: ${save.jackpotPool.toFixed(2)}`);
     setText(hudEntity, 'level', `Lv.${save.level}`);
-    if (freeSpinsRemaining > 0) {
-      setText(hudEntity, 'freespins', `FREE SPINS: ${freeSpinsRemaining}`);
-    } else {
-      setText(hudEntity, 'freespins', '');
-    }
-    if (autoSpinRemaining > 0) {
-      setText(hudEntity, 'autospin', `AUTO: ${autoSpinRemaining}`);
-    } else {
-      setText(hudEntity, 'autospin', '');
-    }
+    setText(hudEntity, 'freespins', freeSpinsRemaining > 0 ? `FREE SPINS: ${freeSpinsRemaining}` : '');
+    setText(hudEntity, 'autospin', autoSpinRemaining > 0 ? `AUTO: ${autoSpinRemaining}` : '');
   }
 
   function updateGamblePanel() {
     setText(gambleEntity, 'gamble-amount', `Win: ${gambleWinAmount.toFixed(2)}`);
     setText(gambleEntity, 'gamble-streak', `Streak: ${currentGambleStreak}`);
+  }
+
+  function updateWinCelebration() {
+    const tierLabels = { normal: 'WIN!', big: 'BIG WIN!', mega: 'MEGA WIN!', ultra: 'ULTRA WIN!' };
+    setText(winCelebrationEntity, 'win-tier', tierLabels[winTier]);
+    setText(winCelebrationEntity, 'win-total', lastWinAmount.toFixed(2));
+    const bet = getBet();
+    setText(winCelebrationEntity, 'win-multiplier', `${(lastWinAmount / bet).toFixed(1)}x bet`);
   }
 
   function checkAchievements() {
@@ -1033,6 +1453,24 @@ async function main() {
     }
   }
 
+  function collectAfterWin() {
+    if (freeSpinsRemaining > 0) {
+      setTimeout(() => spinReels(), 500);
+    } else if (autoSpinRemaining > 0) {
+      autoSpinRemaining--;
+      save.autoSpinsCompleted++;
+      setTimeout(() => spinReels(), 500);
+    }
+    paylineIndicators.forEach(dot => {
+      (dot.material as MeshBasicMaterial).color.set(0x444466);
+      (dot.material as MeshBasicMaterial).opacity = 0.5;
+    });
+    lastWinAmount = 0;
+    gambleWinAmount = 0;
+    updateHUD();
+  }
+
+
   // ─────────────── ENTITY & PANEL CREATION ───────────────
 
   const getDoc = (e: any) => e?.getValue(PanelDocument, 'document') as UIKitDocument | undefined;
@@ -1044,31 +1482,22 @@ async function main() {
     el?.setProperties({ text });
   };
 
-  // Create panel entities
-  let titleEntity: any;
-  let hudEntity: any;
-  let pauseEntity: any;
-  let settingsEntity: any;
-  let achievementsEntity: any;
-  let statsEntity: any;
-  let helpEntity: any;
-  let leaderboardEntity: any;
-  let toastEntity: any;
-  let gambleEntity: any;
-  let paytableEntity: any;
-
   const panelConfigs = [
     { name: 'title', config: './ui/title.json', follower: false },
     { name: 'hud', config: './ui/hud.json', follower: true },
     { name: 'pause', config: './ui/pause.json', follower: false },
     { name: 'settings', config: './ui/settings.json', follower: false },
-    { name: 'achievements', config: './ui/achievements.json', follower: false },
+    { name: 'achvlist', config: './ui/achvlist.json', follower: false },
     { name: 'stats', config: './ui/stats.json', follower: false },
     { name: 'help', config: './ui/help.json', follower: false },
     { name: 'leaderboard', config: './ui/leaderboard.json', follower: false },
     { name: 'toast', config: './ui/toast.json', follower: true },
     { name: 'gamble', config: './ui/gamble.json', follower: false },
     { name: 'paytable', config: './ui/paytable.json', follower: false },
+    { name: 'bonuswheel', config: './ui/bonuswheel.json', follower: false },
+    { name: 'machines', config: './ui/machines.json', follower: false },
+    { name: 'daily', config: './ui/daily.json', follower: false },
+    { name: 'wincelebration', config: './ui/wincelebration.json', follower: true },
   ];
 
   const panelEntities: Record<string, any> = {};
@@ -1078,24 +1507,32 @@ async function main() {
     if (pc.follower) {
       entity.addComponent(Follower, {});
       const fv = entity.getVectorView(Follower, 'offsetPosition');
-      fv[0] = 0; fv[1] = -0.25; fv[2] = -1.2;
+      if (pc.name === 'wincelebration') {
+        fv[0] = 0; fv[1] = 0.1; fv[2] = -1.0;
+      } else {
+        fv[0] = 0; fv[1] = -0.25; fv[2] = -1.2;
+      }
     } else {
       entity.addComponent(ScreenSpace, {});
     }
     panelEntities[pc.name] = entity;
   }
 
-  titleEntity = panelEntities['title'];
-  hudEntity = panelEntities['hud'];
-  pauseEntity = panelEntities['pause'];
-  settingsEntity = panelEntities['settings'];
-  achievementsEntity = panelEntities['achievements'];
-  statsEntity = panelEntities['stats'];
-  helpEntity = panelEntities['help'];
-  leaderboardEntity = panelEntities['leaderboard'];
-  toastEntity = panelEntities['toast'];
-  gambleEntity = panelEntities['gamble'];
-  paytableEntity = panelEntities['paytable'];
+  const titleEntity = panelEntities['title'];
+  const hudEntity = panelEntities['hud'];
+  const pauseEntity = panelEntities['pause'];
+  const settingsEntity = panelEntities['settings'];
+  const achievementsEntity = panelEntities['achvlist'];
+  const statsEntity = panelEntities['stats'];
+  const helpEntity = panelEntities['help'];
+  const leaderboardEntity = panelEntities['leaderboard'];
+  const toastEntity = panelEntities['toast'];
+  const gambleEntity = panelEntities['gamble'];
+  const paytableEntity = panelEntities['paytable'];
+  const bonusWheelEntity = panelEntities['bonuswheel'];
+  const machinesEntity = panelEntities['machines'];
+  const dailyEntity = panelEntities['daily'];
+  const winCelebrationEntity = panelEntities['wincelebration'];
 
   // ─────────────── UI SYSTEM ───────────────
 
@@ -1104,13 +1541,17 @@ async function main() {
     hud: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/hud.json')] },
     pause: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/pause.json')] },
     settings: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/settings.json')] },
-    achievements: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/achievements.json')] },
+    achvlist: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/achvlist.json')] },
     stats: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/stats.json')] },
     help: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/help.json')] },
     leaderboard: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/leaderboard.json')] },
     toast: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/toast.json')] },
     gamble: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/gamble.json')] },
     paytable: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/paytable.json')] },
+    bonuswheel: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/bonuswheel.json')] },
+    machines: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/machines.json')] },
+    daily: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/daily.json')] },
+    wincelebration: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/wincelebration.json')] },
   }) {
     init() {
       // Title
@@ -1184,7 +1625,7 @@ async function main() {
       });
 
       // Achievements
-      this.queries.achievements.subscribe('qualify', (entity: any) => {
+      this.queries.achvlist.subscribe('qualify', (entity: any) => {
         const doc = getDoc(entity);
         if (!doc) return;
         const wire = (id: string, fn: () => void) => {
@@ -1235,6 +1676,65 @@ async function main() {
         const doc = getDoc(entity);
         if (!doc) return;
         (doc.getElementById('btn-pay-back') as UIKit.Text | undefined)?.addEventListener('click', () => { audio.click(); state = 'title'; });
+      });
+
+      // Bonus Wheel
+      this.queries.bonuswheel.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-wheel-spin', () => { spinBonusWheel(); });
+        wire('btn-wheel-collect', () => { if (bonusWheelResult >= 0) collectBonusWheel(); });
+      });
+
+      // Machines
+      this.queries.machines.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        for (let i = 0; i < 5; i++) {
+          const idx = i;
+          (doc.getElementById(`btn-m-${idx}`) as UIKit.Text | undefined)?.addEventListener('click', () => {
+            audio.click();
+            if (save.level >= MACHINES[idx].minLevel) {
+              save.currentMachine = idx;
+              regenerateReels();
+              saveSave(save);
+              updateMachinesPanel();
+              showToast(`Machine: ${MACHINES[idx].name}`);
+            } else {
+              showToast(`Unlock at level ${MACHINES[idx].minLevel}`);
+            }
+          });
+        }
+        (doc.getElementById('btn-machines-back') as UIKit.Text | undefined)?.addEventListener('click', () => { audio.click(); state = 'title'; });
+      });
+
+      // Daily
+      this.queries.daily.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        (doc.getElementById('btn-daily-back') as UIKit.Text | undefined)?.addEventListener('click', () => { audio.click(); state = 'title'; });
+      });
+
+      // Win Celebration
+      this.queries.wincelebration.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-win-collect', () => {
+          state = 'playing';
+          showingWin = false;
+          collectAfterWin();
+        });
+        wire('btn-win-gamble', () => {
+          if (gambleWinAmount > 0) startGamble();
+        });
       });
     }
   }
@@ -1299,29 +1799,22 @@ async function main() {
     for (let i = 0; i < SYMBOLS.length; i++) {
       const sym = SYMBOLS[i];
       let text = `${sym.name}: 3x=${sym.pay3} 4x=${sym.pay4} 5x=${sym.pay5}`;
-      if (sym.isWild) text += ' [WILD]';
+      if (sym.isWild) text += ' [WILD - Expands!]';
       if (sym.isScatter) text += ' [SCATTER]';
+      if (sym.isBonus) text += ' [BONUS WHEEL]';
       setText(paytableEntity, `pay-${i}`, text);
     }
-    setText(paytableEntity, 'pay-info', 'Wild subs for all except Scatter. 3+ Scatters = Free Spins.');
+    setText(paytableEntity, 'pay-info', 'Wild expands to fill reel! 3+ Scatter = Free Spins. 3+ Bonus = Wheel.');
   }
 
-  function collectAfterWin() {
-    if (freeSpinsRemaining > 0) {
-      setTimeout(() => spinReels(), 500);
-    } else if (autoSpinRemaining > 0) {
-      autoSpinRemaining--;
-      save.autoSpinsCompleted++;
-      setTimeout(() => spinReels(), 500);
+  function updateMachinesPanel() {
+    for (let i = 0; i < 5; i++) {
+      const m = MACHINES[i];
+      const locked = save.level < m.minLevel;
+      setText(machinesEntity, `m-name-${i}`, locked ? `[Lv.${m.minLevel}] ${m.name}` : m.name);
+      setText(machinesEntity, `m-info-${i}`, locked ? `Unlock at level ${m.minLevel}` : `${m.volatility} - ${m.desc}`);
+      setText(machinesEntity, `btn-m-${i}`, i === save.currentMachine ? 'ACTIVE' : (locked ? 'LOCKED' : 'SELECT'));
     }
-    // Reset payline indicators
-    paylineIndicators.forEach(dot => {
-      (dot.material as MeshBasicMaterial).color.set(0x444466);
-      (dot.material as MeshBasicMaterial).opacity = 0.5;
-    });
-    lastWinAmount = 0;
-    gambleWinAmount = 0;
-    updateHUD();
   }
 
   // ─────────────── GAME LOOP SYSTEM ───────────────
@@ -1351,6 +1844,75 @@ async function main() {
       const pulse = 0.5 + Math.sin(Date.now() * 0.003) * 0.3;
       machineLight.intensity = 2 * pulse;
 
+      // Bonus wheel spinning
+      if (bonusWheelSpinning && state === 'bonus_wheel') {
+        bonusWheelAngle += bonusWheelSpeed * dt;
+        bonusWheelSpeed *= 0.985;
+        
+        // Tick sound
+        const segAngle = (Math.PI * 2) / 12;
+        if (Math.floor(bonusWheelAngle / segAngle) !== Math.floor((bonusWheelAngle - bonusWheelSpeed * dt) / segAngle)) {
+          audio.wheelTick();
+        }
+        
+        // Rotate wheel segments visually
+        wheelDisc.rotation.z = bonusWheelAngle;
+        
+        if (bonusWheelSpeed < 0.15) {
+          bonusWheelSpinning = false;
+          resolveBonusWheel();
+        }
+      }
+
+      // Wheel light pulse when active
+      if (wheelGroup.visible) {
+        wheelLight.intensity = 1.5 + Math.sin(Date.now() * 0.005) * 0.5;
+      }
+
+      // Expanding wild animation
+      if (expandingWildAnimating) {
+        expandingWildTimer += dt;
+        expandingWildReels.forEach(r => {
+          for (let row = 0; row < ROWS; row++) {
+            const mesh = symbolMeshes[r][row];
+            if (mesh) {
+              const flashVal = Math.sin(expandingWildTimer * 10) * 0.3 + 1.2;
+              mesh.scale.setScalar(flashVal);
+            }
+          }
+        });
+        if (expandingWildTimer > 1.5) {
+          expandingWildAnimating = false;
+          expandingWildReels.forEach(r => {
+            for (let row = 0; row < ROWS; row++) {
+              symbolMeshes[r][row]?.scale.setScalar(1);
+            }
+          });
+        }
+      }
+
+      // Win celebration timer
+      if (state === 'win_celebration') {
+        celebrationTimer += dt;
+        // Continuous particle effects during celebration
+        if (celebrationTimer < 3 && Math.random() < 0.1) {
+          const colors = winTier === 'ultra' ? ['#ff00ff', '#00ffff', '#ffcc00'] :
+                         winTier === 'mega' ? ['#ffcc00', '#ff00ff'] : ['#00ffff'];
+          particles.burst(
+            MACHINE_X + (Math.random() - 0.5) * 3,
+            MACHINE_Y + Math.random() * 2,
+            MACHINE_Z + 1,
+            colors[Math.floor(Math.random() * colors.length)], 10
+          );
+        }
+        // Auto-collect after 5 seconds during auto-spin or free spins
+        if (celebrationTimer > 5 && (autoSpinRemaining > 0 || freeSpinsRemaining > 0)) {
+          state = 'playing';
+          showingWin = false;
+          collectAfterWin();
+        }
+      }
+
       // Reel spinning animation
       if (spinning) {
         spinStartTime += dt;
@@ -1362,16 +1924,13 @@ async function main() {
 
           const stopDelay = 0.6 + r * 0.35;
           if (spinStartTime > stopDelay) {
-            // Decelerate
             reelSpeeds[r] *= 0.92;
             if (reelSpeeds[r] < 0.5) {
-              // Stop this reel
               reelSpinning[r] = false;
               reelSpeeds[r] = 0;
               reelOffsets[r] = 0;
               audio.reelStop();
 
-              // Update grid
               for (let row = 0; row < ROWS; row++) {
                 currentGrid[r][row] = targetGrid[r][row];
                 updateSymbolMesh(r, row, currentGrid[r][row]);
@@ -1379,24 +1938,20 @@ async function main() {
             }
           }
 
-          // Animate symbols during spin
           if (reelSpinning[r]) {
             reelOffsets[r] += reelSpeeds[r] * dt;
             if (reelOffsets[r] > REEL_SPACING_Y) {
               reelOffsets[r] -= REEL_SPACING_Y;
-              // Cycle symbol appearance
               const randSym = Math.floor(Math.random() * SYMBOLS.length);
               updateSymbolMesh(r, 0, randSym);
               if (Math.random() < 0.3) audio.reelTick();
             }
 
-            // Move symbol positions during spin
             for (let row = 0; row < ROWS; row++) {
               const baseY = MACHINE_Y + 0.2 + ((ROWS - 1) / 2 - row) * REEL_SPACING_Y;
               symbolMeshes[r][row].position.y = baseY + reelOffsets[r];
             }
           } else {
-            // Reset positions
             for (let row = 0; row < ROWS; row++) {
               const baseY = MACHINE_Y + 0.2 + ((ROWS - 1) / 2 - row) * REEL_SPACING_Y;
               symbolMeshes[r][row].position.y = baseY;
@@ -1411,9 +1966,8 @@ async function main() {
       }
 
       // Win display timer
-      if (showingWin) {
+      if (showingWin && state === 'showing_win') {
         winDisplayTimer += dt;
-        // Flash winning symbols
         winningLines.forEach(wl => {
           const line = PAYLINES[wl.line];
           for (let r = 0; r < wl.symbols; r++) {
@@ -1425,7 +1979,6 @@ async function main() {
           }
         });
 
-        // Auto-collect after 4 seconds if not interacted
         if (winDisplayTimer > 4 && (autoSpinRemaining > 0 || freeSpinsRemaining > 0)) {
           showingWin = false;
           state = 'playing';
@@ -1457,6 +2010,10 @@ async function main() {
       const lbVisible = state === 'leaderboard';
       const gambleVisible = state === 'gamble';
       const payVisible = state === 'paytable';
+      const bonusVisible = state === 'bonus_wheel';
+      const machinesVisible = state === 'machines';
+      const dailyVisible = state === 'daily';
+      const winCelebVisible = state === 'win_celebration';
 
       setEntityVisibility(titleEntity, titleVisible);
       setEntityVisibility(hudEntity, hudVisible);
@@ -1468,19 +2025,25 @@ async function main() {
       setEntityVisibility(leaderboardEntity, lbVisible);
       setEntityVisibility(gambleEntity, gambleVisible);
       setEntityVisibility(paytableEntity, payVisible);
+      setEntityVisibility(bonusWheelEntity, bonusVisible);
+      setEntityVisibility(machinesEntity, machinesVisible);
+      setEntityVisibility(dailyEntity, dailyVisible);
+      setEntityVisibility(winCelebrationEntity, winCelebVisible);
       setEntityVisibility(toastEntity, !!currentToast);
-
-      // Keyboard input is handled via window keydown listener (see below)
 
       // XR controller input
       const right = (world.input as any).xr?.gamepads?.right;
       if (right) {
         if (right.getButtonDown(InputComponent.Trigger)) {
           if (state === 'playing') spinReels();
+          else if (state === 'bonus_wheel' && !bonusWheelSpinning) spinBonusWheel();
         }
         if (right.getButtonDown(InputComponent.B_Button)) {
           if (state === 'playing' || state === 'spinning') state = 'paused';
           else if (state === 'paused') { state = 'playing'; updateHUD(); }
+        }
+        if (right.getButtonDown(InputComponent.A_Button)) {
+          if (state === 'playing' && holdReelsAvailable) triggerHoldRespin();
         }
       }
     }
@@ -1501,6 +2064,7 @@ async function main() {
     if (e.code === 'Space') {
       e.preventDefault();
       if (state === 'playing') spinReels();
+      else if (state === 'bonus_wheel' && !bonusWheelSpinning) spinBonusWheel();
     }
     if (e.code === 'Escape') {
       if (state === 'playing' || state === 'spinning') state = 'paused';
@@ -1509,9 +2073,19 @@ async function main() {
     }
     if (e.code === 'KeyR') {
       if (state === 'showing_win') { showingWin = false; state = 'playing'; collectAfterWin(); }
+      if (state === 'win_celebration') { state = 'playing'; showingWin = false; collectAfterWin(); }
     }
     if (e.code === 'KeyG') {
-      if (state === 'showing_win' && gambleWinAmount > 0) startGamble();
+      if ((state === 'showing_win' || state === 'win_celebration') && gambleWinAmount > 0) startGamble();
+    }
+    if (e.code === 'KeyH') {
+      if (state === 'playing' && holdReelsAvailable) triggerHoldRespin();
+    }
+    if (e.code === 'KeyM') {
+      if (state === 'title') { state = 'machines'; updateMachinesPanel(); }
+    }
+    if (e.code === 'KeyD') {
+      if (state === 'title') { state = 'daily'; updateDailyPanel(); }
     }
   });
 

@@ -1,0 +1,203 @@
+{
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "12",
+        "padding": "20",
+        "width": "420",
+        "backgroundColor": "rgba(10, 0, 30, 0.95)",
+        "borderRadius": 16,
+        "borderWidth": "2",
+        "borderColor": "rgba(255, 200, 0, 0.6)"
+      }
+    },
+    "header": {
+      "content": {
+        "fontSize": "22",
+        "color": "rgba(255, 200, 0, 1)",
+        "textAlign": "center"
+      }
+    },
+    "wheel-info": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(200, 200, 220, 1)",
+        "textAlign": "center"
+      }
+    },
+    "prize": {
+      "content": {
+        "fontSize": "28",
+        "color": "rgba(0, 255, 200, 1)",
+        "textAlign": "center"
+      }
+    },
+    "segments": {
+      "content": {
+        "flexDirection": "column",
+        "gap": "4",
+        "width": "380"
+      }
+    },
+    "seg-row": {
+      "content": {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "380"
+      }
+    },
+    "seg": {
+      "content": {
+        "fontSize": "12",
+        "color": "rgba(150, 150, 180, 1)",
+        "width": "90",
+        "textAlign": "center"
+      }
+    },
+    "seg-active": {
+      "content": {
+        "fontSize": "14",
+        "color": "rgba(255, 255, 0, 1)",
+        "width": "90",
+        "textAlign": "center"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(0, 0, 0, 1)",
+        "backgroundColor": "rgba(255, 200, 0, 0.9)",
+        "padding": "8",
+        "borderRadius": 8,
+        "width": "180",
+        "textAlign": "center"
+      }
+    },
+    "btn-collect": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(0, 0, 0, 1)",
+        "backgroundColor": "rgba(0, 255, 150, 0.9)",
+        "padding": "8",
+        "borderRadius": 8,
+        "width": "180",
+        "textAlign": "center"
+      }
+    }
+  },
+  "ranges": {
+    "root": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 5
+      }
+    },
+    "header": {
+      "start": {
+        "line": 13,
+        "column": 0
+      },
+      "end": {
+        "line": 13,
+        "column": 7
+      }
+    },
+    "wheel-info": {
+      "start": {
+        "line": 18,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 11
+      }
+    },
+    "prize": {
+      "start": {
+        "line": 23,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 6
+      }
+    },
+    "segments": {
+      "start": {
+        "line": 28,
+        "column": 0
+      },
+      "end": {
+        "line": 28,
+        "column": 9
+      }
+    },
+    "seg-row": {
+      "start": {
+        "line": 33,
+        "column": 0
+      },
+      "end": {
+        "line": 33,
+        "column": 8
+      }
+    },
+    "seg": {
+      "start": {
+        "line": 38,
+        "column": 0
+      },
+      "end": {
+        "line": 38,
+        "column": 4
+      }
+    },
+    "seg-active": {
+      "start": {
+        "line": 44,
+        "column": 0
+      },
+      "end": {
+        "line": 44,
+        "column": 11
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 50,
+        "column": 0
+      },
+      "end": {
+        "line": 50,
+        "column": 4
+      }
+    },
+    "btn-collect": {
+      "start": {
+        "line": 59,
+        "column": 0
+      },
+      "end": {
+        "line": 59,
+        "column": 12
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 69,
+        "column": 0
+      },
+      "end": {
+        "line": 97,
+        "column": 11
+      }
+    }
+  }
+}

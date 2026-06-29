@@ -1,0 +1,150 @@
+{
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "8",
+        "padding": "24",
+        "width": "360",
+        "backgroundColor": "rgba(10, 0, 30, 0.92)",
+        "borderRadius": 20,
+        "borderWidth": "3",
+        "borderColor": "rgba(255, 200, 0, 0.8)"
+      }
+    },
+    "tier-label": {
+      "content": {
+        "fontSize": "32",
+        "color": "rgba(255, 200, 0, 1)",
+        "textAlign": "center"
+      }
+    },
+    "win-amount": {
+      "content": {
+        "fontSize": "40",
+        "color": "rgba(0, 255, 200, 1)",
+        "textAlign": "center"
+      }
+    },
+    "win-mult": {
+      "content": {
+        "fontSize": "18",
+        "color": "rgba(200, 180, 255, 1)",
+        "textAlign": "center"
+      }
+    },
+    "btn-row": {
+      "content": {
+        "flexDirection": "row",
+        "gap": "12",
+        "justifyContent": "center"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "14",
+        "color": "rgba(0, 0, 0, 1)",
+        "backgroundColor": "rgba(0, 255, 150, 0.9)",
+        "padding": "8",
+        "borderRadius": 8,
+        "width": "120",
+        "textAlign": "center"
+      }
+    },
+    "btn-gamble": {
+      "content": {
+        "fontSize": "14",
+        "color": "rgba(0, 0, 0, 1)",
+        "backgroundColor": "rgba(255, 100, 0, 0.9)",
+        "padding": "8",
+        "borderRadius": 8,
+        "width": "120",
+        "textAlign": "center"
+      }
+    }
+  },
+  "ranges": {
+    "root": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 5
+      }
+    },
+    "tier-label": {
+      "start": {
+        "line": 13,
+        "column": 0
+      },
+      "end": {
+        "line": 13,
+        "column": 11
+      }
+    },
+    "win-amount": {
+      "start": {
+        "line": 18,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 11
+      }
+    },
+    "win-mult": {
+      "start": {
+        "line": 23,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 9
+      }
+    },
+    "btn-row": {
+      "start": {
+        "line": 28,
+        "column": 0
+      },
+      "end": {
+        "line": 28,
+        "column": 8
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 33,
+        "column": 0
+      },
+      "end": {
+        "line": 33,
+        "column": 4
+      }
+    },
+    "btn-gamble": {
+      "start": {
+        "line": 42,
+        "column": 0
+      },
+      "end": {
+        "line": 42,
+        "column": 11
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 52,
+        "column": 0
+      },
+      "end": {
+        "line": 62,
+        "column": 11
+      }
+    }
+  }
+}

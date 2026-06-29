@@ -1,21 +1,100 @@
-<panel>
-  <style>
-    .root { flexDirection: column; alignItems: center; gap: 12; padding: 20; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #00ccff; borderWidth: 2; width: 400; }
-    .title { fontSize: 28; color: #00ffff; fontWeight: bold; }
-    .subtitle { fontSize: 14; color: #8888aa; }
-    .btn { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #00ccff; borderWidth: 1; width: 320; textAlign: center; cursor: pointer; }
-    .btn-accent { backgroundColor: #2a1a4a; borderColor: #ff00ff; }
-    .btn-gold { backgroundColor: #2a2a00; borderColor: #ffcc00; }
-  </style>
+<style>
+.root {
+  flexDirection: column;
+  alignItems: center;
+  gap: 10;
+  padding: 20;
+  backgroundColor: rgba(10, 10, 42, 0.95);
+  borderRadius: 12;
+  borderColor: rgba(0, 204, 255, 0.8);
+  borderWidth: 2;
+  width: 400;
+}
+.title {
+  fontSize: 28;
+  color: rgba(0, 255, 255, 1);
+  textAlign: center;
+}
+.subtitle {
+  fontSize: 14;
+  color: rgba(136, 136, 170, 1);
+  textAlign: center;
+}
+.btn {
+  fontSize: 16;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(26, 26, 74, 0.9);
+  padding: 10;
+  borderRadius: 6;
+  borderColor: rgba(0, 204, 255, 0.6);
+  borderWidth: 1;
+  width: 320;
+  textAlign: center;
+}
+.btn-gold {
+  fontSize: 18;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(42, 42, 0, 0.9);
+  padding: 12;
+  borderRadius: 6;
+  borderColor: rgba(255, 204, 0, 0.8);
+  borderWidth: 2;
+  width: 320;
+  textAlign: center;
+}
+.btn-accent {
+  fontSize: 16;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(42, 26, 74, 0.9);
+  padding: 10;
+  borderRadius: 6;
+  borderColor: rgba(255, 0, 255, 0.6);
+  borderWidth: 1;
+  width: 320;
+  textAlign: center;
+}
+.btn-orange {
+  fontSize: 16;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(42, 20, 0, 0.9);
+  padding: 10;
+  borderRadius: 6;
+  borderColor: rgba(255, 150, 0, 0.6);
+  borderWidth: 1;
+  width: 320;
+  textAlign: center;
+}
+.row {
+  flexDirection: row;
+  gap: 8;
+  width: 320;
+}
+.btn-half {
+  fontSize: 15;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(26, 26, 74, 0.9);
+  padding: 10;
+  borderRadius: 6;
+  borderColor: rgba(0, 204, 255, 0.6);
+  borderWidth: 1;
+  width: 155;
+  textAlign: center;
+}
+</style>
+<template>
   <container class="root">
     <text class="title">NEON SLOTS</text>
     <text class="subtitle">Casino Slot Machine VR</text>
-    <text id="btn-play" class="btn btn-gold">SPIN</text>
-    <text id="btn-paytable" class="btn">PAYTABLE</text>
-    <text id="btn-leaderboard" class="btn">LEADERBOARD</text>
-    <text id="btn-achievements" class="btn btn-accent">ACHIEVEMENTS</text>
-    <text id="btn-stats" class="btn">STATISTICS</text>
-    <text id="btn-settings" class="btn">SETTINGS</text>
+    <text id="btn-play" class="btn-gold">SPIN</text>
+    <container class="row">
+      <text id="btn-paytable" class="btn-half">PAYTABLE</text>
+      <text id="btn-leaderboard" class="btn-half">LEADERBOARD</text>
+    </container>
+    <text id="btn-achievements" class="btn-accent">ACHIEVEMENTS</text>
+    <container class="row">
+      <text id="btn-stats" class="btn-half">STATISTICS</text>
+      <text id="btn-settings" class="btn-half">SETTINGS</text>
+    </container>
     <text id="btn-help" class="btn">HELP</text>
   </container>
-</panel>
+</template>

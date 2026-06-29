@@ -1,0 +1,99 @@
+<style>
+.root {
+  flexDirection: column;
+  alignItems: center;
+  justifyContent: center;
+  gap: 12;
+  padding: 20;
+  width: 440;
+  backgroundColor: rgba(10, 0, 30, 0.95);
+  borderRadius: 16;
+  borderWidth: 2;
+  borderColor: rgba(0, 200, 255, 0.6);
+}
+.header {
+  fontSize: 22;
+  color: rgba(0, 200, 255, 1);
+  textAlign: center;
+}
+.machine-row {
+  flexDirection: row;
+  alignItems: center;
+  justifyContent: space-between;
+  width: 400;
+  padding: 8;
+  borderRadius: 8;
+  borderWidth: 1;
+  borderColor: rgba(100, 100, 150, 0.4);
+}
+.machine-selected {
+  flexDirection: row;
+  alignItems: center;
+  justifyContent: space-between;
+  width: 400;
+  padding: 8;
+  borderRadius: 8;
+  borderWidth: 2;
+  borderColor: rgba(0, 255, 200, 0.8);
+  backgroundColor: rgba(0, 255, 200, 0.1);
+}
+.mname {
+  fontSize: 16;
+  color: rgba(220, 220, 240, 1);
+  width: 140;
+}
+.minfo {
+  fontSize: 12;
+  color: rgba(150, 150, 180, 1);
+  width: 160;
+}
+.mbtn {
+  fontSize: 14;
+  color: rgba(0, 0, 0, 1);
+  backgroundColor: rgba(0, 200, 255, 0.9);
+  padding: 6;
+  borderRadius: 6;
+  width: 70;
+  textAlign: center;
+}
+.btn-back {
+  fontSize: 16;
+  color: rgba(180, 180, 200, 1);
+  backgroundColor: rgba(60, 60, 80, 0.8);
+  padding: 8;
+  borderRadius: 8;
+  width: 140;
+  textAlign: center;
+}
+</style>
+<template>
+  <container class="root">
+    <text class="header">SLOT MACHINES</text>
+    <container id="m-row-0" class="machine-selected">
+      <text id="m-name-0" class="mname">Classic</text>
+      <text id="m-info-0" class="minfo">Balanced payouts</text>
+      <text id="btn-m-0" class="mbtn">SELECT</text>
+    </container>
+    <container id="m-row-1" class="machine-row">
+      <text id="m-name-1" class="mname">High Roller</text>
+      <text id="m-info-1" class="minfo">High volatility</text>
+      <text id="btn-m-1" class="mbtn">SELECT</text>
+    </container>
+    <container id="m-row-2" class="machine-row">
+      <text id="m-name-2" class="mname">Diamond Rush</text>
+      <text id="m-info-2" class="minfo">More diamonds</text>
+      <text id="btn-m-2" class="mbtn">SELECT</text>
+    </container>
+    <container id="m-row-3" class="machine-row">
+      <text id="m-name-3" class="mname">Scatter Frenzy</text>
+      <text id="m-info-3" class="minfo">More scatters</text>
+      <text id="btn-m-3" class="mbtn">SELECT</text>
+    </container>
+    <container id="m-row-4" class="machine-row">
+      <text id="m-name-4" class="mname">Jackpot Hunter</text>
+      <text id="m-info-4" class="minfo">More wilds</text>
+      <text id="btn-m-4" class="mbtn">SELECT</text>
+    </container>
+    <text id="btn-machines-back" class="btn-back">BACK</text>
+  </container>
+</template>

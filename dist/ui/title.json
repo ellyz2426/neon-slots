@@ -1,138 +1,14 @@
 {
-  "element": {
-    "sourceTag": "panel",
-    "type": "custom",
-    "children": [
-      {
-        "sourceTag": "container",
-        "type": "custom",
-        "children": [
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "NEON SLOTS"
-            ],
-            "properties": {
-              "class": "title"
-            },
-            "dataUid": "uid-3"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "Casino Slot Machine VR"
-            ],
-            "properties": {
-              "class": "subtitle"
-            },
-            "dataUid": "uid-4"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "SPIN"
-            ],
-            "properties": {
-              "id": "btn-play",
-              "class": "btn btn-gold"
-            },
-            "dataUid": "uid-5"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "PAYTABLE"
-            ],
-            "properties": {
-              "id": "btn-paytable",
-              "class": "btn"
-            },
-            "dataUid": "uid-6"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "LEADERBOARD"
-            ],
-            "properties": {
-              "id": "btn-leaderboard",
-              "class": "btn"
-            },
-            "dataUid": "uid-7"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "ACHIEVEMENTS"
-            ],
-            "properties": {
-              "id": "btn-achievements",
-              "class": "btn btn-accent"
-            },
-            "dataUid": "uid-8"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "STATISTICS"
-            ],
-            "properties": {
-              "id": "btn-stats",
-              "class": "btn"
-            },
-            "dataUid": "uid-9"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "SETTINGS"
-            ],
-            "properties": {
-              "id": "btn-settings",
-              "class": "btn"
-            },
-            "dataUid": "uid-10"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "HELP"
-            ],
-            "properties": {
-              "id": "btn-help",
-              "class": "btn"
-            },
-            "dataUid": "uid-11"
-          }
-        ],
-        "properties": {
-          "class": "root"
-        },
-        "dataUid": "uid-2"
-      }
-    ],
-    "properties": {},
-    "dataUid": "uid-1"
-  },
   "classes": {
     "root": {
       "content": {
         "flexDirection": "column",
         "alignItems": "center",
-        "gap": "12",
+        "gap": "10",
         "padding": "20",
-        "backgroundColor": "#0a0a2aee",
+        "backgroundColor": "rgba(10, 10, 42, 0.95)",
         "borderRadius": 12,
-        "borderColor": "#00ccff",
+        "borderColor": "rgba(0, 204, 255, 0.8)",
         "borderWidth": "2",
         "width": "400"
       }
@@ -140,212 +16,189 @@
     "title": {
       "content": {
         "fontSize": "28",
-        "color": "#00ffff",
-        "fontWeight": "bold"
+        "color": "rgba(0, 255, 255, 1)",
+        "textAlign": "center"
       }
     },
     "subtitle": {
       "content": {
         "fontSize": "14",
-        "color": "#8888aa"
+        "color": "rgba(136, 136, 170, 1)",
+        "textAlign": "center"
       }
     },
     "btn": {
       "content": {
         "fontSize": "16",
-        "color": "#ffffff",
-        "backgroundColor": "#1a1a4a",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(26, 26, 74, 0.9)",
         "padding": "10",
         "borderRadius": 6,
-        "borderColor": "#00ccff",
+        "borderColor": "rgba(0, 204, 255, 0.6)",
         "borderWidth": "1",
         "width": "320",
-        "textAlign": "center",
-        "cursor": "pointer"
-      }
-    },
-    "btn-accent": {
-      "content": {
-        "backgroundColor": "#2a1a4a",
-        "borderColor": "#ff00ff"
+        "textAlign": "center"
       }
     },
     "btn-gold": {
       "content": {
-        "backgroundColor": "#2a2a00",
-        "borderColor": "#ffcc00"
+        "fontSize": "18",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(42, 42, 0, 0.9)",
+        "padding": "12",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 204, 0, 0.8)",
+        "borderWidth": "2",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "btn-accent": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(42, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 0, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "btn-orange": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(42, 20, 0, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 150, 0, 0.6)",
+        "borderWidth": "1",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "row": {
+      "content": {
+        "flexDirection": "row",
+        "gap": "8",
+        "width": "320"
+      }
+    },
+    "btn-half": {
+      "content": {
+        "fontSize": "15",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(26, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(0, 204, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "155",
+        "textAlign": "center"
       }
     }
   },
   "ranges": {
-    "uid-1": {
+    "root": {
       "start": {
-        "line": 0,
+        "line": 1,
         "column": 0
       },
       "end": {
-        "line": 20,
-        "column": 8
-      }
-    },
-    "root": {
-      "start": {
-        "line": 2,
-        "column": 4
-      },
-      "end": {
-        "line": 2,
-        "column": 9
+        "line": 1,
+        "column": 5
       }
     },
     "title": {
       "start": {
-        "line": 3,
-        "column": 4
+        "line": 12,
+        "column": 0
       },
       "end": {
-        "line": 3,
-        "column": 10
+        "line": 12,
+        "column": 6
       }
     },
     "subtitle": {
       "start": {
-        "line": 4,
-        "column": 4
+        "line": 17,
+        "column": 0
       },
       "end": {
-        "line": 4,
-        "column": 13
+        "line": 17,
+        "column": 9
       }
     },
     "btn": {
       "start": {
-        "line": 5,
-        "column": 4
+        "line": 22,
+        "column": 0
       },
       "end": {
-        "line": 5,
-        "column": 8
-      }
-    },
-    "btn-accent": {
-      "start": {
-        "line": 6,
+        "line": 22,
         "column": 4
-      },
-      "end": {
-        "line": 6,
-        "column": 15
       }
     },
     "btn-gold": {
       "start": {
-        "line": 7,
-        "column": 4
+        "line": 33,
+        "column": 0
       },
       "end": {
-        "line": 7,
-        "column": 13
+        "line": 33,
+        "column": 9
       }
     },
-    "uid-2": {
+    "btn-accent": {
       "start": {
-        "line": 9,
-        "column": 2
+        "line": 44,
+        "column": 0
       },
       "end": {
-        "line": 19,
-        "column": 14
+        "line": 44,
+        "column": 11
       }
     },
-    "uid-3": {
+    "btn-orange": {
       "start": {
-        "line": 10,
-        "column": 4
+        "line": 55,
+        "column": 0
       },
       "end": {
-        "line": 10,
-        "column": 41
+        "line": 55,
+        "column": 11
       }
     },
-    "uid-4": {
+    "row": {
       "start": {
-        "line": 11,
-        "column": 4
+        "line": 66,
+        "column": 0
       },
       "end": {
-        "line": 11,
-        "column": 56
+        "line": 66,
+        "column": 4
       }
     },
-    "uid-5": {
+    "btn-half": {
       "start": {
-        "line": 12,
-        "column": 4
+        "line": 71,
+        "column": 0
       },
       "end": {
-        "line": 12,
-        "column": 56
+        "line": 71,
+        "column": 9
       }
     },
-    "uid-6": {
+    "uid-1": {
       "start": {
-        "line": 13,
-        "column": 4
+        "line": 83,
+        "column": 0
       },
       "end": {
-        "line": 13,
-        "column": 55
-      }
-    },
-    "uid-7": {
-      "start": {
-        "line": 14,
-        "column": 4
-      },
-      "end": {
-        "line": 14,
-        "column": 61
-      }
-    },
-    "uid-8": {
-      "start": {
-        "line": 15,
-        "column": 4
-      },
-      "end": {
-        "line": 15,
-        "column": 74
-      }
-    },
-    "uid-9": {
-      "start": {
-        "line": 16,
-        "column": 4
-      },
-      "end": {
-        "line": 16,
-        "column": 54
-      }
-    },
-    "uid-10": {
-      "start": {
-        "line": 17,
-        "column": 4
-      },
-      "end": {
-        "line": 17,
-        "column": 55
-      }
-    },
-    "uid-11": {
-      "start": {
-        "line": 18,
-        "column": 4
-      },
-      "end": {
-        "line": 18,
-        "column": 47
+        "line": 99,
+        "column": 11
       }
     }
   }

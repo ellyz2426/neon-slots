@@ -1,0 +1,193 @@
+{
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "10",
+        "padding": "20",
+        "width": "420",
+        "backgroundColor": "rgba(10, 0, 30, 0.95)",
+        "borderRadius": 16,
+        "borderWidth": "2",
+        "borderColor": "rgba(255, 100, 0, 0.6)"
+      }
+    },
+    "header": {
+      "content": {
+        "fontSize": "22",
+        "color": "rgba(255, 150, 0, 1)",
+        "textAlign": "center"
+      }
+    },
+    "sub": {
+      "content": {
+        "fontSize": "12",
+        "color": "rgba(150, 150, 180, 1)",
+        "textAlign": "center"
+      }
+    },
+    "challenge-box": {
+      "content": {
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "width": "380",
+        "padding": "10",
+        "borderRadius": 8,
+        "borderWidth": "1",
+        "borderColor": "rgba(100, 100, 150, 0.4)"
+      }
+    },
+    "challenge-done": {
+      "content": {
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "width": "380",
+        "padding": "10",
+        "borderRadius": 8,
+        "borderWidth": "1",
+        "borderColor": "rgba(0, 255, 100, 0.6)",
+        "backgroundColor": "rgba(0, 255, 100, 0.08)"
+      }
+    },
+    "ch-text": {
+      "content": {
+        "fontSize": "14",
+        "color": "rgba(220, 220, 240, 1)",
+        "width": "240"
+      }
+    },
+    "ch-prog": {
+      "content": {
+        "fontSize": "13",
+        "color": "rgba(150, 200, 255, 1)",
+        "width": "80",
+        "textAlign": "center"
+      }
+    },
+    "ch-reward": {
+      "content": {
+        "fontSize": "12",
+        "color": "rgba(255, 200, 0, 1)",
+        "width": "60",
+        "textAlign": "right"
+      }
+    },
+    "btn-back": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(180, 180, 200, 1)",
+        "backgroundColor": "rgba(60, 60, 80, 0.8)",
+        "padding": "8",
+        "borderRadius": 8,
+        "width": "140",
+        "textAlign": "center"
+      }
+    }
+  },
+  "ranges": {
+    "root": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 5
+      }
+    },
+    "header": {
+      "start": {
+        "line": 13,
+        "column": 0
+      },
+      "end": {
+        "line": 13,
+        "column": 7
+      }
+    },
+    "sub": {
+      "start": {
+        "line": 18,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 4
+      }
+    },
+    "challenge-box": {
+      "start": {
+        "line": 23,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 14
+      }
+    },
+    "challenge-done": {
+      "start": {
+        "line": 33,
+        "column": 0
+      },
+      "end": {
+        "line": 33,
+        "column": 15
+      }
+    },
+    "ch-text": {
+      "start": {
+        "line": 44,
+        "column": 0
+      },
+      "end": {
+        "line": 44,
+        "column": 8
+      }
+    },
+    "ch-prog": {
+      "start": {
+        "line": 49,
+        "column": 0
+      },
+      "end": {
+        "line": 49,
+        "column": 8
+      }
+    },
+    "ch-reward": {
+      "start": {
+        "line": 55,
+        "column": 0
+      },
+      "end": {
+        "line": 55,
+        "column": 10
+      }
+    },
+    "btn-back": {
+      "start": {
+        "line": 61,
+        "column": 0
+      },
+      "end": {
+        "line": 61,
+        "column": 9
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 71,
+        "column": 0
+      },
+      "end": {
+        "line": 93,
+        "column": 11
+      }
+    }
+  }
+}
