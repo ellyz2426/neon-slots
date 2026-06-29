@@ -1,0 +1,32 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 15; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #00ccff; borderWidth: 2; width: 420; }
+    .title { fontSize: 22; color: #00ffff; fontWeight: bold; }
+    .section { fontSize: 16; color: #ff00ff; fontWeight: bold; }
+    .text { fontSize: 12; color: #ccccdd; width: 380; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">HOW TO PLAY</text>
+    <text class="section">Browser Controls</text>
+    <text class="text">SPACE - Spin reels</text>
+    <text class="text">ESC - Pause / Back</text>
+    <text class="text">R - Collect winnings</text>
+    <text class="text">G - Gamble winnings</text>
+    <text class="section">VR Controls</text>
+    <text class="text">Right Trigger - Spin</text>
+    <text class="text">B Button - Pause</text>
+    <text class="text">Laser Pointer - Menu interaction</text>
+    <text class="section">Gameplay</text>
+    <text class="text">Match 3+ symbols on a payline to win.</text>
+    <text class="text">Wild subs for all except Scatter.</text>
+    <text class="text">3+ Scatters = Free Spins (2x wins).</text>
+    <text class="text">5 Wilds on line 1 = JACKPOT!</text>
+    <text class="text">After a win, GAMBLE to double or COLLECT.</text>
+    <text class="section">Bet Controls</text>
+    <text class="text">Adjust coin value and active paylines.</text>
+    <text class="text">MAX BET = highest coin x 20 lines.</text>
+    <text class="text">AUTO 5/25 = auto-spin that many times.</text>
+    <text id="btn-help-back" class="btn-back">BACK</text>
+  </container>
+</panel>

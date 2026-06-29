@@ -1,0 +1,38 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 8; padding: 20; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #00ccff; borderWidth: 2; width: 380; }
+    .title { fontSize: 22; color: #00ffff; fontWeight: bold; }
+    .row { flexDirection: row; gap: 8; alignItems: center; }
+    .label { fontSize: 14; color: #8888aa; }
+    .value { fontSize: 14; color: #00ffff; fontWeight: bold; }
+    .btn { fontSize: 14; color: #ffffff; backgroundColor: #1a1a4a; padding: 6; borderRadius: 4; borderColor: #00ccff; borderWidth: 1; width: 36; textAlign: center; cursor: pointer; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">SETTINGS</text>
+    <container class="row">
+      <text class="label">Master</text>
+      <text id="btn-master-dn" class="btn">-</text>
+      <text id="master-val" class="value">80</text>
+      <text id="btn-master-up" class="btn">+</text>
+    </container>
+    <container class="row">
+      <text class="label">SFX</text>
+      <text id="btn-sfx-dn" class="btn">-</text>
+      <text id="sfx-val" class="value">80</text>
+      <text id="btn-sfx-up" class="btn">+</text>
+    </container>
+    <container class="row">
+      <text class="label">Music</text>
+      <text id="btn-music-dn" class="btn">-</text>
+      <text id="music-val" class="value">50</text>
+      <text id="btn-music-up" class="btn">+</text>
+    </container>
+    <container class="row">
+      <text id="btn-theme-prev" class="btn"><</text>
+      <text id="theme-val" class="value">Neon Holodeck</text>
+      <text id="btn-theme-next" class="btn">></text>
+    </container>
+    <text id="btn-settings-back" class="btn-back">BACK</text>
+  </container>
+</panel>

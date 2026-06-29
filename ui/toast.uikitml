@@ -1,0 +1,9 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 8; backgroundColor: #0a0a2acc; borderRadius: 6; borderColor: #ffcc00; borderWidth: 1; width: 300; }
+    .msg { fontSize: 14; color: #ffcc00; fontWeight: bold; textAlign: center; }
+  </style>
+  <container class="root">
+    <text id="toast-msg" class="msg"></text>
+  </container>
+</panel>

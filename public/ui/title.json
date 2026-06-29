@@ -1,0 +1,352 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "container",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "NEON SLOTS"
+            ],
+            "properties": {
+              "class": "title"
+            },
+            "dataUid": "uid-3"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Casino Slot Machine VR"
+            ],
+            "properties": {
+              "class": "subtitle"
+            },
+            "dataUid": "uid-4"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "SPIN"
+            ],
+            "properties": {
+              "id": "btn-play",
+              "class": "btn btn-gold"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "PAYTABLE"
+            ],
+            "properties": {
+              "id": "btn-paytable",
+              "class": "btn"
+            },
+            "dataUid": "uid-6"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "LEADERBOARD"
+            ],
+            "properties": {
+              "id": "btn-leaderboard",
+              "class": "btn"
+            },
+            "dataUid": "uid-7"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "ACHIEVEMENTS"
+            ],
+            "properties": {
+              "id": "btn-achievements",
+              "class": "btn btn-accent"
+            },
+            "dataUid": "uid-8"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "STATISTICS"
+            ],
+            "properties": {
+              "id": "btn-stats",
+              "class": "btn"
+            },
+            "dataUid": "uid-9"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "SETTINGS"
+            ],
+            "properties": {
+              "id": "btn-settings",
+              "class": "btn"
+            },
+            "dataUid": "uid-10"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "HELP"
+            ],
+            "properties": {
+              "id": "btn-help",
+              "class": "btn"
+            },
+            "dataUid": "uid-11"
+          }
+        ],
+        "properties": {
+          "class": "root"
+        },
+        "dataUid": "uid-2"
+      }
+    ],
+    "properties": {},
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "12",
+        "padding": "20",
+        "backgroundColor": "#0a0a2aee",
+        "borderRadius": 12,
+        "borderColor": "#00ccff",
+        "borderWidth": "2",
+        "width": "400"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "28",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "subtitle": {
+      "content": {
+        "fontSize": "14",
+        "color": "#8888aa"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "16",
+        "color": "#ffffff",
+        "backgroundColor": "#1a1a4a",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "#00ccff",
+        "borderWidth": "1",
+        "width": "320",
+        "textAlign": "center",
+        "cursor": "pointer"
+      }
+    },
+    "btn-accent": {
+      "content": {
+        "backgroundColor": "#2a1a4a",
+        "borderColor": "#ff00ff"
+      }
+    },
+    "btn-gold": {
+      "content": {
+        "backgroundColor": "#2a2a00",
+        "borderColor": "#ffcc00"
+      }
+    }
+  },
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 20,
+        "column": 8
+      }
+    },
+    "root": {
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 9
+      }
+    },
+    "title": {
+      "start": {
+        "line": 3,
+        "column": 4
+      },
+      "end": {
+        "line": 3,
+        "column": 10
+      }
+    },
+    "subtitle": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 13
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 8
+      }
+    },
+    "btn-accent": {
+      "start": {
+        "line": 6,
+        "column": 4
+      },
+      "end": {
+        "line": 6,
+        "column": 15
+      }
+    },
+    "btn-gold": {
+      "start": {
+        "line": 7,
+        "column": 4
+      },
+      "end": {
+        "line": 7,
+        "column": 13
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 9,
+        "column": 2
+      },
+      "end": {
+        "line": 19,
+        "column": 14
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 10,
+        "column": 4
+      },
+      "end": {
+        "line": 10,
+        "column": 41
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 11,
+        "column": 4
+      },
+      "end": {
+        "line": 11,
+        "column": 56
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 12,
+        "column": 4
+      },
+      "end": {
+        "line": 12,
+        "column": 56
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 13,
+        "column": 4
+      },
+      "end": {
+        "line": 13,
+        "column": 55
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 14,
+        "column": 4
+      },
+      "end": {
+        "line": 14,
+        "column": 61
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 15,
+        "column": 4
+      },
+      "end": {
+        "line": 15,
+        "column": 74
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 16,
+        "column": 4
+      },
+      "end": {
+        "line": 16,
+        "column": 54
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 17,
+        "column": 4
+      },
+      "end": {
+        "line": 17,
+        "column": 55
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 18,
+        "column": 4
+      },
+      "end": {
+        "line": 18,
+        "column": 47
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 10; padding: 20; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #00ccff; borderWidth: 2; width: 350; }
+    .title { fontSize: 22; color: #00ffff; fontWeight: bold; }
+    .btn { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #00ccff; borderWidth: 1; width: 280; textAlign: center; cursor: pointer; }
+    .btn-accent { backgroundColor: #2a1a4a; borderColor: #ff00ff; }
+  </style>
+  <container class="root">
+    <text class="title">PAUSED</text>
+    <text id="btn-resume" class="btn">RESUME</text>
+    <text id="btn-title" class="btn btn-accent">MAIN MENU</text>
+  </container>
+</panel>

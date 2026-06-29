@@ -1,0 +1,39 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 4; padding: 15; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #ff00ff; borderWidth: 2; width: 420; }
+    .title { fontSize: 20; color: #ff00ff; fontWeight: bold; }
+    .count { fontSize: 12; color: #8888aa; }
+    .row { flexDirection: row; gap: 6; }
+    .ach { fontSize: 11; color: #ccccdd; width: 360; }
+    .desc { fontSize: 9; color: #666688; width: 360; }
+    .nav { flexDirection: row; gap: 10; alignItems: center; }
+    .btn { fontSize: 14; color: #ffffff; backgroundColor: #1a1a4a; padding: 6; borderRadius: 4; borderColor: #00ccff; borderWidth: 1; cursor: pointer; }
+    .page { fontSize: 12; color: #8888aa; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">ACHIEVEMENTS</text>
+    <text id="ach-count" class="count">0/40</text>
+    <text id="ach-0" class="ach"></text><text id="ach-desc-0" class="desc"></text>
+    <text id="ach-1" class="ach"></text><text id="ach-desc-1" class="desc"></text>
+    <text id="ach-2" class="ach"></text><text id="ach-desc-2" class="desc"></text>
+    <text id="ach-3" class="ach"></text><text id="ach-desc-3" class="desc"></text>
+    <text id="ach-4" class="ach"></text><text id="ach-desc-4" class="desc"></text>
+    <text id="ach-5" class="ach"></text><text id="ach-desc-5" class="desc"></text>
+    <text id="ach-6" class="ach"></text><text id="ach-desc-6" class="desc"></text>
+    <text id="ach-7" class="ach"></text><text id="ach-desc-7" class="desc"></text>
+    <text id="ach-8" class="ach"></text><text id="ach-desc-8" class="desc"></text>
+    <text id="ach-9" class="ach"></text><text id="ach-desc-9" class="desc"></text>
+    <text id="ach-10" class="ach"></text><text id="ach-desc-10" class="desc"></text>
+    <text id="ach-11" class="ach"></text><text id="ach-desc-11" class="desc"></text>
+    <text id="ach-12" class="ach"></text><text id="ach-desc-12" class="desc"></text>
+    <text id="ach-13" class="ach"></text><text id="ach-desc-13" class="desc"></text>
+    <text id="ach-14" class="ach"></text><text id="ach-desc-14" class="desc"></text>
+    <container class="nav">
+      <text id="btn-ach-prev" class="btn"><</text>
+      <text id="ach-page" class="page">1/3</text>
+      <text id="btn-ach-next" class="btn">></text>
+    </container>
+    <text id="btn-ach-back" class="btn-back">BACK</text>
+  </container>
+</panel>

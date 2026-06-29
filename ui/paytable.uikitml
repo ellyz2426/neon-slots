@@ -1,0 +1,24 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 5; padding: 15; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #ffcc00; borderWidth: 2; width: 420; }
+    .title { fontSize: 22; color: #ffcc00; fontWeight: bold; }
+    .sym { fontSize: 12; color: #ccccdd; width: 380; }
+    .info { fontSize: 11; color: #8888aa; width: 380; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">PAYTABLE</text>
+    <text id="pay-0" class="sym"></text>
+    <text id="pay-1" class="sym"></text>
+    <text id="pay-2" class="sym"></text>
+    <text id="pay-3" class="sym"></text>
+    <text id="pay-4" class="sym"></text>
+    <text id="pay-5" class="sym"></text>
+    <text id="pay-6" class="sym"></text>
+    <text id="pay-7" class="sym"></text>
+    <text id="pay-8" class="sym"></text>
+    <text id="pay-9" class="sym"></text>
+    <text id="pay-info" class="info"></text>
+    <text id="btn-pay-back" class="btn-back">BACK</text>
+  </container>
+</panel>

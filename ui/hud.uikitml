@@ -1,0 +1,53 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 10; backgroundColor: #0a0a2acc; borderRadius: 8; borderColor: #00ccff; borderWidth: 1; width: 450; }
+    .row { flexDirection: row; gap: 8; alignItems: center; }
+    .label { fontSize: 14; color: #8888aa; }
+    .value { fontSize: 16; color: #00ffff; fontWeight: bold; }
+    .win { fontSize: 20; color: #ffcc00; fontWeight: bold; }
+    .jackpot { fontSize: 12; color: #ff00ff; }
+    .btn { fontSize: 12; color: #ffffff; backgroundColor: #1a1a4a; padding: 6; borderRadius: 4; borderColor: #00ccff; borderWidth: 1; cursor: pointer; }
+    .btn-sm { fontSize: 10; padding: 4; width: 30; textAlign: center; }
+    .btn-spin { fontSize: 18; color: #ffcc00; backgroundColor: #2a2a00; padding: 8; borderRadius: 6; borderColor: #ffcc00; borderWidth: 2; width: 100; textAlign: center; cursor: pointer; }
+    .btn-green { backgroundColor: #002a00; borderColor: #00ff44; color: #00ff44; }
+    .btn-red { backgroundColor: #2a0000; borderColor: #ff2244; color: #ff2244; }
+    .info { fontSize: 10; color: #666688; }
+    .free { fontSize: 14; color: #00ff88; fontWeight: bold; }
+    .auto { fontSize: 10; color: #ffcc00; }
+  </style>
+  <container class="root">
+    <container class="row">
+      <text id="jackpot" class="jackpot">JACKPOT: 500.00</text>
+      <text id="level" class="info">Lv.1</text>
+    </container>
+    <container class="row">
+      <text id="credits" class="value">Credits: 1000.00</text>
+      <text id="win" class="win"></text>
+    </container>
+    <container class="row">
+      <text id="btn-coin-dn" class="btn btn-sm">-</text>
+      <text id="coin" class="label">Coin: 0.10</text>
+      <text id="btn-coin-up" class="btn btn-sm">+</text>
+      <text id="btn-lines-dn" class="btn btn-sm">-</text>
+      <text id="lines" class="label">Lines: 20</text>
+      <text id="btn-lines-up" class="btn btn-sm">+</text>
+    </container>
+    <container class="row">
+      <text id="bet" class="label">Bet: 2.00</text>
+      <text id="btn-max" class="btn">MAX</text>
+    </container>
+    <container class="row">
+      <text id="btn-spin" class="btn-spin">SPIN</text>
+      <text id="btn-gamble" class="btn btn-red">GAMBLE</text>
+      <text id="btn-collect" class="btn btn-green">COLLECT</text>
+    </container>
+    <container class="row">
+      <text id="btn-auto5" class="btn">AUTO 5</text>
+      <text id="btn-auto25" class="btn">AUTO 25</text>
+      <text id="btn-auto-stop" class="btn">STOP</text>
+      <text id="btn-pause" class="btn">PAUSE</text>
+    </container>
+    <text id="freespins" class="free"></text>
+    <text id="autospin" class="auto"></text>
+  </container>
+</panel>

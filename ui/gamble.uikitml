@@ -1,0 +1,25 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 10; padding: 20; backgroundColor: #2a0000ee; borderRadius: 12; borderColor: #ff2244; borderWidth: 2; width: 380; }
+    .title { fontSize: 22; color: #ff2244; fontWeight: bold; }
+    .amount { fontSize: 20; color: #ffcc00; fontWeight: bold; }
+    .streak { fontSize: 14; color: #ffffff; }
+    .info { fontSize: 12; color: #aaaaaa; }
+    .row { flexDirection: row; gap: 12; }
+    .btn { fontSize: 18; color: #ffffff; padding: 12; borderRadius: 8; borderWidth: 2; width: 120; textAlign: center; cursor: pointer; }
+    .btn-red { backgroundColor: #880000; borderColor: #ff2244; }
+    .btn-black { backgroundColor: #222222; borderColor: #888888; }
+    .btn-collect { fontSize: 16; color: #00ff88; backgroundColor: #002a00; padding: 10; borderRadius: 6; borderColor: #00ff88; borderWidth: 1; width: 280; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">GAMBLE</text>
+    <text class="info">Double or nothing! Pick red or black.</text>
+    <text id="gamble-amount" class="amount">Win: 0.00</text>
+    <text id="gamble-streak" class="streak">Streak: 0</text>
+    <container class="row">
+      <text id="btn-gamble-red" class="btn btn-red">RED</text>
+      <text id="btn-gamble-black" class="btn btn-black">BLACK</text>
+    </container>
+    <text id="btn-gamble-collect" class="btn-collect">COLLECT</text>
+  </container>
+</panel>

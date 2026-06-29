@@ -1,0 +1,24 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 15; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #00ccff; borderWidth: 2; width: 380; }
+    .title { fontSize: 22; color: #00ffff; fontWeight: bold; }
+    .stat { fontSize: 13; color: #ccccdd; width: 340; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">STATISTICS</text>
+    <text id="stat-spins" class="stat">Total Spins: 0</text>
+    <text id="stat-wins" class="stat">Total Wins: 0</text>
+    <text id="stat-winrate" class="stat">Win Rate: 0%</text>
+    <text id="stat-wonamt" class="stat">Credits Won: 0</text>
+    <text id="stat-betamt" class="stat">Credits Bet: 0</text>
+    <text id="stat-biggest" class="stat">Biggest Win: 0</text>
+    <text id="stat-streak" class="stat">Best Win Streak: 0</text>
+    <text id="stat-jackpots" class="stat">Jackpots: 0</text>
+    <text id="stat-freespins" class="stat">Free Spins: 0</text>
+    <text id="stat-gambles" class="stat">Gambles Won/Lost: 0/0</text>
+    <text id="stat-level" class="stat">Level: 1</text>
+    <text id="stat-peak" class="stat">Peak Credits: 1000</text>
+    <text id="btn-stats-back" class="btn-back">BACK</text>
+  </container>
+</panel>

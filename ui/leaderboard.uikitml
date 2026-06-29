@@ -1,0 +1,22 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 15; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #ffcc00; borderWidth: 2; width: 400; }
+    .title { fontSize: 22; color: #ffcc00; fontWeight: bold; }
+    .entry { fontSize: 12; color: #ccccdd; width: 360; }
+    .btn-back { fontSize: 16; color: #ffffff; backgroundColor: #1a1a4a; padding: 10; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 300; textAlign: center; cursor: pointer; }
+  </style>
+  <container class="root">
+    <text class="title">LEADERBOARD</text>
+    <text id="lb-0" class="entry"></text>
+    <text id="lb-1" class="entry"></text>
+    <text id="lb-2" class="entry"></text>
+    <text id="lb-3" class="entry"></text>
+    <text id="lb-4" class="entry"></text>
+    <text id="lb-5" class="entry"></text>
+    <text id="lb-6" class="entry"></text>
+    <text id="lb-7" class="entry"></text>
+    <text id="lb-8" class="entry"></text>
+    <text id="lb-9" class="entry"></text>
+    <text id="btn-lb-back" class="btn-back">BACK</text>
+  </container>
+</panel>
