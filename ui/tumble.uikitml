@@ -1,0 +1,29 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 10; backgroundColor: #0a0a2aee; borderRadius: 8; width: 250; }
+    .title { fontSize: 16; fontWeight: bold; color: #00ffff; }
+    .row { flexDirection: row; gap: 12; alignItems: center; }
+    .stat-col { flexDirection: column; alignItems: center; }
+    .val-yellow { fontSize: 22; fontWeight: bold; color: #ffcc00; }
+    .val-green { fontSize: 22; fontWeight: bold; color: #00ff88; }
+    .val-purple { fontSize: 22; fontWeight: bold; color: #ff00ff; }
+    .label { fontSize: 9; color: #888888; }
+  </style>
+  <container class="root">
+    <text class="title">CASCADE WIN!</text>
+    <container class="row">
+      <container class="stat-col">
+        <text id="tumble-level" class="val-yellow">x1</text>
+        <text class="label">Multiplier</text>
+      </container>
+      <container class="stat-col">
+        <text id="tumble-chain" class="val-green">0</text>
+        <text class="label">Chain</text>
+      </container>
+      <container class="stat-col">
+        <text id="tumble-total" class="val-purple">0.00</text>
+        <text class="label">Total</text>
+      </container>
+    </container>
+  </container>
+</panel>

@@ -1,0 +1,412 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "container",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "CASCADE WIN!"
+            ],
+            "properties": {
+              "class": "title"
+            },
+            "dataUid": "uid-3"
+          },
+          {
+            "sourceTag": "container",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "container",
+                "type": "custom",
+                "children": [
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "x1"
+                    ],
+                    "properties": {
+                      "id": "tumble-level",
+                      "class": "val-yellow"
+                    },
+                    "dataUid": "uid-6"
+                  },
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "Multiplier"
+                    ],
+                    "properties": {
+                      "class": "label"
+                    },
+                    "dataUid": "uid-7"
+                  }
+                ],
+                "properties": {
+                  "class": "stat-col"
+                },
+                "dataUid": "uid-5"
+              },
+              {
+                "sourceTag": "container",
+                "type": "custom",
+                "children": [
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "0"
+                    ],
+                    "properties": {
+                      "id": "tumble-chain",
+                      "class": "val-green"
+                    },
+                    "dataUid": "uid-9"
+                  },
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "Chain"
+                    ],
+                    "properties": {
+                      "class": "label"
+                    },
+                    "dataUid": "uid-10"
+                  }
+                ],
+                "properties": {
+                  "class": "stat-col"
+                },
+                "dataUid": "uid-8"
+              },
+              {
+                "sourceTag": "container",
+                "type": "custom",
+                "children": [
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "0.00"
+                    ],
+                    "properties": {
+                      "id": "tumble-total",
+                      "class": "val-purple"
+                    },
+                    "dataUid": "uid-12"
+                  },
+                  {
+                    "sourceTag": "text",
+                    "type": "custom",
+                    "children": [
+                      "Total"
+                    ],
+                    "properties": {
+                      "class": "label"
+                    },
+                    "dataUid": "uid-13"
+                  }
+                ],
+                "properties": {
+                  "class": "stat-col"
+                },
+                "dataUid": "uid-11"
+              }
+            ],
+            "properties": {
+              "class": "row"
+            },
+            "dataUid": "uid-4"
+          }
+        ],
+        "properties": {
+          "class": "root"
+        },
+        "dataUid": "uid-2"
+      }
+    ],
+    "properties": {},
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "6",
+        "padding": "10",
+        "backgroundColor": "#0a0a2aee",
+        "borderRadius": 8,
+        "width": "250"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "16",
+        "fontWeight": "bold",
+        "color": "#00ffff"
+      }
+    },
+    "row": {
+      "content": {
+        "flexDirection": "row",
+        "gap": "12",
+        "alignItems": "center"
+      }
+    },
+    "stat-col": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center"
+      }
+    },
+    "val-yellow": {
+      "content": {
+        "fontSize": "22",
+        "fontWeight": "bold",
+        "color": "#ffcc00"
+      }
+    },
+    "val-green": {
+      "content": {
+        "fontSize": "22",
+        "fontWeight": "bold",
+        "color": "#00ff88"
+      }
+    },
+    "val-purple": {
+      "content": {
+        "fontSize": "22",
+        "fontWeight": "bold",
+        "color": "#ff00ff"
+      }
+    },
+    "label": {
+      "content": {
+        "fontSize": "9",
+        "color": "#888888"
+      }
+    }
+  },
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 28,
+        "column": 8
+      }
+    },
+    "root": {
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 9
+      }
+    },
+    "title": {
+      "start": {
+        "line": 3,
+        "column": 4
+      },
+      "end": {
+        "line": 3,
+        "column": 10
+      }
+    },
+    "row": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 8
+      }
+    },
+    "stat-col": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 13
+      }
+    },
+    "val-yellow": {
+      "start": {
+        "line": 6,
+        "column": 4
+      },
+      "end": {
+        "line": 6,
+        "column": 15
+      }
+    },
+    "val-green": {
+      "start": {
+        "line": 7,
+        "column": 4
+      },
+      "end": {
+        "line": 7,
+        "column": 14
+      }
+    },
+    "val-purple": {
+      "start": {
+        "line": 8,
+        "column": 4
+      },
+      "end": {
+        "line": 8,
+        "column": 15
+      }
+    },
+    "label": {
+      "start": {
+        "line": 9,
+        "column": 4
+      },
+      "end": {
+        "line": 9,
+        "column": 10
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 11,
+        "column": 2
+      },
+      "end": {
+        "line": 27,
+        "column": 14
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 12,
+        "column": 4
+      },
+      "end": {
+        "line": 12,
+        "column": 43
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 13,
+        "column": 4
+      },
+      "end": {
+        "line": 26,
+        "column": 16
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 14,
+        "column": 6
+      },
+      "end": {
+        "line": 17,
+        "column": 18
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 15,
+        "column": 8
+      },
+      "end": {
+        "line": 15,
+        "column": 60
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 16,
+        "column": 8
+      },
+      "end": {
+        "line": 16,
+        "column": 45
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 18,
+        "column": 6
+      },
+      "end": {
+        "line": 21,
+        "column": 18
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 19,
+        "column": 8
+      },
+      "end": {
+        "line": 19,
+        "column": 58
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 20,
+        "column": 8
+      },
+      "end": {
+        "line": 20,
+        "column": 40
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 22,
+        "column": 6
+      },
+      "end": {
+        "line": 25,
+        "column": 18
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 23,
+        "column": 8
+      },
+      "end": {
+        "line": 23,
+        "column": 62
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 24,
+        "column": 8
+      },
+      "end": {
+        "line": 24,
+        "column": 40
+      }
+    }
+  }
+}

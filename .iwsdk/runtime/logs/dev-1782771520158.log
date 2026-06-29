@@ -1,0 +1,39 @@
+
+> neon-slots@1.0.0 dev:runtime
+> vite
+
+🚀 Generating initial UIKitML files for dev server...
+👁️  UIKitML file watcher started - monitoring for changes...
+
+  VITE v7.3.6  ready in 2247 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://198.19.0.2:5173/
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+
+🥽 IWSDK Dev Summary (Development):
+  - Device: metaQuest3
+  - Runtime injected: 1116.7KB
+  - Activation mode: localhost
+  - AI: agent mode (WebSocket at /__iwer_mcp)
+  - Note: Runtime only activates on localhost/local networks
+
+
+🥽 IWSDK Dev Summary (Development):
+  - Device: metaQuest3
+  - Runtime injected: 1116.7KB
+  - Activation mode: localhost
+  - AI: agent mode (WebSocket at /__iwer_mcp)
+  - Note: Runtime only activates on localhost/local networks
+

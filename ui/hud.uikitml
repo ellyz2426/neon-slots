@@ -45,6 +45,7 @@
       <text id="btn-auto5" class="btn">AUTO 5</text>
       <text id="btn-auto25" class="btn">AUTO 25</text>
       <text id="btn-auto-stop" class="btn">STOP</text>
+      <text id="btn-quick" class="btn">QUICK</text>
       <text id="btn-pause" class="btn">PAUSE</text>
     </container>
     <text id="freespins" class="free"></text>

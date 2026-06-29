@@ -1,0 +1,35 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 8; padding: 14; backgroundColor: #0a0a2aee; borderRadius: 8; width: 300; }
+    .title { fontSize: 18; fontWeight: bold; color: #ff00ff; }
+    .desc { fontSize: 11; color: #aaaacc; }
+    .col { flexDirection: column; gap: 6; width: 270; alignItems: stretch; }
+    .btn-row { flexDirection: row; justifyContent: space-between; padding: 8; backgroundColor: #1a0a4a; borderRadius: 6; }
+    .label-cyan { fontSize: 12; color: #00ffff; fontWeight: bold; }
+    .label-orange { fontSize: 12; color: #ff8800; fontWeight: bold; }
+    .label-purple { fontSize: 12; color: #ff00ff; fontWeight: bold; }
+    .cost { fontSize: 12; color: #ffcc00; }
+    .status { fontSize: 10; color: #ff4444; }
+    .btn-back { fontSize: 12; color: #cccccc; backgroundColor: #333355; padding: 8; borderRadius: 6; textAlign: center; }
+  </style>
+  <container class="root">
+    <text class="title">BUY BONUS</text>
+    <text class="desc">Pay to instantly trigger a bonus feature!</text>
+    <container class="col">
+      <container id="btn-buy-freespins" class="btn-row">
+        <text class="label-cyan">Free Spins (10)</text>
+        <text id="buy-fs-cost" class="cost">50x bet</text>
+      </container>
+      <container id="btn-buy-bonuswheel" class="btn-row">
+        <text class="label-orange">Bonus Wheel</text>
+        <text id="buy-bw-cost" class="cost">30x bet</text>
+      </container>
+      <container id="btn-buy-megaspins" class="btn-row">
+        <text class="label-purple">Mega Spins (5)</text>
+        <text id="buy-ms-cost" class="cost">100x bet</text>
+      </container>
+    </container>
+    <text id="buy-status" class="status"></text>
+    <text id="btn-buy-back" class="btn-back">Back</text>
+  </container>
+</panel>

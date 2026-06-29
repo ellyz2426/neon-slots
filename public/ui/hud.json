@@ -279,13 +279,25 @@
                 "sourceTag": "text",
                 "type": "custom",
                 "children": [
+                  "QUICK"
+                ],
+                "properties": {
+                  "id": "btn-quick",
+                  "class": "btn"
+                },
+                "dataUid": "uid-27"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
                   "PAUSE"
                 ],
                 "properties": {
                   "id": "btn-pause",
                   "class": "btn"
                 },
-                "dataUid": "uid-27"
+                "dataUid": "uid-28"
               }
             ],
             "properties": {
@@ -301,7 +313,7 @@
               "id": "freespins",
               "class": "free"
             },
-            "dataUid": "uid-28"
+            "dataUid": "uid-29"
           },
           {
             "sourceTag": "text",
@@ -311,7 +323,7 @@
               "id": "autospin",
               "class": "auto"
             },
-            "dataUid": "uid-29"
+            "dataUid": "uid-30"
           }
         ],
         "properties": {
@@ -445,7 +457,7 @@
         "column": 0
       },
       "end": {
-        "line": 52,
+        "line": 53,
         "column": 8
       }
     },
@@ -595,7 +607,7 @@
         "column": 2
       },
       "end": {
-        "line": 51,
+        "line": 52,
         "column": 14
       }
     },
@@ -805,7 +817,7 @@
         "column": 4
       },
       "end": {
-        "line": 48,
+        "line": 49,
         "column": 16
       }
     },
@@ -851,12 +863,12 @@
     },
     "uid-28": {
       "start": {
-        "line": 49,
-        "column": 4
+        "line": 48,
+        "column": 6
       },
       "end": {
-        "line": 49,
-        "column": 45
+        "line": 48,
+        "column": 51
       }
     },
     "uid-29": {
@@ -866,6 +878,16 @@
       },
       "end": {
         "line": 50,
+        "column": 45
+      }
+    },
+    "uid-30": {
+      "start": {
+        "line": 51,
+        "column": 4
+      },
+      "end": {
+        "line": 51,
         "column": 44
       }
     }

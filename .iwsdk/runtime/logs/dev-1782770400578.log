@@ -1,0 +1,514 @@
+
+> neon-slots@1.0.0 dev:runtime
+> vite
+
+🚀 Generating initial UIKitML files for dev server...
+👁️  UIKitML file watcher started - monitoring for changes...
+
+  VITE v7.3.6  ready in 3086 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://198.19.0.2:5173/
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+➕ UIKitML file add: ui/jackpots.uikitml
+✅ UIKitML file recompiled: jackpots.uikitml
+➕ UIKitML file add: ui/buybonus.uikitml
+✅ UIKitML file recompiled: buybonus.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+➕ UIKitML file add: ui/tumble.uikitml
+✅ UIKitML file recompiled: tumble.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/title.uikitml
+✅ UIKitML file recompiled: title.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/hud.uikitml
+✅ UIKitML file recompiled: hud.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/help.uikitml
+✅ UIKitML file recompiled: help.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:08:07 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:08:23 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:08:47 PM [vite] (client) page reload src/index.ts
+10:09:00 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:09:14 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:09:24 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:09:44 PM [vite] (client) page reload src/index.ts
+10:09:54 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:10:01 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:11:22 PM [vite] (client) page reload src/index.ts
+10:11:32 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:11:45 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:11:52 PM [vite] (client) page reload src/index.ts
+10:11:58 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:12:05 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:12:22 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:12:46 PM [vite] (client) page reload src/index.ts
+10:12:56 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:13:03 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:13:33 PM [vite] (client) page reload src/index.ts
+10:13:45 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:14:01 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:14:31 PM [vite] (client) page reload src/index.ts
+10:14:37 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:14:58 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:15:07 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:15:21 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:15:27 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+10:15:39 PM [vite] (client) page reload src/index.ts
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 17: Error: Failed to interpret UI config: ./ui/jackpots.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/jackpots.uikitml
+✅ UIKitML file recompiled: jackpots.uikitml
+📝 UIKitML file change: ui/buybonus.uikitml
+✅ UIKitML file recompiled: buybonus.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 18: Error: Failed to interpret UI config: ./ui/buybonus.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/tumble.uikitml
+✅ UIKitML file recompiled: tumble.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 19: Error: Failed to interpret UI config: ./ui/tumble.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+📝 UIKitML file change: ui/paytable.uikitml
+✅ UIKitML file recompiled: paytable.uikitml
+[browser] [PanelUISystem] Error loading panel for entity 2: Error: Failed to interpret UI config: ./ui/title.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 12: Error: Failed to interpret UI config: ./ui/paytable.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 13: Error: Failed to interpret UI config: ./ui/bonuswheel.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 14: Error: Failed to interpret UI config: ./ui/machines.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 15: Error: Failed to interpret UI config: ./ui/daily.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+[browser] [PanelUISystem] Error loading panel for entity 16: Error: Failed to interpret UI config: ./ui/wincelebration.json
+    at PanelUISystem.loadPanel (http://localhost:5173/@fs/home/hatch/workspace/immersive-web-sdk/packages/core/dist/ui/ui.js:155:23)
+
+🥽 IWSDK Dev Summary (Development):
+  - Device: metaQuest3
+  - Runtime injected: 1116.7KB
+  - Activation mode: localhost
+  - AI: agent mode (WebSocket at /__iwer_mcp)
+  - Note: Runtime only activates on localhost/local networks
+
+
+🥽 IWSDK Dev Summary (Development):
+  - Device: metaQuest3
+  - Runtime injected: 1116.7KB
+  - Activation mode: localhost
+  - AI: agent mode (WebSocket at /__iwer_mcp)
+  - Note: Runtime only activates on localhost/local networks
+

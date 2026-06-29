@@ -51,6 +51,7 @@
     <text id="pay-8" class="sym"></text>
     <text id="pay-9" class="sym"></text>
     <text id="pay-10" class="sym"></text>
+    <text id="pay-11" class="sym"></text>
     <text id="pay-info" class="info"></text>
     <text id="btn-pay-back" class="btn-back">BACK</text>
   </container>

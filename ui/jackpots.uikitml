@@ -1,0 +1,39 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 6; padding: 12; backgroundColor: #0a0a2aee; borderRadius: 8; width: 320; }
+    .title { fontSize: 18; fontWeight: bold; color: #ffcc00; }
+    .jp-row { flexDirection: row; justifyContent: space-between; padding: 6; borderRadius: 4; width: 290; }
+    .bg-grand { backgroundColor: #2a0a2a88; }
+    .bg-major { backgroundColor: #1a0a2a88; }
+    .bg-minor { backgroundColor: #0a1a2a88; }
+    .bg-mini { backgroundColor: #0a2a0a88; }
+    .grand { fontSize: 13; color: #ff00ff; fontWeight: bold; }
+    .major { fontSize: 13; color: #ffcc00; fontWeight: bold; }
+    .minor { fontSize: 13; color: #00ccff; fontWeight: bold; }
+    .mini { fontSize: 13; color: #00ff88; fontWeight: bold; }
+    .info { fontSize: 10; color: #888888; }
+    .col { flexDirection: column; gap: 4; width: 290; alignItems: stretch; }
+  </style>
+  <container class="root">
+    <text class="title">JACKPOTS</text>
+    <container class="col">
+      <container class="jp-row bg-grand">
+        <text class="grand">GRAND</text>
+        <text id="jp-grand-val" class="grand">5000.00</text>
+      </container>
+      <container class="jp-row bg-major">
+        <text class="major">MAJOR</text>
+        <text id="jp-major-val" class="major">1000.00</text>
+      </container>
+      <container class="jp-row bg-minor">
+        <text class="minor">MINOR</text>
+        <text id="jp-minor-val" class="minor">250.00</text>
+      </container>
+      <container class="jp-row bg-mini">
+        <text class="mini">MINI</text>
+        <text id="jp-mini-val" class="mini">50.00</text>
+      </container>
+    </container>
+    <text id="jp-last-hit" class="info">Last jackpot: None</text>
+  </container>
+</panel>

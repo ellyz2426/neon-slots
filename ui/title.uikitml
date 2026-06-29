@@ -95,6 +95,9 @@
       <text id="btn-stats" class="btn-half">STATISTICS</text>
       <text id="btn-settings" class="btn-half">SETTINGS</text>
     </container>
-    <text id="btn-help" class="btn">HELP</text>
+    <container class="row">
+      <text id="btn-help" class="btn-half">HELP</text>
+      <text id="btn-buybonus" class="btn-half" style="borderColor: rgba(255, 0, 255, 0.8)">BUY BONUS</text>
+    </container>
   </container>
 </template>
