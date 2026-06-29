@@ -36,7 +36,7 @@ import {
 
 // ─────────────────────── TYPES & CONSTANTS ───────────────────────
 
-type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots';
+type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip';
 
 interface SymbolDef {
   name: string;
@@ -190,6 +190,17 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'mega_spins', name: 'Mega Spinner', desc: 'Trigger Mega Spins', check: s => s.megaSpinsTriggered >= 1 },
   { id: 'total_cascade_50', name: 'Tumble Pro', desc: 'Trigger 50 cascades', check: s => s.totalCascades >= 50 },
   { id: 'level_100', name: 'Casino Royale', desc: 'Reach level 100', check: s => s.level >= 100 },
+  // Round 4 achievements
+  { id: 'sticky_wild', name: 'Stuck on You', desc: 'Get a sticky wild during free spins', check: s => s.stickyWildPositions.length > 0 || s.expandingWilds >= 3 },
+  { id: 'pick_bonus_1', name: 'Lucky Pick', desc: 'Trigger the pick bonus', check: s => s.pickBonusTriggered >= 1 },
+  { id: 'pick_bonus_big', name: 'Treasure Hunter', desc: 'Win 500+ from pick bonus', check: s => s.bestPickBonusWin >= 500 },
+  { id: 'tourn_first', name: 'Tournament Debut', desc: 'Complete a tournament', check: s => s.tournamentPlayed >= 1 },
+  { id: 'tourn_10', name: 'Tournament Regular', desc: 'Complete 10 tournaments', check: s => s.tournamentPlayed >= 10 },
+  { id: 'tourn_best_500', name: 'Tournament Champion', desc: 'Score 500+ in a tournament', check: s => s.tournamentBestScore >= 500 },
+  { id: 'vip_silver', name: 'Silver Status', desc: 'Reach Silver VIP tier', check: s => s.vipTier >= 1 },
+  { id: 'vip_gold', name: 'Gold Status', desc: 'Reach Gold VIP tier', check: s => s.vipTier >= 2 },
+  { id: 'vip_redeem', name: 'Points Spender', desc: 'Redeem comp points', check: s => s.compRedeemed >= 1 },
+  { id: 'total_won_1m', name: 'Millionaire', desc: 'Win 1,000,000 total credits', check: s => s.totalCreditsWon >= 1000000 },
 ];
 
 // Daily challenge templates
@@ -211,6 +222,26 @@ const DAILY_TEMPLATES: DailyChallengeTemplate[] = [
 ];
 
 const BONUS_WHEEL_PRIZES = [5, 10, 15, 20, 25, 50, 75, 100, 150, 200, 10, 25];
+
+// VIP tiers
+interface VipTier {
+  name: string;
+  color: string;
+  minPoints: number;
+  compRate: number; // multiplier on comp point earning
+  xpBonus: number; // extra XP per spin
+}
+
+const VIP_TIERS: VipTier[] = [
+  { name: 'Bronze', color: '#cd7f32', minPoints: 0, compRate: 1.0, xpBonus: 0 },
+  { name: 'Silver', color: '#c0c0c0', minPoints: 500, compRate: 1.5, xpBonus: 1 },
+  { name: 'Gold', color: '#ffd700', minPoints: 2000, compRate: 2.0, xpBonus: 2 },
+  { name: 'Platinum', color: '#e5e4e2', minPoints: 5000, compRate: 3.0, xpBonus: 3 },
+  { name: 'Diamond', color: '#b9f2ff', minPoints: 15000, compRate: 5.0, xpBonus: 5 },
+];
+
+// Pick bonus prizes (multipliers of bet)
+const PICK_PRIZES = [3, 5, 8, 10, 15, 20, 25, 30, 50, 75, 100, 0]; // 0 = extra pick
 
 interface SaveData {
   credits: number;
@@ -284,6 +315,20 @@ interface SaveData {
   mysteryReveals: number;
   // Mega spins
   megaSpinsTriggered: number;
+  // Sticky wilds
+  stickyWildPositions: { r: number; row: number }[];
+  // Pick bonus
+  pickBonusTriggered: number;
+  bestPickBonusWin: number;
+  // Tournament
+  tournamentPlayed: number;
+  tournamentBestScore: number;
+  tournamentHistory: { score: number; date: string; spins: number }[];
+  // VIP
+  compPoints: number;
+  totalCompEarned: number;
+  compRedeemed: number;
+  vipTier: number;
 }
 
 function defaultSave(): SaveData {
@@ -315,6 +360,20 @@ function defaultSave(): SaveData {
     mysteryReveals: 0,
     // Mega spins
     megaSpinsTriggered: 0,
+    // Sticky wilds
+    stickyWildPositions: [],
+    // Pick bonus
+    pickBonusTriggered: 0,
+    bestPickBonusWin: 0,
+    // Tournament
+    tournamentPlayed: 0,
+    tournamentBestScore: 0,
+    tournamentHistory: [],
+    // VIP
+    compPoints: 0,
+    totalCompEarned: 0,
+    compRedeemed: 0,
+    vipTier: 0,
   };
 }
 
@@ -700,6 +759,46 @@ async function main() {
   let megaSpinMultiplier = 1;
   let megaSpinsRemaining = 0;
 
+  // Pick bonus state
+  let pickPrizes: number[] = [];
+  let pickRevealed: boolean[] = [];
+  let pickPicksRemaining = 0;
+  let pickTotal = 0;
+  let pickBet = 0;
+
+  // Tournament state
+  let tournamentActive = false;
+  let tournamentSpins = 0;
+  let tournamentMaxSpins = 20;
+  let tournamentWinnings = 0;
+  let tournamentBestSpin = 0;
+  let tournamentBet = 0;
+  let tournamentStreak = 0;
+
+  // VIP helpers
+  function getVipTier(points: number): number {
+    for (let i = VIP_TIERS.length - 1; i >= 0; i--) {
+      if (points >= VIP_TIERS[i].minPoints) return i;
+    }
+    return 0;
+  }
+
+  function earnCompPoints(betAmount: number) {
+    const tier = VIP_TIERS[save.vipTier];
+    const pts = Math.floor(betAmount * 2 * tier.compRate);
+    if (pts > 0) {
+      save.compPoints += pts;
+      save.totalCompEarned += pts;
+      // Check for tier upgrade
+      const newTier = getVipTier(save.totalCompEarned);
+      if (newTier > save.vipTier) {
+        save.vipTier = newTier;
+        showToast(`VIP Upgrade: ${VIP_TIERS[newTier].name}!`);
+        audio.levelUp();
+      }
+    }
+  }
+
   // Daily challenges
   let dailyChallenges = getDailyChallenges(dateSeed());
   function initDailyChallenges() {
@@ -1054,11 +1153,22 @@ async function main() {
       save.credits -= bet;
       save.totalCreditsBet += bet;
       save.jackpotPool += bet * 0.02;
+      earnCompPoints(bet);
     } else if (freeSpinsRemaining > 0) {
       freeSpinsRemaining--;
+      // Clear sticky wilds after last free spin
+      if (freeSpinsRemaining <= 0) {
+        // Sticky wilds will be cleared after evaluation
+      }
     }
 
     if (!isRespin) save.totalSpins++;
+    if (tournamentActive) {
+      tournamentSpins++;
+      if (tournamentSpins >= tournamentMaxSpins) {
+        // Tournament will end after this spin's evaluation
+      }
+    }
     if (bet >= COIN_VALUES[COIN_VALUES.length - 1] * 20) save.maxBetPlaced = true;
     
     const machineName = MACHINES[save.currentMachine].name;
@@ -1087,6 +1197,14 @@ async function main() {
       const offset = Math.floor(Math.random() * REEL_STRIP_LEN);
       for (let row = 0; row < ROWS; row++) {
         targetGrid[r].push(reelStrips[r][(offset + row) % REEL_STRIP_LEN]);
+      }
+    }
+
+    // Apply sticky wilds during free spins
+    if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) {
+      const wildIdx = SYMBOLS.findIndex(s => s.isWild);
+      for (const sp of save.stickyWildPositions) {
+        targetGrid[sp.r][sp.row] = wildIdx;
       }
     }
 
@@ -1152,6 +1270,25 @@ async function main() {
       expandingWildAnimating = true;
       expandingWildTimer = 0;
       showToast('EXPANDING WILD!');
+    }
+
+    // Sticky wilds during free spins: record wild positions
+    if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) {
+      for (let r = 0; r < REELS; r++) {
+        for (let row = 0; row < ROWS; row++) {
+          if (SYMBOLS[currentGrid[r][row]].isWild) {
+            if (!save.stickyWildPositions.some(p => p.r === r && p.row === row)) {
+              save.stickyWildPositions.push({ r, row });
+              if (!didExpand) showToast('STICKY WILD!');
+            }
+          }
+        }
+      }
+    }
+
+    // Clear sticky wilds when free spins end
+    if (freeSpinsRemaining <= 0 && freeSpinsTotal > 0 && save.stickyWildPositions.length > 0) {
+      // Will be cleared after last free spin evaluates
     }
 
     // Count specials
@@ -1235,8 +1372,16 @@ async function main() {
       showToast(`${freeCount} FREE SPINS!`);
     }
 
-    // Bonus wheel trigger: 3+ bonus symbols
-    if (bonusCount >= 3) {
+    // Bonus wheel trigger: 3 bonus symbols; Pick bonus: 4+ bonus symbols
+    if (bonusCount >= 4) {
+      save.pickBonusTriggered++;
+      pickBet = bet;
+      audio.bonusTrigger();
+      showToast('PICK A PRIZE!');
+      setTimeout(() => {
+        startPickBonus();
+      }, totalWin > 0 ? 2000 : 500);
+    } else if (bonusCount >= 3) {
       save.bonusWheelTriggered++;
       bonusWheelBet = bet;
       audio.bonusTrigger();
@@ -1317,8 +1462,9 @@ async function main() {
       lastWinAmount = totalWin;
       cascadeTotal += totalWin;
 
-      // XP
-      const xpGain = Math.max(1, Math.floor(totalWin / 10));
+      // XP (with VIP bonus)
+      const vipXpBonus = VIP_TIERS[save.vipTier].xpBonus;
+      const xpGain = Math.max(1, Math.floor(totalWin / 10)) + vipXpBonus;
       save.xp += xpGain;
       const nextLevelXp = 100 + save.level * 50;
       if (save.xp >= nextLevelXp) {
@@ -1416,19 +1562,37 @@ async function main() {
       save.leaderboard.push({ score: totalWin, machine: MACHINES[save.currentMachine].name, date: todayStr() });
       save.leaderboard.sort((a, b) => b.score - a.score);
       if (save.leaderboard.length > 20) save.leaderboard.length = 20;
+
+      // Tournament tracking
+      if (tournamentActive) {
+        tournamentWinnings += totalWin;
+        tournamentBestSpin = Math.max(tournamentBestSpin, totalWin);
+        tournamentStreak++;
+      }
     } else {
       save.currentWinStreak = 0;
       lastWinAmount = 0;
       cascadeLevel = 0;
       cascadeTotal = 0;
+      if (tournamentActive) tournamentStreak = 0;
 
-      // Hold/Respin chance: 15% chance on non-winning spin (not during free spins or auto or mega)
-      if (freeSpinsRemaining <= 0 && autoSpinRemaining <= 0 && megaSpinsRemaining <= 0 && Math.random() < 0.15 && bonusCount < 3) {
+      // Hold/Respin chance: 15% chance on non-winning spin (not during free spins or auto or mega or tournament)
+      if (freeSpinsRemaining <= 0 && autoSpinRemaining <= 0 && megaSpinsRemaining <= 0 && !tournamentActive && Math.random() < 0.15 && bonusCount < 3) {
         holdReelsAvailable = true;
         showToast('HOLD available! Press H or use XR A button');
         state = 'playing';
       } else if (freeSpinsRemaining > 0) {
         setTimeout(() => spinReels(), quickSpinMode ? 400 : 800);
+      } else if (freeSpinsTotal > 0 && freeSpinsRemaining <= 0) {
+        // Free spins just ended - clear sticky wilds
+        save.stickyWildPositions = [];
+        freeSpinsTotal = 0;
+        if (freeSpinsWinnings > 0) {
+          showToast(`Free Spins done! Won ${freeSpinsWinnings.toFixed(2)}`);
+        }
+        freeSpinsWinnings = 0;
+        state = 'playing';
+        megaSpinMultiplier = 1;
       } else if (megaSpinsRemaining > 0) {
         megaSpinsRemaining--;
         setTimeout(() => spinReels(), quickSpinMode ? 300 : 600);
@@ -1444,6 +1608,11 @@ async function main() {
 
     // Update cascade best
     save.bestCascadeWin = Math.max(save.bestCascadeWin, cascadeTotal);
+
+    // Check tournament end
+    if (tournamentActive && tournamentSpins >= tournamentMaxSpins) {
+      setTimeout(() => endTournament(), 1000);
+    }
 
     checkAchievements();
     checkDailyChallenges();
@@ -1533,6 +1702,212 @@ async function main() {
       setTimeout(() => spinReels(), 500);
     }
     updateHUD();
+  }
+
+  // ─────────────── PICK BONUS LOGIC ───────────────
+
+  function startPickBonus() {
+    // Shuffle prizes
+    pickPrizes = [...PICK_PRIZES];
+    for (let i = pickPrizes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pickPrizes[i], pickPrizes[j]] = [pickPrizes[j], pickPrizes[i]];
+    }
+    pickRevealed = new Array(12).fill(false);
+    pickPicksRemaining = 3;
+    pickTotal = 0;
+    state = 'pick_bonus';
+    updatePickPanel();
+  }
+
+  function pickPrize(idx: number) {
+    if (pickRevealed[idx] || pickPicksRemaining <= 0) return;
+    pickRevealed[idx] = true;
+    const prize = pickPrizes[idx];
+    
+    if (prize === 0) {
+      // Extra pick!
+      pickPicksRemaining++; // doesn't decrease, net +1
+      audio.scatter();
+      showToast('EXTRA PICK!');
+    } else {
+      const amount = prize * pickBet;
+      pickTotal += amount;
+      audio.smallWin();
+      particles.burst(MACHINE_X, MACHINE_Y + 0.5, MACHINE_Z + 0.8, '#ff8800', 15);
+    }
+    
+    pickPicksRemaining--;
+    updatePickPanel();
+    
+    if (pickPicksRemaining <= 0) {
+      // Reveal all remaining
+      setTimeout(() => {
+        for (let i = 0; i < 12; i++) pickRevealed[i] = true;
+        updatePickPanel();
+      }, 500);
+      
+      // Award winnings
+      save.credits += pickTotal;
+      save.totalCreditsWon += pickTotal;
+      save.peakCredits = Math.max(save.peakCredits, save.credits);
+      save.bestPickBonusWin = Math.max(save.bestPickBonusWin, pickTotal);
+      
+      checkAchievements();
+      updateHUD();
+      saveSave(save);
+    }
+  }
+
+  function collectPickBonus() {
+    state = 'playing';
+    if (freeSpinsRemaining > 0) {
+      setTimeout(() => spinReels(), 500);
+    } else if (autoSpinRemaining > 0) {
+      autoSpinRemaining--;
+      save.autoSpinsCompleted++;
+      setTimeout(() => spinReels(), 500);
+    }
+    updateHUD();
+  }
+
+  function updatePickPanel() {
+    for (let i = 0; i < 12; i++) {
+      if (pickRevealed[i]) {
+        const prize = pickPrizes[i];
+        if (prize === 0) {
+          setText(pickBonusEntity, `pick-${i}`, '+1 PICK!');
+        } else {
+          setText(pickBonusEntity, `pick-${i}`, `${prize}x`);
+        }
+      } else {
+        setText(pickBonusEntity, `pick-${i}`, '?');
+      }
+    }
+    setText(pickBonusEntity, 'pick-picks', `Picks remaining: ${pickPicksRemaining}`);
+    setText(pickBonusEntity, 'pick-total', `Total: ${pickTotal.toFixed(2)}`);
+    setText(pickBonusEntity, 'pick-subtitle', pickPicksRemaining <= 0 ? 'All picks used! Collect your prize!' : 'Pick 3 prizes! Tap to reveal');
+  }
+
+  // ─────────────── TOURNAMENT LOGIC ───────────────
+
+  function startTournament() {
+    const entryCost = 50;
+    if (save.credits < entryCost) {
+      showToast('Need 50 credits to enter!');
+      return;
+    }
+    save.credits -= entryCost;
+    tournamentActive = true;
+    tournamentSpins = 0;
+    tournamentWinnings = 0;
+    tournamentBestSpin = 0;
+    tournamentBet = getBet();
+    tournamentStreak = 0;
+    state = 'playing';
+    showToast('Tournament started! 20 spins!');
+    updateHUD();
+    saveSave(save);
+  }
+
+  function endTournament() {
+    tournamentActive = false;
+    save.tournamentPlayed++;
+    save.credits += tournamentWinnings;
+    save.tournamentBestScore = Math.max(save.tournamentBestScore, tournamentWinnings);
+    save.tournamentHistory.push({
+      score: tournamentWinnings,
+      date: todayStr(),
+      spins: tournamentSpins,
+    });
+    save.tournamentHistory.sort((a, b) => b.score - a.score);
+    if (save.tournamentHistory.length > 10) save.tournamentHistory.length = 10;
+    
+    showToast(`Tournament done! Score: ${tournamentWinnings.toFixed(2)}`);
+    state = 'tournament';
+    checkAchievements();
+    updateTournamentPanel();
+    updateHUD();
+    saveSave(save);
+  }
+
+  function updateTournamentPanel() {
+    if (tournamentActive) {
+      setText(tournamentEntity, 'tourn-spins', `Spins: ${tournamentSpins}/${tournamentMaxSpins}`);
+      setText(tournamentEntity, 'tourn-winnings', tournamentWinnings.toFixed(2));
+      setText(tournamentEntity, 'tourn-best-spin', `Best spin: ${tournamentBestSpin.toFixed(2)}`);
+      setText(tournamentEntity, 'tourn-streak', `Streak: ${tournamentStreak}`);
+      setText(tournamentEntity, 'tourn-status', 'Tournament in progress!');
+      setText(tournamentEntity, 'btn-tourn-start', 'IN PROGRESS');
+    } else {
+      setText(tournamentEntity, 'tourn-spins', 'Spins: 0/20');
+      setText(tournamentEntity, 'tourn-winnings', '0.00');
+      setText(tournamentEntity, 'tourn-best-spin', `Best ever: ${save.tournamentBestScore.toFixed(2)}`);
+      setText(tournamentEntity, 'tourn-streak', `Played: ${save.tournamentPlayed}`);
+      setText(tournamentEntity, 'tourn-status', 'Ready to start!');
+      setText(tournamentEntity, 'btn-tourn-start', 'START (50 credits)');
+    }
+    // History
+    for (let i = 0; i < 5; i++) {
+      if (i < save.tournamentHistory.length) {
+        const h = save.tournamentHistory[i];
+        setText(tournamentEntity, `tourn-hist-${i}`, `${i + 1}. ${h.score.toFixed(2)} - ${h.date}`);
+      } else {
+        setText(tournamentEntity, `tourn-hist-${i}`, '-');
+      }
+    }
+  }
+
+  // ─────────────── VIP LOGIC ───────────────
+
+  function updateVipPanel() {
+    const tier = VIP_TIERS[save.vipTier];
+    const nextTier = save.vipTier < VIP_TIERS.length - 1 ? VIP_TIERS[save.vipTier + 1] : null;
+    setText(vipEntity, 'vip-tier', tier.name.toUpperCase());
+    setText(vipEntity, 'vip-points', `Comp Points: ${save.compPoints}`);
+    if (nextTier) {
+      setText(vipEntity, 'vip-progress', `Next tier (${nextTier.name}): ${save.totalCompEarned}/${nextTier.minPoints} pts`);
+    } else {
+      setText(vipEntity, 'vip-progress', 'Maximum tier reached!');
+    }
+    setText(vipEntity, 'vip-perk', `Perk: ${tier.compRate}x comp rate, +${tier.xpBonus} XP/spin`);
+    setText(vipEntity, 'vip-status', '');
+  }
+
+  function redeemComp(points: number, credits: number) {
+    if (save.compPoints < points) {
+      setText(vipEntity, 'vip-status', 'Not enough points!');
+      return;
+    }
+    save.compPoints -= points;
+    save.credits += credits;
+    save.compRedeemed++;
+    save.peakCredits = Math.max(save.peakCredits, save.credits);
+    audio.achievement();
+    showToast(`Redeemed: +${credits} credits!`);
+    checkAchievements();
+    updateVipPanel();
+    updateHUD();
+    saveSave(save);
+  }
+
+  function redeemCompFreeSpins() {
+    if (save.compPoints < 200) {
+      setText(vipEntity, 'vip-status', 'Not enough points!');
+      return;
+    }
+    save.compPoints -= 200;
+    save.compRedeemed++;
+    freeSpinsRemaining += 5;
+    freeSpinsTotal += 5;
+    save.freeSpinsTriggered++;
+    audio.scatter();
+    showToast('Redeemed: 5 Free Spins!');
+    state = 'playing';
+    checkAchievements();
+    updateHUD();
+    saveSave(save);
+    setTimeout(() => spinReels(), 500);
   }
 
   // ─────────────── BONUS WHEEL LOGIC ───────────────
@@ -1751,6 +2126,9 @@ async function main() {
     { name: 'jackpots', config: './ui/jackpots.json', follower: false },
     { name: 'buybonus', config: './ui/buybonus.json', follower: false },
     { name: 'tumble', config: './ui/tumble.json', follower: true },
+    { name: 'pickbonus', config: './ui/pickbonus.json', follower: false },
+    { name: 'tournament', config: './ui/tournament.json', follower: false },
+    { name: 'vip', config: './ui/vip.json', follower: false },
   ];
 
   const panelEntities: Record<string, any> = {};
@@ -1791,6 +2169,9 @@ async function main() {
   const jackpotsEntity = panelEntities['jackpots'];
   const buyBonusEntity = panelEntities['buybonus'];
   const tumbleEntity = panelEntities['tumble'];
+  const pickBonusEntity = panelEntities['pickbonus'];
+  const tournamentEntity = panelEntities['tournament'];
+  const vipEntity = panelEntities['vip'];
 
   // ─────────────── UI SYSTEM ───────────────
 
@@ -1813,6 +2194,9 @@ async function main() {
     jackpots: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/jackpots.json')] },
     buybonus: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/buybonus.json')] },
     tumble: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/tumble.json')] },
+    pickbonus: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/pickbonus.json')] },
+    tournament: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/tournament.json')] },
+    vip: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/vip.json')] },
   }) {
     init() {
       // Title
@@ -1831,6 +2215,8 @@ async function main() {
         wire('btn-help', () => { state = 'help'; });
         wire('btn-buybonus', () => { state = 'buy_bonus'; updateBuyBonusPanel(); });
         wire('btn-leaderboard', () => { state = 'leaderboard'; updateLeaderboard(); });
+        wire('btn-tournament', () => { state = 'tournament'; updateTournamentPanel(); });
+        wire('btn-vip', () => { state = 'vip'; updateVipPanel(); });
       });
 
       // HUD
@@ -2070,6 +2456,52 @@ async function main() {
           }
         });
         wire('btn-buy-back', () => { state = 'title'; });
+      });
+
+      // Pick Bonus
+      this.queries.pickbonus.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        for (let i = 0; i < 12; i++) {
+          const idx = i;
+          (doc.getElementById(`pick-${idx}`) as UIKit.Text | undefined)?.addEventListener('click', () => {
+            audio.click();
+            if (state === 'pick_bonus') pickPrize(idx);
+          });
+        }
+        (doc.getElementById('btn-pick-collect') as UIKit.Text | undefined)?.addEventListener('click', () => {
+          audio.click();
+          if (state === 'pick_bonus' && pickPicksRemaining <= 0) collectPickBonus();
+        });
+      });
+
+      // Tournament
+      this.queries.tournament.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-tourn-start', () => {
+          if (!tournamentActive) startTournament();
+        });
+        wire('btn-tourn-back', () => { state = 'title'; });
+      });
+
+      // VIP
+      this.queries.vip.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-vip-100', () => { redeemComp(100, 50); });
+        wire('btn-vip-500', () => { redeemComp(500, 300); });
+        wire('btn-vip-1000', () => { redeemComp(1000, 750); });
+        wire('btn-vip-free', () => { redeemCompFreeSpins(); });
+        wire('btn-vip-back', () => { state = 'title'; });
       });
     }
   }
@@ -2487,6 +2919,9 @@ async function main() {
       const jackpotsVisible = state === 'jackpots' || (state === 'playing' && !spinning);
       const buyBonusVisible = state === 'buy_bonus';
       const tumbleVisible = cascading && cascadeLevel > 0;
+      const pickBonusVisible = state === 'pick_bonus';
+      const tournamentVisible = state === 'tournament';
+      const vipVisible = state === 'vip';
 
       setEntityVisibility(titleEntity, titleVisible);
       setEntityVisibility(hudEntity, hudVisible);
@@ -2505,6 +2940,9 @@ async function main() {
       setEntityVisibility(jackpotsEntity, jackpotsVisible);
       setEntityVisibility(buyBonusEntity, buyBonusVisible);
       setEntityVisibility(tumbleEntity, tumbleVisible);
+      setEntityVisibility(pickBonusEntity, pickBonusVisible);
+      setEntityVisibility(tournamentEntity, tournamentVisible);
+      setEntityVisibility(vipEntity, vipVisible);
       setEntityVisibility(toastEntity, !!currentToast);
 
       // XR controller input
@@ -2575,6 +3013,12 @@ async function main() {
     }
     if (e.code === 'KeyJ') {
       if (state === 'playing') updateJackpotPanel();
+    }
+    if (e.code === 'KeyT') {
+      if (state === 'title') { state = 'tournament'; updateTournamentPanel(); }
+    }
+    if (e.code === 'KeyV') {
+      if (state === 'title') { state = 'vip'; updateVipPanel(); }
     }
   });
 

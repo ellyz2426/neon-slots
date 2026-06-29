@@ -1,0 +1,40 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 8; padding: 16; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #ffcc00; borderWidth: 2; width: 420; }
+    .title { fontSize: 22; color: #ffcc00; fontWeight: bold; textAlign: center; }
+    .subtitle { fontSize: 12; color: #ccaa66; textAlign: center; }
+    .row { flexDirection: row; gap: 10; alignItems: center; }
+    .label { fontSize: 13; color: #8888aa; }
+    .value { fontSize: 16; color: #00ffff; fontWeight: bold; }
+    .big { fontSize: 20; color: #ffcc00; fontWeight: bold; }
+    .btn { fontSize: 14; color: #ffffff; backgroundColor: #2a2a00; padding: 8; borderRadius: 6; borderColor: #ffcc00; borderWidth: 1; width: 160; textAlign: center; }
+    .btn-gold { fontSize: 16; color: #ffcc00; backgroundColor: #2a2a00; padding: 10; borderRadius: 6; borderColor: #ffcc00; borderWidth: 2; width: 200; textAlign: center; }
+    .history { fontSize: 11; color: #666688; textAlign: center; width: 380; }
+    .divider { width: 360; height: 1; backgroundColor: #333366; }
+  </style>
+  <container class="root">
+    <text class="title">TOURNAMENT MODE</text>
+    <text id="tourn-desc" class="subtitle">20 spins at fixed bet. Maximize your winnings!</text>
+    <container class="divider"></container>
+    <container class="row">
+      <text id="tourn-spins" class="value">Spins: 0/20</text>
+      <text id="tourn-winnings" class="big">0.00</text>
+    </container>
+    <container class="row">
+      <text id="tourn-best-spin" class="label">Best spin: 0</text>
+      <text id="tourn-streak" class="label">Streak: 0</text>
+    </container>
+    <text id="tourn-status" class="value">Ready to start!</text>
+    <container class="row">
+      <text id="btn-tourn-start" class="btn-gold">START (50 credits)</text>
+      <text id="btn-tourn-back" class="btn">BACK</text>
+    </container>
+    <container class="divider"></container>
+    <text class="label">Best Tournament Scores</text>
+    <text id="tourn-hist-0" class="history">-</text>
+    <text id="tourn-hist-1" class="history">-</text>
+    <text id="tourn-hist-2" class="history">-</text>
+    <text id="tourn-hist-3" class="history">-</text>
+    <text id="tourn-hist-4" class="history">-</text>
+  </container>
+</panel>

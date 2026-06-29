@@ -1,0 +1,35 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 8; padding: 16; backgroundColor: #0a0a2aee; borderRadius: 12; borderColor: #ff00ff; borderWidth: 2; width: 420; }
+    .title { fontSize: 22; color: #ff00ff; fontWeight: bold; textAlign: center; }
+    .row { flexDirection: row; gap: 10; alignItems: center; }
+    .label { fontSize: 13; color: #8888aa; }
+    .value { fontSize: 16; color: #00ffff; fontWeight: bold; }
+    .tier { fontSize: 20; fontWeight: bold; textAlign: center; }
+    .progress { fontSize: 12; color: #ccaaff; textAlign: center; }
+    .btn { fontSize: 14; color: #ffffff; backgroundColor: #2a1a3a; padding: 8; borderRadius: 6; borderColor: #ff00ff; borderWidth: 1; width: 180; textAlign: center; }
+    .btn-active { backgroundColor: #3a1a4a; borderColor: #ff44ff; }
+    .reward { fontSize: 12; color: #ffcc00; textAlign: center; width: 380; }
+    .divider { width: 360; height: 1; backgroundColor: #333366; }
+  </style>
+  <container class="root">
+    <text class="title">VIP REWARDS</text>
+    <text id="vip-tier" class="tier">BRONZE</text>
+    <text id="vip-points" class="value">Comp Points: 0</text>
+    <text id="vip-progress" class="progress">Next tier: 0/500 points</text>
+    <container class="divider"></container>
+    <text class="label">Redeem Points</text>
+    <container class="row">
+      <text id="btn-vip-100" class="btn">100 pts = 50 cr</text>
+      <text id="btn-vip-500" class="btn">500 pts = 300 cr</text>
+    </container>
+    <container class="row">
+      <text id="btn-vip-1000" class="btn">1000 pts = 750 cr</text>
+      <text id="btn-vip-free" class="btn">200 pts = 5 Free</text>
+    </container>
+    <container class="divider"></container>
+    <text id="vip-perk" class="reward">Current perk: 1x comp rate</text>
+    <text id="vip-status" class="label"></text>
+    <text id="btn-vip-back" class="btn">BACK</text>
+  </container>
+</panel>

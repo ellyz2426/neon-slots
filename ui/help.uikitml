@@ -37,6 +37,12 @@
     <text class="text">Quick Spin - Toggle faster reel stops</text>
     <text class="text">5 Machines with different volatility</text>
     <text class="text">Daily Challenges for bonus credits</text>
+    <text class="section">New Features</text>
+    <text class="text">Sticky Wilds - Wilds lock in Free Spins!</text>
+    <text class="text">Pick Bonus - 4+ Bonus = Pick a Prize game</text>
+    <text class="text">Tournament - 20 spins, maximize winnings</text>
+    <text class="text">VIP Rewards - Earn comp pts, redeem prizes</text>
+    <text class="text">T - Tournament | V - VIP Rewards</text>
     <text id="btn-help-back" class="btn-back">BACK</text>
   </container>
 </panel>
