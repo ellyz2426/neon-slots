@@ -1,0 +1,113 @@
+{
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "5",
+        "padding": "15",
+        "backgroundColor": "rgba(10, 10, 42, 0.95)",
+        "borderRadius": 12,
+        "borderColor": "rgba(255, 204, 0, 0.8)",
+        "borderWidth": "2",
+        "width": "440"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "22",
+        "color": "rgba(255, 204, 0, 1)",
+        "textAlign": "center"
+      }
+    },
+    "sym": {
+      "content": {
+        "fontSize": "12",
+        "color": "rgba(200, 200, 220, 1)",
+        "width": "400"
+      }
+    },
+    "info": {
+      "content": {
+        "fontSize": "11",
+        "color": "rgba(136, 136, 170, 1)",
+        "width": "400"
+      }
+    },
+    "btn-back": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(26, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 0, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "300",
+        "textAlign": "center"
+      }
+    }
+  },
+  "ranges": {
+    "root": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 5
+      }
+    },
+    "title": {
+      "start": {
+        "line": 12,
+        "column": 0
+      },
+      "end": {
+        "line": 12,
+        "column": 6
+      }
+    },
+    "sym": {
+      "start": {
+        "line": 17,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 4
+      }
+    },
+    "info": {
+      "start": {
+        "line": 22,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 5
+      }
+    },
+    "btn-back": {
+      "start": {
+        "line": 27,
+        "column": 0
+      },
+      "end": {
+        "line": 27,
+        "column": 9
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 39,
+        "column": 0
+      },
+      "end": {
+        "line": 57,
+        "column": 11
+      }
+    }
+  }
+}

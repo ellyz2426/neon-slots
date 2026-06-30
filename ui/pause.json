@@ -1,0 +1,189 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "container",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "PAUSED"
+            ],
+            "properties": {
+              "class": "title"
+            },
+            "dataUid": "uid-3"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "RESUME"
+            ],
+            "properties": {
+              "id": "btn-resume",
+              "class": "btn"
+            },
+            "dataUid": "uid-4"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "MAIN MENU"
+            ],
+            "properties": {
+              "id": "btn-title",
+              "class": "btn btn-accent"
+            },
+            "dataUid": "uid-5"
+          }
+        ],
+        "properties": {
+          "class": "root"
+        },
+        "dataUid": "uid-2"
+      }
+    ],
+    "properties": {},
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "10",
+        "padding": "20",
+        "backgroundColor": "#0a0a2aee",
+        "borderRadius": 12,
+        "borderColor": "#00ccff",
+        "borderWidth": "2",
+        "width": "350"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "22",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "16",
+        "color": "#ffffff",
+        "backgroundColor": "#1a1a4a",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "#00ccff",
+        "borderWidth": "1",
+        "width": "280",
+        "textAlign": "center",
+        "cursor": "pointer"
+      }
+    },
+    "btn-accent": {
+      "content": {
+        "backgroundColor": "#2a1a4a",
+        "borderColor": "#ff00ff"
+      }
+    }
+  },
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 12,
+        "column": 8
+      }
+    },
+    "root": {
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 9
+      }
+    },
+    "title": {
+      "start": {
+        "line": 3,
+        "column": 4
+      },
+      "end": {
+        "line": 3,
+        "column": 10
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 8
+      }
+    },
+    "btn-accent": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 15
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 7,
+        "column": 2
+      },
+      "end": {
+        "line": 11,
+        "column": 14
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 8,
+        "column": 4
+      },
+      "end": {
+        "line": 8,
+        "column": 37
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 9,
+        "column": 4
+      },
+      "end": {
+        "line": 9,
+        "column": 51
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 10,
+        "column": 4
+      },
+      "end": {
+        "line": 10,
+        "column": 64
+      }
+    }
+  }
+}

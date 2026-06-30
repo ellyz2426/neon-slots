@@ -1,0 +1,205 @@
+{
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "10",
+        "padding": "20",
+        "backgroundColor": "rgba(10, 10, 42, 0.95)",
+        "borderRadius": 12,
+        "borderColor": "rgba(0, 204, 255, 0.8)",
+        "borderWidth": "2",
+        "width": "400"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "28",
+        "color": "rgba(0, 255, 255, 1)",
+        "textAlign": "center"
+      }
+    },
+    "subtitle": {
+      "content": {
+        "fontSize": "14",
+        "color": "rgba(136, 136, 170, 1)",
+        "textAlign": "center"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(26, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(0, 204, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "btn-gold": {
+      "content": {
+        "fontSize": "18",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(42, 42, 0, 0.9)",
+        "padding": "12",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 204, 0, 0.8)",
+        "borderWidth": "2",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "btn-accent": {
+      "content": {
+        "fontSize": "16",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(42, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(255, 0, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "320",
+        "textAlign": "center"
+      }
+    },
+    "row": {
+      "content": {
+        "flexDirection": "row",
+        "gap": "8",
+        "width": "320"
+      }
+    },
+    "btn-half": {
+      "content": {
+        "fontSize": "15",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(26, 26, 74, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(0, 204, 255, 0.6)",
+        "borderWidth": "1",
+        "width": "155",
+        "textAlign": "center"
+      }
+    },
+    "btn-green": {
+      "content": {
+        "fontSize": "15",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(0, 42, 20, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(0, 204, 100, 0.8)",
+        "borderWidth": "1",
+        "width": "155",
+        "textAlign": "center"
+      }
+    }
+  },
+  "ranges": {
+    "root": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 5
+      }
+    },
+    "title": {
+      "start": {
+        "line": 12,
+        "column": 0
+      },
+      "end": {
+        "line": 12,
+        "column": 6
+      }
+    },
+    "subtitle": {
+      "start": {
+        "line": 17,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 9
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 22,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 4
+      }
+    },
+    "btn-gold": {
+      "start": {
+        "line": 33,
+        "column": 0
+      },
+      "end": {
+        "line": 33,
+        "column": 9
+      }
+    },
+    "btn-accent": {
+      "start": {
+        "line": 44,
+        "column": 0
+      },
+      "end": {
+        "line": 44,
+        "column": 11
+      }
+    },
+    "row": {
+      "start": {
+        "line": 55,
+        "column": 0
+      },
+      "end": {
+        "line": 55,
+        "column": 4
+      }
+    },
+    "btn-half": {
+      "start": {
+        "line": 60,
+        "column": 0
+      },
+      "end": {
+        "line": 60,
+        "column": 9
+      }
+    },
+    "btn-green": {
+      "start": {
+        "line": 71,
+        "column": 0
+      },
+      "end": {
+        "line": 71,
+        "column": 10
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 83,
+        "column": 0
+      },
+      "end": {
+        "line": 118,
+        "column": 11
+      }
+    }
+  }
+}

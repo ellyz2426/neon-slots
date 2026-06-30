@@ -1,0 +1,399 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "container",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "GAMBLE"
+            ],
+            "properties": {
+              "class": "title"
+            },
+            "dataUid": "uid-3"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Double or nothing! Pick red or black."
+            ],
+            "properties": {
+              "class": "info"
+            },
+            "dataUid": "uid-4"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Win: 0.00"
+            ],
+            "properties": {
+              "id": "gamble-amount",
+              "class": "amount"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Streak: 0"
+            ],
+            "properties": {
+              "id": "gamble-streak",
+              "class": "streak"
+            },
+            "dataUid": "uid-6"
+          },
+          {
+            "sourceTag": "container",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "RED"
+                ],
+                "properties": {
+                  "id": "btn-gamble-red",
+                  "class": "btn btn-red"
+                },
+                "dataUid": "uid-8"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "BLACK"
+                ],
+                "properties": {
+                  "id": "btn-gamble-black",
+                  "class": "btn btn-black"
+                },
+                "dataUid": "uid-9"
+              }
+            ],
+            "properties": {
+              "class": "row"
+            },
+            "dataUid": "uid-7"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "COLLECT"
+            ],
+            "properties": {
+              "id": "btn-gamble-collect",
+              "class": "btn-collect"
+            },
+            "dataUid": "uid-10"
+          }
+        ],
+        "properties": {
+          "class": "root"
+        },
+        "dataUid": "uid-2"
+      }
+    ],
+    "properties": {},
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "root": {
+      "content": {
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "10",
+        "padding": "20",
+        "backgroundColor": "#2a0000ee",
+        "borderRadius": 12,
+        "borderColor": "#ff2244",
+        "borderWidth": "2",
+        "width": "380"
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "22",
+        "color": "#ff2244",
+        "fontWeight": "bold"
+      }
+    },
+    "amount": {
+      "content": {
+        "fontSize": "20",
+        "color": "#ffcc00",
+        "fontWeight": "bold"
+      }
+    },
+    "streak": {
+      "content": {
+        "fontSize": "14",
+        "color": "#ffffff"
+      }
+    },
+    "info": {
+      "content": {
+        "fontSize": "12",
+        "color": "#aaaaaa"
+      }
+    },
+    "row": {
+      "content": {
+        "flexDirection": "row",
+        "gap": "12"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "18",
+        "color": "#ffffff",
+        "padding": "12",
+        "borderRadius": 8,
+        "borderWidth": "2",
+        "width": "120",
+        "textAlign": "center",
+        "cursor": "pointer"
+      }
+    },
+    "btn-red": {
+      "content": {
+        "backgroundColor": "#880000",
+        "borderColor": "#ff2244"
+      }
+    },
+    "btn-black": {
+      "content": {
+        "backgroundColor": "#222222",
+        "borderColor": "#888888"
+      }
+    },
+    "btn-collect": {
+      "content": {
+        "fontSize": "16",
+        "color": "#00ff88",
+        "backgroundColor": "#002a00",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "#00ff88",
+        "borderWidth": "1",
+        "width": "280",
+        "textAlign": "center",
+        "cursor": "pointer"
+      }
+    }
+  },
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 24,
+        "column": 8
+      }
+    },
+    "root": {
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 9
+      }
+    },
+    "title": {
+      "start": {
+        "line": 3,
+        "column": 4
+      },
+      "end": {
+        "line": 3,
+        "column": 10
+      }
+    },
+    "amount": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 11
+      }
+    },
+    "streak": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 11
+      }
+    },
+    "info": {
+      "start": {
+        "line": 6,
+        "column": 4
+      },
+      "end": {
+        "line": 6,
+        "column": 9
+      }
+    },
+    "row": {
+      "start": {
+        "line": 7,
+        "column": 4
+      },
+      "end": {
+        "line": 7,
+        "column": 8
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 8,
+        "column": 4
+      },
+      "end": {
+        "line": 8,
+        "column": 8
+      }
+    },
+    "btn-red": {
+      "start": {
+        "line": 9,
+        "column": 4
+      },
+      "end": {
+        "line": 9,
+        "column": 12
+      }
+    },
+    "btn-black": {
+      "start": {
+        "line": 10,
+        "column": 4
+      },
+      "end": {
+        "line": 10,
+        "column": 14
+      }
+    },
+    "btn-collect": {
+      "start": {
+        "line": 11,
+        "column": 4
+      },
+      "end": {
+        "line": 11,
+        "column": 16
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 13,
+        "column": 2
+      },
+      "end": {
+        "line": 23,
+        "column": 14
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 14,
+        "column": 4
+      },
+      "end": {
+        "line": 14,
+        "column": 37
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 15,
+        "column": 4
+      },
+      "end": {
+        "line": 15,
+        "column": 67
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 16,
+        "column": 4
+      },
+      "end": {
+        "line": 16,
+        "column": 60
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 17,
+        "column": 4
+      },
+      "end": {
+        "line": 17,
+        "column": 60
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 18,
+        "column": 4
+      },
+      "end": {
+        "line": 21,
+        "column": 16
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 19,
+        "column": 6
+      },
+      "end": {
+        "line": 19,
+        "column": 62
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 20,
+        "column": 6
+      },
+      "end": {
+        "line": 20,
+        "column": 68
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 22,
+        "column": 4
+      },
+      "end": {
+        "line": 22,
+        "column": 68
+      }
+    }
+  }
+}
