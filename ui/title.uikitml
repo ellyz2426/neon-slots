@@ -80,6 +80,17 @@
   width: 155;
   textAlign: center;
 }
+.btn-green {
+  fontSize: 15;
+  color: rgba(255, 255, 255, 1);
+  backgroundColor: rgba(0, 42, 20, 0.9);
+  padding: 10;
+  borderRadius: 6;
+  borderColor: rgba(0, 204, 100, 0.8);
+  borderWidth: 1;
+  width: 155;
+  textAlign: center;
+}
 </style>
 <template>
   <container class="root">
@@ -102,6 +113,10 @@
     <container class="row">
       <text id="btn-tournament" class="btn-half" style="borderColor: rgba(255, 150, 0, 0.6); backgroundColor: rgba(42, 20, 0, 0.9)">TOURNAMENT</text>
       <text id="btn-vip" class="btn-half" style="borderColor: rgba(255, 0, 255, 0.6); backgroundColor: rgba(42, 26, 74, 0.9)">VIP REWARDS</text>
+    </container>
+    <container class="row">
+      <text id="btn-dailywheel" class="btn-green">DAILY WHEEL</text>
+      <text id="btn-history" class="btn-half">SPIN HISTORY</text>
     </container>
   </container>
 </template>

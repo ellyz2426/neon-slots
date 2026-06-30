@@ -98,6 +98,19 @@
         "width": "155",
         "textAlign": "center"
       }
+    },
+    "btn-green": {
+      "content": {
+        "fontSize": "15",
+        "color": "rgba(255, 255, 255, 1)",
+        "backgroundColor": "rgba(0, 42, 20, 0.9)",
+        "padding": "10",
+        "borderRadius": 6,
+        "borderColor": "rgba(0, 204, 100, 0.8)",
+        "borderWidth": "1",
+        "width": "155",
+        "textAlign": "center"
+      }
     }
   },
   "ranges": {
@@ -191,13 +204,23 @@
         "column": 9
       }
     },
-    "uid-1": {
+    "btn-green": {
       "start": {
-        "line": 83,
+        "line": 82,
         "column": 0
       },
       "end": {
-        "line": 106,
+        "line": 82,
+        "column": 10
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 94,
+        "column": 0
+      },
+      "end": {
+        "line": 121,
         "column": 11
       }
     }

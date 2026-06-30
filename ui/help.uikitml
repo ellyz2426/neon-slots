@@ -12,37 +12,33 @@
     <text class="text">SPACE - Spin | ESC - Pause/Back | R - Collect</text>
     <text class="text">G - Gamble | H - Hold Respin | Q - Quick Spin</text>
     <text class="text">M - Machines | D - Dailies | B - Buy Bonus</text>
+    <text class="text">T - Tournament | V - VIP | I - History | L - Daily Wheel</text>
     <text class="section">VR Controls</text>
     <text class="text">Trigger - Spin | B - Pause | A - Hold Respin</text>
     <text class="text">Laser Pointer - All menu interaction</text>
     <text class="section">Symbols</text>
     <text class="text">Wild - Subs for all. Expands to fill reel!</text>
+    <text class="text">Wild Multiplier - 25% for 2x, 10% for 3x, 5% for 5x!</text>
     <text class="text">Scatter - 3+ triggers Free Spins (2x mult)</text>
-    <text class="text">Bonus - 3+ triggers the Bonus Wheel</text>
+    <text class="text">Bonus - 3+ Wheel, 4+ Pick a Prize game</text>
     <text class="text">Mystery - Reveals as a random symbol</text>
-    <text class="section">Cascading Reels</text>
+    <text class="section">Cascading Reels + Nudge</text>
     <text class="text">Winning symbols vanish, new ones drop in.</text>
     <text class="text">Each cascade increases the multiplier!</text>
-    <text class="text">Chain wins until no new matches form.</text>
+    <text class="text">Nudge: 12% chance on loss to nudge a reel to win!</text>
     <text class="section">Jackpots</text>
     <text class="text">GRAND - 5 Wilds on payline 1</text>
     <text class="text">MAJOR - 5 Diamonds on any line</text>
     <text class="text">MINOR - 5 Sevens on any line</text>
     <text class="text">MINI - Random on any 5-of-a-kind</text>
-    <text class="section">Buy Bonus</text>
-    <text class="text">Pay to instantly trigger bonus features.</text>
-    <text class="text">Free Spins, Bonus Wheel, or Mega Spins!</text>
+    <text class="section">Daily Wheel + Collection</text>
+    <text class="text">Free daily spin for bonus credits (25-500)!</text>
+    <text class="text">Collect all 12 symbols for milestone rewards!</text>
     <text class="section">Features</text>
     <text class="text">Hold Respin - 15% on loss: hold best reels</text>
     <text class="text">Quick Spin - Toggle faster reel stops</text>
-    <text class="text">5 Machines with different volatility</text>
-    <text class="text">Daily Challenges for bonus credits</text>
-    <text class="section">New Features</text>
-    <text class="text">Sticky Wilds - Wilds lock in Free Spins!</text>
-    <text class="text">Pick Bonus - 4+ Bonus = Pick a Prize game</text>
-    <text class="text">Tournament - 20 spins, maximize winnings</text>
-    <text class="text">VIP Rewards - Earn comp pts, redeem prizes</text>
-    <text class="text">T - Tournament | V - VIP Rewards</text>
+    <text class="text">5 Machines | 5 Themes | Tournaments | VIP</text>
+    <text class="text">Daily Challenges | Buy Bonus | Spin History</text>
     <text id="btn-help-back" class="btn-back">BACK</text>
   </container>
 </panel>

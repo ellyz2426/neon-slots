@@ -66,12 +66,23 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
+              "T - Tournament | V - VIP | I - History | L - Daily Wheel"
+            ],
+            "properties": {
+              "class": "text"
+            },
+            "dataUid": "uid-8"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
               "VR Controls"
             ],
             "properties": {
               "class": "section"
             },
-            "dataUid": "uid-8"
+            "dataUid": "uid-9"
           },
           {
             "sourceTag": "text",
@@ -82,7 +93,7 @@
             "properties": {
               "class": "text"
             },
-            "dataUid": "uid-9"
+            "dataUid": "uid-10"
           },
           {
             "sourceTag": "text",
@@ -93,7 +104,7 @@
             "properties": {
               "class": "text"
             },
-            "dataUid": "uid-10"
+            "dataUid": "uid-11"
           },
           {
             "sourceTag": "text",
@@ -104,7 +115,7 @@
             "properties": {
               "class": "section"
             },
-            "dataUid": "uid-11"
+            "dataUid": "uid-12"
           },
           {
             "sourceTag": "text",
@@ -115,24 +126,13 @@
             "properties": {
               "class": "text"
             },
-            "dataUid": "uid-12"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "Scatter - 3+ triggers Free Spins (2x mult)"
-            ],
-            "properties": {
-              "class": "text"
-            },
             "dataUid": "uid-13"
           },
           {
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Bonus - 3+ triggers the Bonus Wheel"
+              "Wild Multiplier - 25% for 2x, 10% for 3x, 5% for 5x!"
             ],
             "properties": {
               "class": "text"
@@ -143,7 +143,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Mystery - Reveals as a random symbol"
+              "Scatter - 3+ triggers Free Spins (2x mult)"
             ],
             "properties": {
               "class": "text"
@@ -154,10 +154,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Cascading Reels"
+              "Bonus - 3+ Wheel, 4+ Pick a Prize game"
             ],
             "properties": {
-              "class": "section"
+              "class": "text"
             },
             "dataUid": "uid-16"
           },
@@ -165,7 +165,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Winning symbols vanish, new ones drop in."
+              "Mystery - Reveals as a random symbol"
             ],
             "properties": {
               "class": "text"
@@ -176,10 +176,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Each cascade increases the multiplier!"
+              "Cascading Reels + Nudge"
             ],
             "properties": {
-              "class": "text"
+              "class": "section"
             },
             "dataUid": "uid-18"
           },
@@ -187,7 +187,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Chain wins until no new matches form."
+              "Winning symbols vanish, new ones drop in."
             ],
             "properties": {
               "class": "text"
@@ -198,10 +198,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Jackpots"
+              "Each cascade increases the multiplier!"
             ],
             "properties": {
-              "class": "section"
+              "class": "text"
             },
             "dataUid": "uid-20"
           },
@@ -209,7 +209,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "GRAND - 5 Wilds on payline 1"
+              "Nudge: 12% chance on loss to nudge a reel to win!"
             ],
             "properties": {
               "class": "text"
@@ -220,10 +220,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "MAJOR - 5 Diamonds on any line"
+              "Jackpots"
             ],
             "properties": {
-              "class": "text"
+              "class": "section"
             },
             "dataUid": "uid-22"
           },
@@ -231,7 +231,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "MINOR - 5 Sevens on any line"
+              "GRAND - 5 Wilds on payline 1"
             ],
             "properties": {
               "class": "text"
@@ -242,7 +242,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "MINI - Random on any 5-of-a-kind"
+              "MAJOR - 5 Diamonds on any line"
             ],
             "properties": {
               "class": "text"
@@ -253,10 +253,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Buy Bonus"
+              "MINOR - 5 Sevens on any line"
             ],
             "properties": {
-              "class": "section"
+              "class": "text"
             },
             "dataUid": "uid-25"
           },
@@ -264,7 +264,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Pay to instantly trigger bonus features."
+              "MINI - Random on any 5-of-a-kind"
             ],
             "properties": {
               "class": "text"
@@ -275,10 +275,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Free Spins, Bonus Wheel, or Mega Spins!"
+              "Daily Wheel + Collection"
             ],
             "properties": {
-              "class": "text"
+              "class": "section"
             },
             "dataUid": "uid-27"
           },
@@ -286,10 +286,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Features"
+              "Free daily spin for bonus credits (25-500)!"
             ],
             "properties": {
-              "class": "section"
+              "class": "text"
             },
             "dataUid": "uid-28"
           },
@@ -297,7 +297,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Hold Respin - 15% on loss: hold best reels"
+              "Collect all 12 symbols for milestone rewards!"
             ],
             "properties": {
               "class": "text"
@@ -308,10 +308,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Quick Spin - Toggle faster reel stops"
+              "Features"
             ],
             "properties": {
-              "class": "text"
+              "class": "section"
             },
             "dataUid": "uid-30"
           },
@@ -319,7 +319,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "5 Machines with different volatility"
+              "Hold Respin - 15% on loss: hold best reels"
             ],
             "properties": {
               "class": "text"
@@ -330,7 +330,7 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Daily Challenges for bonus credits"
+              "Quick Spin - Toggle faster reel stops"
             ],
             "properties": {
               "class": "text"
@@ -341,10 +341,10 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "New Features"
+              "5 Machines | 5 Themes | Tournaments | VIP"
             ],
             "properties": {
-              "class": "section"
+              "class": "text"
             },
             "dataUid": "uid-33"
           },
@@ -352,56 +352,12 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
-              "Sticky Wilds - Wilds lock in Free Spins!"
+              "Daily Challenges | Buy Bonus | Spin History"
             ],
             "properties": {
               "class": "text"
             },
             "dataUid": "uid-34"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "Pick Bonus - 4+ Bonus = Pick a Prize game"
-            ],
-            "properties": {
-              "class": "text"
-            },
-            "dataUid": "uid-35"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "Tournament - 20 spins, maximize winnings"
-            ],
-            "properties": {
-              "class": "text"
-            },
-            "dataUid": "uid-36"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "VIP Rewards - Earn comp pts, redeem prizes"
-            ],
-            "properties": {
-              "class": "text"
-            },
-            "dataUid": "uid-37"
-          },
-          {
-            "sourceTag": "text",
-            "type": "custom",
-            "children": [
-              "T - Tournament | V - VIP Rewards"
-            ],
-            "properties": {
-              "class": "text"
-            },
-            "dataUid": "uid-38"
           },
           {
             "sourceTag": "text",
@@ -413,7 +369,7 @@
               "id": "btn-help-back",
               "class": "btn-back"
             },
-            "dataUid": "uid-39"
+            "dataUid": "uid-35"
           }
         ],
         "properties": {
@@ -482,7 +438,7 @@
         "column": 0
       },
       "end": {
-        "line": 47,
+        "line": 43,
         "column": 8
       }
     },
@@ -542,7 +498,7 @@
         "column": 2
       },
       "end": {
-        "line": 46,
+        "line": 42,
         "column": 14
       }
     },
@@ -603,7 +559,7 @@
       },
       "end": {
         "line": 14,
-        "column": 44
+        "column": 86
       }
     },
     "uid-9": {
@@ -613,7 +569,7 @@
       },
       "end": {
         "line": 15,
-        "column": 74
+        "column": 44
       }
     },
     "uid-10": {
@@ -623,7 +579,7 @@
       },
       "end": {
         "line": 16,
-        "column": 66
+        "column": 74
       }
     },
     "uid-11": {
@@ -633,7 +589,7 @@
       },
       "end": {
         "line": 17,
-        "column": 40
+        "column": 66
       }
     },
     "uid-12": {
@@ -643,7 +599,7 @@
       },
       "end": {
         "line": 18,
-        "column": 72
+        "column": 40
       }
     },
     "uid-13": {
@@ -663,7 +619,7 @@
       },
       "end": {
         "line": 20,
-        "column": 65
+        "column": 82
       }
     },
     "uid-15": {
@@ -673,7 +629,7 @@
       },
       "end": {
         "line": 21,
-        "column": 66
+        "column": 72
       }
     },
     "uid-16": {
@@ -683,7 +639,7 @@
       },
       "end": {
         "line": 22,
-        "column": 48
+        "column": 68
       }
     },
     "uid-17": {
@@ -693,7 +649,7 @@
       },
       "end": {
         "line": 23,
-        "column": 71
+        "column": 66
       }
     },
     "uid-18": {
@@ -703,7 +659,7 @@
       },
       "end": {
         "line": 24,
-        "column": 68
+        "column": 56
       }
     },
     "uid-19": {
@@ -713,7 +669,7 @@
       },
       "end": {
         "line": 25,
-        "column": 67
+        "column": 71
       }
     },
     "uid-20": {
@@ -723,7 +679,7 @@
       },
       "end": {
         "line": 26,
-        "column": 41
+        "column": 68
       }
     },
     "uid-21": {
@@ -733,7 +689,7 @@
       },
       "end": {
         "line": 27,
-        "column": 58
+        "column": 79
       }
     },
     "uid-22": {
@@ -743,7 +699,7 @@
       },
       "end": {
         "line": 28,
-        "column": 60
+        "column": 41
       }
     },
     "uid-23": {
@@ -763,7 +719,7 @@
       },
       "end": {
         "line": 30,
-        "column": 62
+        "column": 60
       }
     },
     "uid-25": {
@@ -773,7 +729,7 @@
       },
       "end": {
         "line": 31,
-        "column": 42
+        "column": 58
       }
     },
     "uid-26": {
@@ -783,7 +739,7 @@
       },
       "end": {
         "line": 32,
-        "column": 70
+        "column": 62
       }
     },
     "uid-27": {
@@ -793,7 +749,7 @@
       },
       "end": {
         "line": 33,
-        "column": 69
+        "column": 57
       }
     },
     "uid-28": {
@@ -803,7 +759,7 @@
       },
       "end": {
         "line": 34,
-        "column": 41
+        "column": 73
       }
     },
     "uid-29": {
@@ -813,7 +769,7 @@
       },
       "end": {
         "line": 35,
-        "column": 72
+        "column": 75
       }
     },
     "uid-30": {
@@ -823,7 +779,7 @@
       },
       "end": {
         "line": 36,
-        "column": 67
+        "column": 41
       }
     },
     "uid-31": {
@@ -833,7 +789,7 @@
       },
       "end": {
         "line": 37,
-        "column": 66
+        "column": 72
       }
     },
     "uid-32": {
@@ -843,7 +799,7 @@
       },
       "end": {
         "line": 38,
-        "column": 64
+        "column": 67
       }
     },
     "uid-33": {
@@ -853,7 +809,7 @@
       },
       "end": {
         "line": 39,
-        "column": 45
+        "column": 71
       }
     },
     "uid-34": {
@@ -863,7 +819,7 @@
       },
       "end": {
         "line": 40,
-        "column": 70
+        "column": 73
       }
     },
     "uid-35": {
@@ -873,46 +829,6 @@
       },
       "end": {
         "line": 41,
-        "column": 71
-      }
-    },
-    "uid-36": {
-      "start": {
-        "line": 42,
-        "column": 4
-      },
-      "end": {
-        "line": 42,
-        "column": 70
-      }
-    },
-    "uid-37": {
-      "start": {
-        "line": 43,
-        "column": 4
-      },
-      "end": {
-        "line": 43,
-        "column": 72
-      }
-    },
-    "uid-38": {
-      "start": {
-        "line": 44,
-        "column": 4
-      },
-      "end": {
-        "line": 44,
-        "column": 62
-      }
-    },
-    "uid-39": {
-      "start": {
-        "line": 45,
-        "column": 4
-      },
-      "end": {
-        "line": 45,
         "column": 57
       }
     }

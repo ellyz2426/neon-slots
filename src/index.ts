@@ -36,7 +36,7 @@ import {
 
 // ─────────────────────── TYPES & CONSTANTS ───────────────────────
 
-type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip';
+type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip' | 'history' | 'daily_wheel';
 
 interface SymbolDef {
   name: string;
@@ -201,6 +201,26 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'vip_gold', name: 'Gold Status', desc: 'Reach Gold VIP tier', check: s => s.vipTier >= 2 },
   { id: 'vip_redeem', name: 'Points Spender', desc: 'Redeem comp points', check: s => s.compRedeemed >= 1 },
   { id: 'total_won_1m', name: 'Millionaire', desc: 'Win 1,000,000 total credits', check: s => s.totalCreditsWon >= 1000000 },
+  // Multiplier Wilds
+  { id: 'mult_wild_first', name: 'Wild Multiplier!', desc: 'Get your first multiplier wild', check: s => s.multiplierWildsHit >= 1 },
+  { id: 'mult_wild_5x', name: '5x Wild Power', desc: 'Hit a 5x multiplier wild', check: s => s.bestWildMultiplier >= 5 },
+  { id: 'mult_wild_10', name: 'Wild Streak', desc: 'Hit 10 multiplier wilds', check: s => s.multiplierWildsHit >= 10 },
+  // Nudge
+  { id: 'nudge_first', name: 'Lucky Nudge', desc: 'Get your first nudge', check: s => s.nudgesTriggered >= 1 },
+  { id: 'nudge_win', name: 'Nudge Winner', desc: 'Win from a nudge', check: s => s.nudgeWins >= 1 },
+  { id: 'nudge_10', name: 'Nudge Expert', desc: 'Trigger 10 nudges', check: s => s.nudgesTriggered >= 10 },
+  // Daily Wheel
+  { id: 'dwheel_first', name: 'Daily Spinner', desc: 'Spin the daily wheel', check: s => s.dailyWheelSpins >= 1 },
+  { id: 'dwheel_7', name: 'Weekly Spinner', desc: 'Spin daily wheel 7 times', check: s => s.dailyWheelSpins >= 7 },
+  { id: 'dwheel_big', name: 'Lucky Wheel', desc: 'Win 500+ from daily wheel', check: s => s.dailyWheelTotal >= 500 },
+  // Symbol Collection
+  { id: 'collect_3', name: 'Novice Collector', desc: 'Collect 3 unique symbols', check: s => s.collectedSymbols.length >= 3 },
+  { id: 'collect_6', name: 'Symbol Seeker', desc: 'Collect 6 unique symbols', check: s => s.collectedSymbols.length >= 6 },
+  { id: 'collect_9', name: 'Expert Collector', desc: 'Collect 9 unique symbols', check: s => s.collectedSymbols.length >= 9 },
+  { id: 'collect_all', name: 'Master Collector', desc: 'Collect all 12 symbols', check: s => s.collectedSymbols.length >= 12 },
+  // History
+  { id: 'spins_200', name: 'Veteran Spinner', desc: 'Complete 200 spins', check: s => s.totalSpins >= 200 },
+  { id: 'spins_500', name: 'Slot Legend', desc: 'Complete 500 spins', check: s => s.totalSpins >= 500 },
 ];
 
 // Daily challenge templates
@@ -242,6 +262,24 @@ const VIP_TIERS: VipTier[] = [
 
 // Pick bonus prizes (multipliers of bet)
 const PICK_PRIZES = [3, 5, 8, 10, 15, 20, 25, 30, 50, 75, 100, 0]; // 0 = extra pick
+
+// Daily wheel prizes (credit amounts)
+const DAILY_WHEEL_PRIZES = [25, 50, 75, 100, 150, 200, 300, 500];
+
+// Multiplier Wild chances
+const WILD_MULT_CHANCES: { mult: number; chance: number }[] = [
+  { mult: 5, chance: 0.05 },
+  { mult: 3, chance: 0.10 },
+  { mult: 2, chance: 0.25 },
+];
+
+// Symbol collection: 12 symbols total
+const COLLECTION_MILESTONES = [
+  { count: 3, reward: 100, name: 'Novice Collector' },
+  { count: 6, reward: 300, name: 'Symbol Seeker' },
+  { count: 9, reward: 750, name: 'Expert Collector' },
+  { count: 12, reward: 2000, name: 'Master Collector' },
+];
 
 interface SaveData {
   credits: number;
@@ -329,6 +367,21 @@ interface SaveData {
   totalCompEarned: number;
   compRedeemed: number;
   vipTier: number;
+  // Spin history
+  spinHistory: { syms: string; win: number; bet: number; machine: string }[];
+  // Multiplier wilds
+  multiplierWildsHit: number;
+  bestWildMultiplier: number;
+  // Nudge
+  nudgesTriggered: number;
+  nudgeWins: number;
+  // Daily wheel
+  dailyWheelLastDate: string;
+  dailyWheelTotal: number;
+  dailyWheelSpins: number;
+  // Symbol collection
+  collectedSymbols: string[];
+  collectionMilestonesClaimed: number[];
 }
 
 function defaultSave(): SaveData {
@@ -374,6 +427,21 @@ function defaultSave(): SaveData {
     totalCompEarned: 0,
     compRedeemed: 0,
     vipTier: 0,
+    // Spin history
+    spinHistory: [],
+    // Multiplier wilds
+    multiplierWildsHit: 0,
+    bestWildMultiplier: 0,
+    // Nudge
+    nudgesTriggered: 0,
+    nudgeWins: 0,
+    // Daily wheel
+    dailyWheelLastDate: '',
+    dailyWheelTotal: 0,
+    dailyWheelSpins: 0,
+    // Symbol collection
+    collectedSymbols: [],
+    collectionMilestonesClaimed: [],
   };
 }
 
@@ -774,6 +842,20 @@ async function main() {
   let tournamentBestSpin = 0;
   let tournamentBet = 0;
   let tournamentStreak = 0;
+
+  // Multiplier wild state
+  let wildMultipliers: Map<string, number> = new Map(); // key: "r,row" -> multiplier
+  let nudgeAnimating = false;
+  let nudgePending = false;
+  let nudgeTimer = 0;
+  let nudgeReel = -1;
+  let nudgeDir = 0;
+
+  // Daily wheel state
+  let dailyWheelAngle = 0;
+  let dailyWheelSpeed = 0;
+  let dailyWheelSpinning = false;
+  let dailyWheelResult = -1;
 
   // VIP helpers
   function getVipTier(points: number): number {
@@ -1223,6 +1305,145 @@ async function main() {
     saveSave(save);
   }
 
+  // ─────────────── MULTIPLIER WILDS ───────────────
+
+  function assignWildMultipliers() {
+    wildMultipliers.clear();
+    for (let r = 0; r < REELS; r++) {
+      for (let row = 0; row < ROWS; row++) {
+        if (SYMBOLS[currentGrid[r][row]].isWild) {
+          const roll = Math.random();
+          for (const wm of WILD_MULT_CHANCES) {
+            if (roll < wm.chance) {
+              wildMultipliers.set(`${r},${row}`, wm.mult);
+              save.multiplierWildsHit++;
+              save.bestWildMultiplier = Math.max(save.bestWildMultiplier, wm.mult);
+              showToast(`${wm.mult}x WILD!`);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function getLineWildMultiplier(lineIdx: number, matchCount: number): number {
+    const line = PAYLINES[lineIdx];
+    let maxMult = 1;
+    for (let r = 0; r < matchCount; r++) {
+      const key = `${r},${line[r]}`;
+      const m = wildMultipliers.get(key);
+      if (m && m > maxMult) maxMult = m;
+    }
+    return maxMult;
+  }
+
+  // ─────────────── NUDGE FEATURE ───────────────
+
+  function tryNudge(): boolean {
+    // Try nudging each reel up/down by 1 to see if it creates a win
+    for (let r = 0; r < REELS; r++) {
+      for (const dir of [1, -1]) {
+        // Simulate nudge
+        const savedRow: number[] = [];
+        for (let row = 0; row < ROWS; row++) savedRow.push(currentGrid[r][row]);
+        
+        // Apply nudge: shift symbols in the reel
+        const strip = reelStrips[r];
+        // Find current position in strip
+        let stripPos = 0;
+        for (let i = 0; i < REEL_STRIP_LEN; i++) {
+          if (strip[i] === currentGrid[r][0]) { stripPos = i; break; }
+        }
+        const newPos = (stripPos + dir + REEL_STRIP_LEN) % REEL_STRIP_LEN;
+        for (let row = 0; row < ROWS; row++) {
+          currentGrid[r][row] = strip[(newPos + row) % REEL_STRIP_LEN];
+        }
+        
+        // Check if this creates any payline win
+        let hasWin = false;
+        for (let lineIdx = 0; lineIdx < save.linesActive; lineIdx++) {
+          const line = PAYLINES[lineIdx];
+          let baseSym = -1;
+          for (let rr = 0; rr < REELS; rr++) {
+            const sym = currentGrid[rr][line[rr]];
+            if (!SYMBOLS[sym].isWild && !SYMBOLS[sym].isScatter && !SYMBOLS[sym].isBonus && SYMBOLS[sym].name !== 'Mystery') {
+              baseSym = sym; break;
+            }
+          }
+          if (baseSym === -1) continue;
+          let matchCount = 0;
+          for (let rr = 0; rr < REELS; rr++) {
+            const sym = currentGrid[rr][line[rr]];
+            if (sym === baseSym || SYMBOLS[sym].isWild) matchCount++;
+            else break;
+          }
+          if (matchCount >= 3) { hasWin = true; break; }
+        }
+        
+        if (hasWin) {
+          // Keep the nudge, animate it
+          nudgeReel = r;
+          nudgeDir = dir;
+          save.nudgesTriggered++;
+          for (let row = 0; row < ROWS; row++) {
+            updateSymbolMesh(r, row, currentGrid[r][row]);
+          }
+          audio.holdRespin();
+          showToast('NUDGE!');
+          return true;
+        }
+        
+        // Restore original
+        for (let row = 0; row < ROWS; row++) currentGrid[r][row] = savedRow[row];
+      }
+    }
+    return false;
+  }
+
+  // ─────────────── SYMBOL COLLECTION ───────────────
+
+  function updateCollection() {
+    for (let r = 0; r < REELS; r++) {
+      for (let row = 0; row < ROWS; row++) {
+        const sym = SYMBOLS[currentGrid[r][row]];
+        if (!save.collectedSymbols.includes(sym.name)) {
+          save.collectedSymbols.push(sym.name);
+          showToast(`Collected: ${sym.name}!`);
+          audio.click();
+          // Check milestones
+          for (const ms of COLLECTION_MILESTONES) {
+            if (save.collectedSymbols.length >= ms.count && !save.collectionMilestonesClaimed.includes(ms.count)) {
+              save.collectionMilestonesClaimed.push(ms.count);
+              save.credits += ms.reward;
+              save.peakCredits = Math.max(save.peakCredits, save.credits);
+              showToast(`${ms.name}! +${ms.reward} credits!`);
+              audio.achievement();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ─────────────── SPIN HISTORY ───────────────
+
+  function recordSpinHistory(totalWin: number) {
+    const bet = getBet();
+    const symNames = [];
+    for (let r = 0; r < REELS; r++) {
+      const row1 = SYMBOLS[currentGrid[r][1]]?.name || '?';
+      symNames.push(row1);
+    }
+    save.spinHistory.unshift({
+      syms: symNames.join(' '),
+      win: totalWin,
+      bet: bet,
+      machine: MACHINES[save.currentMachine].name,
+    });
+    if (save.spinHistory.length > 20) save.spinHistory.length = 20;
+  }
+
   function applyExpandingWilds(): boolean {
     let expanded = false;
     for (let r = 0; r < REELS; r++) {
@@ -1271,6 +1492,12 @@ async function main() {
       expandingWildTimer = 0;
       showToast('EXPANDING WILD!');
     }
+
+    // Assign multiplier wilds
+    assignWildMultipliers();
+
+    // Update symbol collection
+    updateCollection();
 
     // Sticky wilds during free spins: record wild positions
     if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) {
@@ -1342,6 +1569,9 @@ async function main() {
         if (cascadeLevel > 0) payout *= (1 + cascadeLevel * 0.5);
         // Mega spin multiplier
         if (megaSpinMultiplier > 1) payout *= megaSpinMultiplier;
+        // Multiplier wild
+        const wMult = getLineWildMultiplier(lineIdx, matchCount);
+        if (wMult > 1) payout *= wMult;
 
         winningLines.push({ line: lineIdx, symbols: matchCount, symbolIdx: baseSym, payout });
         totalWin += payout;
@@ -1462,6 +1692,12 @@ async function main() {
       lastWinAmount = totalWin;
       cascadeTotal += totalWin;
 
+      // Track nudge wins
+      if (nudgePending) {
+        save.nudgeWins++;
+        nudgePending = false;
+      }
+
       // XP (with VIP bonus)
       const vipXpBonus = VIP_TIERS[save.vipTier].xpBonus;
       const xpGain = Math.max(1, Math.floor(totalWin / 10)) + vipXpBonus;
@@ -1569,12 +1805,33 @@ async function main() {
         tournamentBestSpin = Math.max(tournamentBestSpin, totalWin);
         tournamentStreak++;
       }
+
+      // Record spin history
+      recordSpinHistory(totalWin);
     } else {
       save.currentWinStreak = 0;
       lastWinAmount = 0;
       cascadeLevel = 0;
       cascadeTotal = 0;
       if (tournamentActive) tournamentStreak = 0;
+
+      // Record spin history (no win)
+      recordSpinHistory(0);
+
+      // Nudge chance: 12% on non-winning spins (not during free spins/auto/tournament)
+      if (freeSpinsRemaining <= 0 && autoSpinRemaining <= 0 && megaSpinsRemaining <= 0 && !tournamentActive && Math.random() < 0.12 && bonusCount < 3) {
+        const didNudge = tryNudge();
+        if (didNudge) {
+          // Re-evaluate the spin after nudge
+          nudgePending = true;
+          setTimeout(() => evaluateWin(), 400);
+          checkAchievements();
+          checkDailyChallenges();
+          updateHUD();
+          saveSave(save);
+          return;
+        }
+      }
 
       // Hold/Respin chance: 15% chance on non-winning spin (not during free spins or auto or mega or tournament)
       if (freeSpinsRemaining <= 0 && autoSpinRemaining <= 0 && megaSpinsRemaining <= 0 && !tournamentActive && Math.random() < 0.15 && bonusCount < 3) {
@@ -1910,6 +2167,96 @@ async function main() {
     setTimeout(() => spinReels(), 500);
   }
 
+  // ─────────────── DAILY WHEEL LOGIC ───────────────
+
+  function canSpinDailyWheel(): boolean {
+    return save.dailyWheelLastDate !== todayStr();
+  }
+
+  function spinDailyWheel() {
+    if (!canSpinDailyWheel()) {
+      showToast('Already spun today! Come back tomorrow!');
+      return;
+    }
+    if (!audio.isReady()) audio.init();
+    dailyWheelSpinning = true;
+    dailyWheelSpeed = 6 + Math.random() * 4;
+    dailyWheelResult = -1;
+    dailyWheelAngle = 0;
+    setText(dailyWheelEntity, 'dwheel-status', 'Spinning...');
+    setText(dailyWheelEntity, 'dwheel-prize', '');
+    audio.bonusTrigger();
+  }
+
+  function resolveDailyWheel() {
+    const segAngle = (Math.PI * 2) / DAILY_WHEEL_PRIZES.length;
+    const normalAngle = ((dailyWheelAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    const segIdx = Math.floor(normalAngle / segAngle) % DAILY_WHEEL_PRIZES.length;
+    dailyWheelResult = segIdx;
+    const prizeAmount = DAILY_WHEEL_PRIZES[segIdx];
+
+    save.credits += prizeAmount;
+    save.totalCreditsWon += prizeAmount;
+    save.peakCredits = Math.max(save.peakCredits, save.credits);
+    save.dailyWheelLastDate = todayStr();
+    save.dailyWheelTotal += prizeAmount;
+    save.dailyWheelSpins++;
+
+    audio.wheelResult();
+    particles.burst(MACHINE_X, MACHINE_Y + 1, MACHINE_Z + 1, '#ffcc00', 25);
+
+    setText(dailyWheelEntity, 'dwheel-status', `Won ${prizeAmount} credits!`);
+    setText(dailyWheelEntity, 'dwheel-prize', `+${prizeAmount} CREDITS`);
+    for (let i = 0; i < DAILY_WHEEL_PRIZES.length; i++) {
+      setText(dailyWheelEntity, `dw-${i}`, i === segIdx ? `>>> ${DAILY_WHEEL_PRIZES[i]} <<<` : `${DAILY_WHEEL_PRIZES[i]}`);
+    }
+
+    checkAchievements();
+    updateHUD();
+    saveSave(save);
+  }
+
+  function updateDailyWheelPanel() {
+    for (let i = 0; i < DAILY_WHEEL_PRIZES.length; i++) {
+      setText(dailyWheelEntity, `dw-${i}`, `${DAILY_WHEEL_PRIZES[i]}`);
+    }
+    if (canSpinDailyWheel()) {
+      setText(dailyWheelEntity, 'dwheel-status', 'Free daily spin available!');
+      setText(dailyWheelEntity, 'btn-dwheel-spin', 'SPIN FREE!');
+    } else {
+      setText(dailyWheelEntity, 'dwheel-status', 'Come back tomorrow!');
+      setText(dailyWheelEntity, 'btn-dwheel-spin', 'ALREADY SPUN');
+    }
+    setText(dailyWheelEntity, 'dwheel-prize', '');
+    setText(dailyWheelEntity, 'dwheel-total', `Total won: ${save.dailyWheelTotal}`);
+    setText(dailyWheelEntity, 'dwheel-spins', `Spins: ${save.dailyWheelSpins}`);
+  }
+
+  function collectDailyWheel() {
+    state = 'title';
+    updateHUD();
+  }
+
+  // ─────────────── SPIN HISTORY PANEL ───────────────
+
+  function updateHistoryPanel() {
+    for (let i = 0; i < 10; i++) {
+      if (i < save.spinHistory.length) {
+        const h = save.spinHistory[i];
+        const winText = h.win > 0 ? `+${h.win.toFixed(2)}` : 'miss';
+        setText(historyEntity, `hist-${i}`, `${h.syms} | ${winText} | bet ${h.bet.toFixed(2)} | ${h.machine}`);
+      } else {
+        setText(historyEntity, `hist-${i}`, '-');
+      }
+    }
+    // Overall stats
+    const recent = save.spinHistory.slice(0, 20);
+    const wins = recent.filter(h => h.win > 0).length;
+    const totalWon = recent.reduce((s, h) => s + h.win, 0);
+    const totalBet = recent.reduce((s, h) => s + h.bet, 0);
+    setText(historyEntity, 'hist-summary', `Recent: ${wins}/${recent.length} wins | Won: ${totalWon.toFixed(2)} | Bet: ${totalBet.toFixed(2)}`);
+  }
+
   // ─────────────── BONUS WHEEL LOGIC ───────────────
 
   function spinBonusWheel() {
@@ -2129,6 +2476,8 @@ async function main() {
     { name: 'pickbonus', config: './ui/pickbonus.json', follower: false },
     { name: 'tournament', config: './ui/tournament.json', follower: false },
     { name: 'vip', config: './ui/vip.json', follower: false },
+    { name: 'history', config: './ui/history.json', follower: false },
+    { name: 'dailywheel', config: './ui/dailywheel.json', follower: false },
   ];
 
   const panelEntities: Record<string, any> = {};
@@ -2172,6 +2521,8 @@ async function main() {
   const pickBonusEntity = panelEntities['pickbonus'];
   const tournamentEntity = panelEntities['tournament'];
   const vipEntity = panelEntities['vip'];
+  const historyEntity = panelEntities['history'];
+  const dailyWheelEntity = panelEntities['dailywheel'];
 
   // ─────────────── UI SYSTEM ───────────────
 
@@ -2197,6 +2548,8 @@ async function main() {
     pickbonus: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/pickbonus.json')] },
     tournament: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/tournament.json')] },
     vip: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/vip.json')] },
+    history: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/history.json')] },
+    dailywheel: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/dailywheel.json')] },
   }) {
     init() {
       // Title
@@ -2217,6 +2570,8 @@ async function main() {
         wire('btn-leaderboard', () => { state = 'leaderboard'; updateLeaderboard(); });
         wire('btn-tournament', () => { state = 'tournament'; updateTournamentPanel(); });
         wire('btn-vip', () => { state = 'vip'; updateVipPanel(); });
+        wire('btn-history', () => { state = 'history'; updateHistoryPanel(); });
+        wire('btn-dailywheel', () => { state = 'daily_wheel'; updateDailyWheelPanel(); });
       });
 
       // HUD
@@ -2503,6 +2858,26 @@ async function main() {
         wire('btn-vip-free', () => { redeemCompFreeSpins(); });
         wire('btn-vip-back', () => { state = 'title'; });
       });
+
+      // History
+      this.queries.history.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        (doc.getElementById('btn-hist-back') as UIKit.Text | undefined)?.addEventListener('click', () => { audio.click(); state = 'title'; });
+      });
+
+      // Daily Wheel
+      this.queries.dailywheel.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-dwheel-spin', () => { if (canSpinDailyWheel()) spinDailyWheel(); });
+        wire('btn-dwheel-collect', () => { if (dailyWheelResult >= 0) collectDailyWheel(); });
+        wire('btn-dwheel-back', () => { state = 'title'; });
+      });
     }
   }
 
@@ -2538,10 +2913,10 @@ async function main() {
     setText(statsEntity, 'stat-biggest', `Biggest Win: ${save.biggestWin.toFixed(2)}`);
     setText(statsEntity, 'stat-streak', `Best Win Streak: ${save.bestWinStreak}`);
     setText(statsEntity, 'stat-jackpots', `Jackpots: G${save.jpGrandWins} M${save.jpMajorWins} m${save.jpMinorWins} n${save.jpMiniWins}`);
-    setText(statsEntity, 'stat-freespins', `Free Spins: ${save.freeSpinsTriggered}`);
-    setText(statsEntity, 'stat-gambles', `Gambles Won/Lost: ${save.gambleWins}/${save.gambleLosses}`);
+    setText(statsEntity, 'stat-freespins', `Free Spins: ${save.freeSpinsTriggered} | Nudges: ${save.nudgesTriggered} (${save.nudgeWins} won)`);
+    setText(statsEntity, 'stat-gambles', `Gambles Won/Lost: ${save.gambleWins}/${save.gambleLosses} | Mult Wilds: ${save.multiplierWildsHit}`);
     setText(statsEntity, 'stat-level', `Level: ${save.level} (${save.xp}/${100 + save.level * 50} XP)`);
-    setText(statsEntity, 'stat-peak', `Peak: ${save.peakCredits.toFixed(2)} | Cascades: ${save.totalCascades} (best ${save.bestCascadeChain}x)`);
+    setText(statsEntity, 'stat-peak', `Peak: ${save.peakCredits.toFixed(2)} | Collection: ${save.collectedSymbols.length}/12 | Daily Wheel: ${save.dailyWheelTotal}`);
   }
 
   function updateSettings() {
@@ -2660,6 +3035,16 @@ async function main() {
       // Wheel light pulse when active
       if (wheelGroup.visible) {
         wheelLight.intensity = 1.5 + Math.sin(Date.now() * 0.005) * 0.5;
+      }
+
+      // Daily wheel spinning
+      if (dailyWheelSpinning && state === 'daily_wheel') {
+        dailyWheelAngle += dailyWheelSpeed * dt;
+        dailyWheelSpeed *= 0.985;
+        if (dailyWheelSpeed < 0.15) {
+          dailyWheelSpinning = false;
+          resolveDailyWheel();
+        }
       }
 
       // Expanding wild animation
@@ -2922,6 +3307,8 @@ async function main() {
       const pickBonusVisible = state === 'pick_bonus';
       const tournamentVisible = state === 'tournament';
       const vipVisible = state === 'vip';
+      const historyVisible = state === 'history';
+      const dailyWheelVisible = state === 'daily_wheel';
 
       setEntityVisibility(titleEntity, titleVisible);
       setEntityVisibility(hudEntity, hudVisible);
@@ -2943,6 +3330,8 @@ async function main() {
       setEntityVisibility(pickBonusEntity, pickBonusVisible);
       setEntityVisibility(tournamentEntity, tournamentVisible);
       setEntityVisibility(vipEntity, vipVisible);
+      setEntityVisibility(historyEntity, historyVisible);
+      setEntityVisibility(dailyWheelEntity, dailyWheelVisible);
       setEntityVisibility(toastEntity, !!currentToast);
 
       // XR controller input
@@ -3019,6 +3408,12 @@ async function main() {
     }
     if (e.code === 'KeyV') {
       if (state === 'title') { state = 'vip'; updateVipPanel(); }
+    }
+    if (e.code === 'KeyI') {
+      if (state === 'title') { state = 'history'; updateHistoryPanel(); }
+    }
+    if (e.code === 'KeyL') {
+      if (state === 'title') { state = 'daily_wheel'; updateDailyWheelPanel(); }
     }
   });
 

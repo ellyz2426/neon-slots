@@ -1,0 +1,98 @@
+<panel>
+<style>
+.root {
+  width: 450;
+  backgroundColor: #0a0a2aee;
+  borderRadius: 12;
+  padding: 16;
+  flexDirection: column;
+  gap: 6;
+  alignItems: center;
+}
+.title {
+  fontSize: 24;
+  color: #ffcc00;
+  textAlign: center;
+  marginBottom: 4;
+}
+.subtitle {
+  fontSize: 12;
+  color: #aabbcc;
+  textAlign: center;
+  marginBottom: 8;
+}
+.prizes {
+  flexDirection: row;
+  flexWrap: wrap;
+  gap: 6;
+  justifyContent: center;
+  marginBottom: 10;
+}
+.prize {
+  fontSize: 14;
+  color: #ffffff;
+  backgroundColor: #222255;
+  padding: 8;
+  borderRadius: 6;
+  width: 80;
+  textAlign: center;
+}
+.status {
+  fontSize: 16;
+  color: #00ffff;
+  textAlign: center;
+  marginTop: 6;
+  padding: 6;
+}
+.prize-result {
+  fontSize: 20;
+  color: #ffcc00;
+  textAlign: center;
+  padding: 8;
+}
+.info {
+  fontSize: 11;
+  color: #8899aa;
+  textAlign: center;
+}
+.btn {
+  fontSize: 16;
+  color: #ffffff;
+  backgroundColor: #00cc66;
+  textAlign: center;
+  padding: 10;
+  borderRadius: 8;
+  marginTop: 8;
+  width: 200;
+}
+.btn-back {
+  fontSize: 14;
+  color: #ffffff;
+  backgroundColor: #333366;
+  textAlign: center;
+  padding: 8;
+  borderRadius: 6;
+  marginTop: 6;
+  width: 120;
+}
+</style>
+<text class="title">LUCKY DAILY WHEEL</text>
+<text class="subtitle">One free spin every day!</text>
+<container class="prizes">
+  <text class="prize" id="dw-0">25</text>
+  <text class="prize" id="dw-1">50</text>
+  <text class="prize" id="dw-2">75</text>
+  <text class="prize" id="dw-3">100</text>
+  <text class="prize" id="dw-4">150</text>
+  <text class="prize" id="dw-5">200</text>
+  <text class="prize" id="dw-6">300</text>
+  <text class="prize" id="dw-7">500</text>
+</container>
+<text class="status" id="dwheel-status">Free daily spin available!</text>
+<text class="prize-result" id="dwheel-prize"></text>
+<text class="btn" id="btn-dwheel-spin">SPIN FREE!</text>
+<text class="info" id="dwheel-total">Total won: 0</text>
+<text class="info" id="dwheel-spins">Spins: 0</text>
+<text class="btn-back" id="btn-dwheel-collect">COLLECT</text>
+<text class="btn-back" id="btn-dwheel-back">BACK</text>
+</panel>

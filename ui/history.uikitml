@@ -1,0 +1,57 @@
+<panel>
+<style>
+.root {
+  width: 500;
+  backgroundColor: #0a0a2aee;
+  borderRadius: 12;
+  padding: 16;
+  flexDirection: column;
+  gap: 6;
+}
+.title {
+  fontSize: 22;
+  color: #00ffff;
+  textAlign: center;
+  marginBottom: 8;
+}
+.row {
+  fontSize: 11;
+  color: #ccddff;
+  textAlign: left;
+  padding: 3;
+  backgroundColor: #111133;
+  borderRadius: 4;
+}
+.summary {
+  fontSize: 12;
+  color: #ffcc00;
+  textAlign: center;
+  marginTop: 8;
+  padding: 6;
+  backgroundColor: #1a1a3a;
+  borderRadius: 6;
+}
+.btn {
+  fontSize: 14;
+  color: #ffffff;
+  backgroundColor: #333366;
+  textAlign: center;
+  padding: 8;
+  borderRadius: 6;
+  marginTop: 8;
+}
+</style>
+<text class="title">SPIN HISTORY</text>
+<text class="row" id="hist-0">-</text>
+<text class="row" id="hist-1">-</text>
+<text class="row" id="hist-2">-</text>
+<text class="row" id="hist-3">-</text>
+<text class="row" id="hist-4">-</text>
+<text class="row" id="hist-5">-</text>
+<text class="row" id="hist-6">-</text>
+<text class="row" id="hist-7">-</text>
+<text class="row" id="hist-8">-</text>
+<text class="row" id="hist-9">-</text>
+<text class="summary" id="hist-summary">No spins yet</text>
+<text class="btn" id="btn-hist-back">BACK</text>
+</panel>
