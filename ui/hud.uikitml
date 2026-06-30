@@ -14,11 +14,13 @@
     .info { fontSize: 10; color: #666688; }
     .free { fontSize: 14; color: #00ff88; fontWeight: bold; }
     .auto { fontSize: 10; color: #ffcc00; }
+    .streak { fontSize: 12; color: #ff8800; }
   </style>
   <container class="root">
     <container class="row">
       <text id="jackpot" class="jackpot">JACKPOT: 500.00</text>
       <text id="level" class="info">Lv.1</text>
+      <text id="prestige-badge" class="info"></text>
     </container>
     <container class="row">
       <text id="credits" class="value">Credits: 1000.00</text>
@@ -48,6 +50,7 @@
       <text id="btn-quick" class="btn">QUICK</text>
       <text id="btn-pause" class="btn">PAUSE</text>
     </container>
+    <text id="streak-info" class="streak"></text>
     <text id="freespins" class="free"></text>
     <text id="autospin" class="auto"></text>
   </container>

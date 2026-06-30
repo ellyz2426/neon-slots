@@ -1,0 +1,52 @@
+<panel>
+  <style>
+    .root { flexDirection: column; alignItems: center; gap: 8; padding: 16; backgroundColor: rgba(10,5,30,0.95); borderRadius: 12; width: 440; }
+    .title { fontSize: 22; color: #00ccff; }
+    .subtitle { fontSize: 12; color: #8888aa; }
+    .row { flexDirection: row; justifyContent: space-between; alignItems: center; width: 400; gap: 8; }
+    .label { fontSize: 13; color: #ccccdd; width: 200; }
+    .val { fontSize: 13; color: #ffcc00; width: 80; alignItems: center; }
+    .btn { fontSize: 12; color: #ffffff; backgroundColor: rgba(0,180,255,0.3); borderRadius: 6; padding: 6; alignItems: center; width: 50; }
+    .btn-back { fontSize: 14; color: #ffffff; backgroundColor: rgba(255,50,50,0.3); borderRadius: 8; padding: 8; alignItems: center; width: 120; marginTop: 8; }
+    .toggle-on { fontSize: 12; color: #00ff88; backgroundColor: rgba(0,255,136,0.2); borderRadius: 6; padding: 6; alignItems: center; width: 50; }
+    .toggle-off { fontSize: 12; color: #ff4466; backgroundColor: rgba(255,68,102,0.2); borderRadius: 6; padding: 6; alignItems: center; width: 50; }
+    .divider { width: 400; height: 1; backgroundColor: rgba(100,100,200,0.2); }
+  </style>
+  <text class="title">AUTO-PLAY CONFIG</text>
+  <text class="subtitle">Set stop conditions for auto-spin</text>
+  <view class="divider" />
+  <view class="row">
+    <text class="label">Stop on Bonus Trigger</text>
+    <text id="ac-bonus" class="toggle-off">OFF</text>
+  </view>
+  <view class="row">
+    <text class="label">Stop on Jackpot</text>
+    <text id="ac-jackpot" class="toggle-on">ON</text>
+  </view>
+  <view class="row">
+    <text class="label">Stop on Free Spins</text>
+    <text id="ac-freespins" class="toggle-off">OFF</text>
+  </view>
+  <view class="divider" />
+  <view class="row">
+    <text class="label">Loss Limit (0=off)</text>
+    <text id="ac-loss-val" class="val">0</text>
+    <text id="ac-loss-dn" class="btn">-</text>
+    <text id="ac-loss-up" class="btn">+</text>
+  </view>
+  <view class="row">
+    <text class="label">Single Win Limit (0=off)</text>
+    <text id="ac-win-val" class="val">0</text>
+    <text id="ac-win-dn" class="btn">-</text>
+    <text id="ac-win-up" class="btn">+</text>
+  </view>
+  <view class="row">
+    <text class="label">Balance Target (0=off)</text>
+    <text id="ac-bal-val" class="val">0</text>
+    <text id="ac-bal-dn" class="btn">-</text>
+    <text id="ac-bal-up" class="btn">+</text>
+  </view>
+  <view class="divider" />
+  <text id="ac-status" class="subtitle"></text>
+  <text id="btn-ac-back" class="btn-back">BACK</text>
+</panel>

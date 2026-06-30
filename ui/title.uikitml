@@ -53,17 +53,6 @@
   width: 320;
   textAlign: center;
 }
-.btn-orange {
-  fontSize: 16;
-  color: rgba(255, 255, 255, 1);
-  backgroundColor: rgba(42, 20, 0, 0.9);
-  padding: 10;
-  borderRadius: 6;
-  borderColor: rgba(255, 150, 0, 0.6);
-  borderWidth: 1;
-  width: 320;
-  textAlign: center;
-}
 .row {
   flexDirection: row;
   gap: 8;
@@ -117,6 +106,10 @@
     <container class="row">
       <text id="btn-dailywheel" class="btn-green">DAILY WHEEL</text>
       <text id="btn-history" class="btn-half">SPIN HISTORY</text>
+    </container>
+    <container class="row">
+      <text id="btn-autoconfig" class="btn-half" style="borderColor: rgba(0, 255, 200, 0.6); backgroundColor: rgba(0, 30, 40, 0.9)">AUTO CONFIG</text>
+      <text id="btn-prestige" class="btn-half" style="borderColor: rgba(255, 204, 0, 0.8); backgroundColor: rgba(42, 30, 0, 0.9)">PRESTIGE</text>
     </container>
   </container>
 </template>

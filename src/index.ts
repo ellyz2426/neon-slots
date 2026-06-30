@@ -36,7 +36,7 @@ import {
 
 // ─────────────────────── TYPES & CONSTANTS ───────────────────────
 
-type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip' | 'history' | 'daily_wheel';
+type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip' | 'history' | 'daily_wheel' | 'autoconfig' | 'prestige';
 
 interface SymbolDef {
   name: string;
@@ -221,6 +221,21 @@ const ACHIEVEMENTS: Achievement[] = [
   // History
   { id: 'spins_200', name: 'Veteran Spinner', desc: 'Complete 200 spins', check: s => s.totalSpins >= 200 },
   { id: 'spins_500', name: 'Slot Legend', desc: 'Complete 500 spins', check: s => s.totalSpins >= 500 },
+  // Linked Reels
+  { id: 'linked_first', name: 'In Sync', desc: 'Trigger linked reels', check: s => s.linkedReelsTriggered >= 1 },
+  { id: 'linked_5', name: 'Sync Master', desc: 'Trigger linked reels 5 times', check: s => s.linkedReelsTriggered >= 5 },
+  { id: 'linked_4reels', name: 'Quad Link', desc: 'Get 4 linked reels', check: s => s.bestLinkedReelCount >= 4 },
+  { id: 'linked_win', name: 'Linked Win!', desc: 'Win with linked reels', check: s => s.linkedReelWins >= 1 },
+  // Prestige
+  { id: 'prestige_first', name: 'Reborn', desc: 'Prestige for the first time', check: s => s.totalPrestiges >= 1 },
+  { id: 'prestige_3', name: 'Star Chaser', desc: 'Reach Prestige Star III', check: s => s.prestigeLevel >= 3 },
+  { id: 'prestige_max', name: 'Prestige Master', desc: 'Reach max prestige', check: s => s.prestigeLevel >= 5 },
+  // Streak multiplier
+  { id: 'streak_3x', name: 'Hot Hand', desc: 'Earn a 3-win streak multiplier', check: s => s.streakMultipliersEarned >= 1 },
+  { id: 'streak_5x', name: 'On a Roll', desc: 'Earn a 5-win streak multiplier', check: s => s.bestStreakMultiplier >= 1.3 },
+  { id: 'streak_7x', name: 'Inferno Streak', desc: 'Earn a 7-win streak multiplier', check: s => s.bestStreakMultiplier >= 1.5 },
+  // Milestone
+  { id: 'spins_1000', name: 'Eternal Spinner', desc: 'Complete 1,000 spins', check: s => s.totalSpins >= 1000 },
 ];
 
 // Daily challenge templates
@@ -280,6 +295,51 @@ const COLLECTION_MILESTONES = [
   { count: 9, reward: 750, name: 'Expert Collector' },
   { count: 12, reward: 2000, name: 'Master Collector' },
 ];
+
+// ─────────────── PRESTIGE SYSTEM ───────────────
+
+interface PrestigeTier {
+  name: string;
+  color: string;
+  minLevel: number;
+  payoutBonus: number; // permanent % bonus to all payouts
+  xpBonus: number; // permanent XP bonus per spin
+  startCredits: number; // credits after prestige reset
+}
+
+const PRESTIGE_TIERS: PrestigeTier[] = [
+  { name: 'None', color: '#888888', minLevel: 0, payoutBonus: 0, xpBonus: 0, startCredits: 1000 },
+  { name: 'Star I', color: '#ffcc00', minLevel: 25, payoutBonus: 5, xpBonus: 1, startCredits: 1500 },
+  { name: 'Star II', color: '#ff8800', minLevel: 25, payoutBonus: 10, xpBonus: 2, startCredits: 2000 },
+  { name: 'Star III', color: '#ff2244', minLevel: 25, payoutBonus: 15, xpBonus: 3, startCredits: 3000 },
+  { name: 'Star IV', color: '#ff00ff', minLevel: 25, payoutBonus: 20, xpBonus: 4, startCredits: 4000 },
+  { name: 'Star V', color: '#00ffff', minLevel: 25, payoutBonus: 30, xpBonus: 5, startCredits: 5000 },
+];
+
+// ─────────────── AUTO-PLAY STOP CONDITIONS ───────────────
+
+interface AutoPlayConfig {
+  stopOnBonus: boolean;
+  stopOnJackpot: boolean;
+  stopOnFreeSpins: boolean;
+  lossLimit: number; // 0 = disabled
+  singleWinLimit: number; // 0 = disabled
+  balanceTarget: number; // 0 = disabled
+}
+
+// ─────────────── STREAK MULTIPLIER ───────────────
+
+const STREAK_MULTIPLIERS: { streak: number; mult: number }[] = [
+  { streak: 7, mult: 1.5 },
+  { streak: 5, mult: 1.3 },
+  { streak: 3, mult: 1.1 },
+];
+
+// ─────────────── LINKED REELS ───────────────
+
+const LINKED_REELS_CHANCE = 0.12; // 12% chance per spin
+const MIN_LINKED = 2;
+const MAX_LINKED = 4;
 
 interface SaveData {
   credits: number;
@@ -382,6 +442,19 @@ interface SaveData {
   // Symbol collection
   collectedSymbols: string[];
   collectionMilestonesClaimed: number[];
+  // Prestige system
+  prestigeLevel: number;
+  totalPrestiges: number;
+  // Linked reels
+  linkedReelsTriggered: number;
+  bestLinkedReelCount: number;
+  linkedReelWins: number;
+  // Streak multiplier
+  streakMultipliersEarned: number;
+  bestStreakMultiplier: number;
+  // Auto-play config
+  autoConfig: AutoPlayConfig;
+  autoSessionStartCredits: number;
 }
 
 function defaultSave(): SaveData {
@@ -442,6 +515,26 @@ function defaultSave(): SaveData {
     // Symbol collection
     collectedSymbols: [],
     collectionMilestonesClaimed: [],
+    // Prestige system
+    prestigeLevel: 0,
+    totalPrestiges: 0,
+    // Linked reels
+    linkedReelsTriggered: 0,
+    bestLinkedReelCount: 0,
+    linkedReelWins: 0,
+    // Streak multiplier
+    streakMultipliersEarned: 0,
+    bestStreakMultiplier: 1,
+    // Auto-play config
+    autoConfig: {
+      stopOnBonus: false,
+      stopOnJackpot: true,
+      stopOnFreeSpins: false,
+      lossLimit: 0,
+      singleWinLimit: 0,
+      balanceTarget: 0,
+    },
+    autoSessionStartCredits: 0,
   };
 }
 
@@ -856,6 +949,16 @@ async function main() {
   let dailyWheelSpeed = 0;
   let dailyWheelSpinning = false;
   let dailyWheelResult = -1;
+
+  // Linked reels state
+  let linkedReels: number[] = []; // indices of reels that are linked this spin
+  let linkedReelsActive = false;
+
+  // Streak multiplier state
+  let currentStreakMult = 1;
+
+  // Auto-play tracking
+  let autoSessionLoss = 0;
 
   // VIP helpers
   function getVipTier(points: number): number {
@@ -1282,6 +1385,28 @@ async function main() {
       }
     }
 
+    // Linked reels: chance to sync adjacent reels
+    linkedReels = [];
+    linkedReelsActive = false;
+    if (!isRespin && Math.random() < LINKED_REELS_CHANCE) {
+      const linkCount = MIN_LINKED + Math.floor(Math.random() * (MAX_LINKED - MIN_LINKED + 1));
+      const startReel = Math.floor(Math.random() * (REELS - linkCount + 1));
+      linkedReels = [];
+      for (let i = 0; i < linkCount; i++) linkedReels.push(startReel + i);
+      linkedReelsActive = true;
+      // Copy the first linked reel's symbols to all other linked reels
+      const sourceReel = linkedReels[0];
+      for (let i = 1; i < linkedReels.length; i++) {
+        for (let row = 0; row < ROWS; row++) {
+          targetGrid[linkedReels[i]][row] = targetGrid[sourceReel][row];
+        }
+      }
+      save.linkedReelsTriggered++;
+      save.bestLinkedReelCount = Math.max(save.bestLinkedReelCount, linkCount);
+      audio.holdRespin();
+      showToast(`${linkCount} LINKED REELS!`);
+    }
+
     // Apply sticky wilds during free spins
     if (freeSpinsRemaining > 0 || freeSpinsTotal > 0) {
       const wildIdx = SYMBOLS.findIndex(s => s.isWild);
@@ -1471,6 +1596,68 @@ async function main() {
     return expanded;
   }
 
+  // ─────────────── AUTO-PLAY STOP CHECKS ───────────────
+
+  function shouldStopAutoPlay(winAmount: number, bonusTriggered: boolean, jackpotTriggered: boolean, freeSpinTriggered: boolean): boolean {
+    if (autoSpinRemaining <= 0) return false;
+    const cfg = save.autoConfig;
+    if (cfg.stopOnBonus && bonusTriggered) { showToast('Auto-stop: Bonus!'); return true; }
+    if (cfg.stopOnJackpot && jackpotTriggered) { showToast('Auto-stop: Jackpot!'); return true; }
+    if (cfg.stopOnFreeSpins && freeSpinTriggered) { showToast('Auto-stop: Free Spins!'); return true; }
+    if (cfg.singleWinLimit > 0 && winAmount >= cfg.singleWinLimit) { showToast(`Auto-stop: Win >= ${cfg.singleWinLimit}!`); return true; }
+    if (cfg.lossLimit > 0) {
+      const sessionLoss = save.autoSessionStartCredits - save.credits;
+      if (sessionLoss >= cfg.lossLimit) { showToast(`Auto-stop: Loss limit!`); return true; }
+    }
+    if (cfg.balanceTarget > 0 && save.credits >= cfg.balanceTarget) { showToast(`Auto-stop: Balance target!`); return true; }
+    return false;
+  }
+
+  // ─────────────── PRESTIGE SYSTEM ───────────────
+
+  function canPrestige(): boolean {
+    return save.level >= 25 && save.prestigeLevel < PRESTIGE_TIERS.length - 1;
+  }
+
+  function doPrestige() {
+    if (!canPrestige()) return;
+    save.prestigeLevel++;
+    save.totalPrestiges++;
+    const tier = PRESTIGE_TIERS[save.prestigeLevel];
+    
+    // Reset progress but keep permanent bonuses, achievements, and prestige
+    save.credits = tier.startCredits;
+    save.level = 1;
+    save.xp = 0;
+    save.totalSpins = 0;
+    save.totalWins = 0;
+    save.totalCreditsWon = 0;
+    save.totalCreditsBet = 0;
+    save.biggestWin = 0;
+    save.biggestWinMultiplier = 0;
+    save.currentWinStreak = 0;
+    save.bestWinStreak = 0;
+    save.peakCredits = tier.startCredits;
+    save.currentMachine = 0;
+    save.compPoints = 0;
+    save.vipTier = 0;
+    save.totalCompEarned = 0;
+    save.leaderboard = [];
+    save.spinHistory = [];
+    save.tournamentHistory = [];
+    save.jpGrand = 5000;
+    save.jpMajor = 1000;
+    save.jpMinor = 250;
+    save.jpMini = 50;
+    
+    regenerateReels();
+    audio.levelUp();
+    showToast(`PRESTIGE: ${tier.name}! +${tier.payoutBonus}% payouts!`);
+    checkAchievements();
+    updateHUD();
+    saveSave(save);
+  }
+
   function evaluateWin() {
     const bet = getBet();
     const lineBet = COIN_VALUES[save.coinValueIdx];
@@ -1572,6 +1759,12 @@ async function main() {
         // Multiplier wild
         const wMult = getLineWildMultiplier(lineIdx, matchCount);
         if (wMult > 1) payout *= wMult;
+        // Prestige payout bonus
+        if (save.prestigeLevel > 0) {
+          payout *= (1 + PRESTIGE_TIERS[save.prestigeLevel].payoutBonus / 100);
+        }
+        // Streak multiplier
+        if (currentStreakMult > 1) payout *= currentStreakMult;
 
         winningLines.push({ line: lineIdx, symbols: matchCount, symbolIdx: baseSym, payout });
         totalWin += payout;
@@ -1679,6 +1872,14 @@ async function main() {
     // Update jackpot display
     updateJackpotPanel();
 
+    // Check auto-play stop conditions
+    const jackpotHit = save.lastJackpotType !== '' && (save.jpGrandWins + save.jpMajorWins + save.jpMinorWins + save.jpMiniWins) > 0;
+    const bonusHit = bonusCount >= 3;
+    const freeSpinHit = scatterCount >= 3;
+    if (shouldStopAutoPlay(totalWin, bonusHit, jackpotHit, freeSpinHit)) {
+      autoSpinRemaining = 0;
+    }
+
     if (totalWin > 0) {
       save.credits += totalWin;
       save.totalWins++;
@@ -1688,6 +1889,26 @@ async function main() {
       save.biggestWinMultiplier = Math.max(save.biggestWinMultiplier, winMult);
       save.currentWinStreak++;
       save.bestWinStreak = Math.max(save.bestWinStreak, save.currentWinStreak);
+
+      // Update streak multiplier for next spin
+      currentStreakMult = 1;
+      for (const sm of STREAK_MULTIPLIERS) {
+        if (save.currentWinStreak >= sm.streak) {
+          currentStreakMult = sm.mult;
+          save.bestStreakMultiplier = Math.max(save.bestStreakMultiplier, sm.mult);
+          save.streakMultipliersEarned++;
+          break;
+        }
+      }
+      if (currentStreakMult > 1) {
+        showToast(`${save.currentWinStreak} WIN STREAK! ${currentStreakMult}x next!`);
+      }
+
+      // Track linked reel wins
+      if (linkedReelsActive) {
+        save.linkedReelWins++;
+        linkedReelsActive = false;
+      }
       save.peakCredits = Math.max(save.peakCredits, save.credits);
       lastWinAmount = totalWin;
       cascadeTotal += totalWin;
@@ -1698,9 +1919,10 @@ async function main() {
         nudgePending = false;
       }
 
-      // XP (with VIP bonus)
+      // XP (with VIP bonus + prestige bonus)
       const vipXpBonus = VIP_TIERS[save.vipTier].xpBonus;
-      const xpGain = Math.max(1, Math.floor(totalWin / 10)) + vipXpBonus;
+      const prestigeXpBonus = PRESTIGE_TIERS[save.prestigeLevel].xpBonus;
+      const xpGain = Math.max(1, Math.floor(totalWin / 10)) + vipXpBonus + prestigeXpBonus;
       save.xp += xpGain;
       const nextLevelXp = 100 + save.level * 50;
       if (save.xp >= nextLevelXp) {
@@ -1810,6 +2032,8 @@ async function main() {
       recordSpinHistory(totalWin);
     } else {
       save.currentWinStreak = 0;
+      currentStreakMult = 1;
+      linkedReelsActive = false;
       lastWinAmount = 0;
       cascadeLevel = 0;
       cascadeTotal = 0;
@@ -2387,10 +2611,21 @@ async function main() {
     setText(hudEntity, 'win', lastWinAmount > 0 ? `WIN: ${lastWinAmount.toFixed(2)}` : '');
     setText(hudEntity, 'jackpot', `JP: G${save.jpGrand.toFixed(0)} M${save.jpMajor.toFixed(0)} m${save.jpMinor.toFixed(0)} n${save.jpMini.toFixed(0)}`);
     setText(hudEntity, 'level', `Lv.${save.level}`);
+    // Prestige badge
+    if (save.prestigeLevel > 0) {
+      setText(hudEntity, 'prestige-badge', `[${PRESTIGE_TIERS[save.prestigeLevel].name}]`);
+    } else {
+      setText(hudEntity, 'prestige-badge', '');
+    }
     const freeText = freeSpinsRemaining > 0 ? `FREE: ${freeSpinsRemaining}` : '';
     const megaText = megaSpinsRemaining > 0 ? `MEGA: ${megaSpinsRemaining} (${megaSpinMultiplier}x)` : '';
     setText(hudEntity, 'freespins', freeText || megaText);
     setText(hudEntity, 'autospin', autoSpinRemaining > 0 ? `AUTO: ${autoSpinRemaining}` : '');
+    // Streak info
+    const streakParts: string[] = [];
+    if (currentStreakMult > 1) streakParts.push(`Streak ${currentStreakMult}x`);
+    if (linkedReelsActive) streakParts.push(`Linked ${linkedReels.length} reels`);
+    setText(hudEntity, 'streak-info', streakParts.join(' | '));
   }
 
   function updateGamblePanel() {
@@ -2478,6 +2713,8 @@ async function main() {
     { name: 'vip', config: './ui/vip.json', follower: false },
     { name: 'history', config: './ui/history.json', follower: false },
     { name: 'dailywheel', config: './ui/dailywheel.json', follower: false },
+    { name: 'autoconfig', config: './ui/autoconfig.json', follower: false },
+    { name: 'prestige', config: './ui/prestige.json', follower: false },
   ];
 
   const panelEntities: Record<string, any> = {};
@@ -2523,6 +2760,8 @@ async function main() {
   const vipEntity = panelEntities['vip'];
   const historyEntity = panelEntities['history'];
   const dailyWheelEntity = panelEntities['dailywheel'];
+  const autoconfigEntity = panelEntities['autoconfig'];
+  const prestigeEntity = panelEntities['prestige'];
 
   // ─────────────── UI SYSTEM ───────────────
 
@@ -2550,6 +2789,8 @@ async function main() {
     vip: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/vip.json')] },
     history: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/history.json')] },
     dailywheel: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/dailywheel.json')] },
+    autoconfig: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/autoconfig.json')] },
+    prestige: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/prestige.json')] },
   }) {
     init() {
       // Title
@@ -2572,6 +2813,8 @@ async function main() {
         wire('btn-vip', () => { state = 'vip'; updateVipPanel(); });
         wire('btn-history', () => { state = 'history'; updateHistoryPanel(); });
         wire('btn-dailywheel', () => { state = 'daily_wheel'; updateDailyWheelPanel(); });
+        wire('btn-autoconfig', () => { state = 'autoconfig'; updateAutoConfigPanel(); });
+        wire('btn-prestige', () => { state = 'prestige'; updatePrestigePanel(); });
       });
 
       // HUD
@@ -2588,8 +2831,8 @@ async function main() {
         wire('btn-lines-up', () => { save.linesActive = Math.min(save.linesActive + 1, 20); updateHUD(); saveSave(save); });
         wire('btn-lines-dn', () => { save.linesActive = Math.max(save.linesActive - 1, 1); updateHUD(); saveSave(save); });
         wire('btn-max', () => { save.coinValueIdx = COIN_VALUES.length - 1; save.linesActive = 20; updateHUD(); saveSave(save); });
-        wire('btn-auto5', () => { autoSpinRemaining = 5; spinReels(); });
-        wire('btn-auto25', () => { autoSpinRemaining = 25; spinReels(); });
+        wire('btn-auto5', () => { autoSpinRemaining = 5; save.autoSessionStartCredits = save.credits; saveSave(save); spinReels(); });
+        wire('btn-auto25', () => { autoSpinRemaining = 25; save.autoSessionStartCredits = save.credits; saveSave(save); spinReels(); });
         wire('btn-auto-stop', () => { autoSpinRemaining = 0; updateHUD(); });
         wire('btn-quick', () => {
           quickSpinMode = !quickSpinMode;
@@ -2878,6 +3121,54 @@ async function main() {
         wire('btn-dwheel-collect', () => { if (dailyWheelResult >= 0) collectDailyWheel(); });
         wire('btn-dwheel-back', () => { state = 'title'; });
       });
+
+      // Auto-play Config
+      this.queries.autoconfig.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('ac-bonus', () => {
+          save.autoConfig.stopOnBonus = !save.autoConfig.stopOnBonus;
+          saveSave(save); updateAutoConfigPanel();
+        });
+        wire('ac-jackpot', () => {
+          save.autoConfig.stopOnJackpot = !save.autoConfig.stopOnJackpot;
+          saveSave(save); updateAutoConfigPanel();
+        });
+        wire('ac-freespins', () => {
+          save.autoConfig.stopOnFreeSpins = !save.autoConfig.stopOnFreeSpins;
+          saveSave(save); updateAutoConfigPanel();
+        });
+        wire('ac-loss-up', () => { save.autoConfig.lossLimit += 100; saveSave(save); updateAutoConfigPanel(); });
+        wire('ac-loss-dn', () => { save.autoConfig.lossLimit = Math.max(0, save.autoConfig.lossLimit - 100); saveSave(save); updateAutoConfigPanel(); });
+        wire('ac-win-up', () => { save.autoConfig.singleWinLimit += 100; saveSave(save); updateAutoConfigPanel(); });
+        wire('ac-win-dn', () => { save.autoConfig.singleWinLimit = Math.max(0, save.autoConfig.singleWinLimit - 100); saveSave(save); updateAutoConfigPanel(); });
+        wire('ac-bal-up', () => { save.autoConfig.balanceTarget += 500; saveSave(save); updateAutoConfigPanel(); });
+        wire('ac-bal-dn', () => { save.autoConfig.balanceTarget = Math.max(0, save.autoConfig.balanceTarget - 500); saveSave(save); updateAutoConfigPanel(); });
+        wire('btn-ac-back', () => { state = 'title'; });
+      });
+
+      // Prestige
+      this.queries.prestige.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-prestige', () => {
+          if (canPrestige()) {
+            doPrestige();
+            updatePrestigePanel();
+          } else {
+            setText(prestigeEntity, 'pres-status', save.level < 25 ? `Need level 25 (current: ${save.level})` : 'Max prestige reached!');
+          }
+        });
+        wire('btn-pres-back', () => { state = 'title'; });
+      });
     }
   }
 
@@ -2915,8 +3206,8 @@ async function main() {
     setText(statsEntity, 'stat-jackpots', `Jackpots: G${save.jpGrandWins} M${save.jpMajorWins} m${save.jpMinorWins} n${save.jpMiniWins}`);
     setText(statsEntity, 'stat-freespins', `Free Spins: ${save.freeSpinsTriggered} | Nudges: ${save.nudgesTriggered} (${save.nudgeWins} won)`);
     setText(statsEntity, 'stat-gambles', `Gambles Won/Lost: ${save.gambleWins}/${save.gambleLosses} | Mult Wilds: ${save.multiplierWildsHit}`);
-    setText(statsEntity, 'stat-level', `Level: ${save.level} (${save.xp}/${100 + save.level * 50} XP)`);
-    setText(statsEntity, 'stat-peak', `Peak: ${save.peakCredits.toFixed(2)} | Collection: ${save.collectedSymbols.length}/12 | Daily Wheel: ${save.dailyWheelTotal}`);
+    setText(statsEntity, 'stat-level', `Level: ${save.level} (${save.xp}/${100 + save.level * 50} XP) | Prestige: ${PRESTIGE_TIERS[save.prestigeLevel].name}`);
+    setText(statsEntity, 'stat-peak', `Peak: ${save.peakCredits.toFixed(2)} | Linked: ${save.linkedReelsTriggered} (${save.linkedReelWins} won) | Streak Mult: ${save.bestStreakMultiplier}x`);
   }
 
   function updateSettings() {
@@ -2983,6 +3274,37 @@ async function main() {
     setText(tumbleEntity, 'tumble-level', `x${mult.toFixed(1)}`);
     setText(tumbleEntity, 'tumble-chain', `${cascadeLevel}`);
     setText(tumbleEntity, 'tumble-total', cascadeTotal.toFixed(2));
+  }
+
+  function updateAutoConfigPanel() {
+    const cfg = save.autoConfig;
+    setText(autoconfigEntity, 'ac-bonus', cfg.stopOnBonus ? 'ON' : 'OFF');
+    setText(autoconfigEntity, 'ac-jackpot', cfg.stopOnJackpot ? 'ON' : 'OFF');
+    setText(autoconfigEntity, 'ac-freespins', cfg.stopOnFreeSpins ? 'ON' : 'OFF');
+    setText(autoconfigEntity, 'ac-loss-val', cfg.lossLimit > 0 ? `${cfg.lossLimit}` : 'OFF');
+    setText(autoconfigEntity, 'ac-win-val', cfg.singleWinLimit > 0 ? `${cfg.singleWinLimit}` : 'OFF');
+    setText(autoconfigEntity, 'ac-bal-val', cfg.balanceTarget > 0 ? `${cfg.balanceTarget}` : 'OFF');
+    setText(autoconfigEntity, 'ac-status', '');
+  }
+
+  function updatePrestigePanel() {
+    const tier = PRESTIGE_TIERS[save.prestigeLevel];
+    setText(prestigeEntity, 'pres-current', `Current: ${tier.name}`);
+    setText(prestigeEntity, 'pres-bonus', `Payout Bonus: +${tier.payoutBonus}%`);
+    setText(prestigeEntity, 'pres-xp', `XP Bonus: +${tier.xpBonus} per spin`);
+    setText(prestigeEntity, 'pres-total', `Total Prestiges: ${save.totalPrestiges}`);
+    if (canPrestige()) {
+      const nextTier = PRESTIGE_TIERS[save.prestigeLevel + 1];
+      setText(prestigeEntity, 'pres-next', `Next: ${nextTier.name} (+${nextTier.payoutBonus}% payouts)`);
+      setText(prestigeEntity, 'btn-prestige', 'PRESTIGE NOW');
+    } else if (save.prestigeLevel >= PRESTIGE_TIERS.length - 1) {
+      setText(prestigeEntity, 'pres-next', 'Maximum prestige reached!');
+      setText(prestigeEntity, 'btn-prestige', 'MAX PRESTIGE');
+    } else {
+      setText(prestigeEntity, 'pres-next', `Reach Level 25 to prestige (current: ${save.level})`);
+      setText(prestigeEntity, 'btn-prestige', `LOCKED (Lv.${save.level}/25)`);
+    }
+    setText(prestigeEntity, 'pres-status', '');
   }
 
   // ─────────────── GAME LOOP SYSTEM ───────────────
@@ -3309,6 +3631,8 @@ async function main() {
       const vipVisible = state === 'vip';
       const historyVisible = state === 'history';
       const dailyWheelVisible = state === 'daily_wheel';
+      const autoconfigVisible = state === 'autoconfig';
+      const prestigeVisible = state === 'prestige';
 
       setEntityVisibility(titleEntity, titleVisible);
       setEntityVisibility(hudEntity, hudVisible);
@@ -3332,6 +3656,8 @@ async function main() {
       setEntityVisibility(vipEntity, vipVisible);
       setEntityVisibility(historyEntity, historyVisible);
       setEntityVisibility(dailyWheelEntity, dailyWheelVisible);
+      setEntityVisibility(autoconfigEntity, autoconfigVisible);
+      setEntityVisibility(prestigeEntity, prestigeVisible);
       setEntityVisibility(toastEntity, !!currentToast);
 
       // XR controller input
@@ -3414,6 +3740,12 @@ async function main() {
     }
     if (e.code === 'KeyL') {
       if (state === 'title') { state = 'daily_wheel'; updateDailyWheelPanel(); }
+    }
+    if (e.code === 'KeyA') {
+      if (state === 'title') { state = 'autoconfig'; updateAutoConfigPanel(); }
+    }
+    if (e.code === 'KeyP') {
+      if (state === 'title') { state = 'prestige'; updatePrestigePanel(); }
     }
   });
 
