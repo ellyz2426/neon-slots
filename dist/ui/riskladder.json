@@ -1,0 +1,1069 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "view",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "RISK LADDER"
+            ],
+            "properties": {
+              "class": "title"
+            },
+            "dataUid": "uid-3"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Climb higher for bigger rewards!"
+            ],
+            "properties": {
+              "class": "subtitle",
+              "id": "ladder-subtitle"
+            },
+            "dataUid": "uid-4"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Prize: 0.00"
+            ],
+            "properties": {
+              "class": "amount",
+              "id": "ladder-amount"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 10"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-7"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "50.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-9"
+                },
+                "dataUid": "uid-8"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-9"
+            },
+            "dataUid": "uid-6"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 9"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-10"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "25.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-8"
+                },
+                "dataUid": "uid-11"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-8"
+            },
+            "dataUid": "uid-9"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 8"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-13"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "15.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-7"
+                },
+                "dataUid": "uid-14"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-7"
+            },
+            "dataUid": "uid-12"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 7"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-16"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "10.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-6"
+                },
+                "dataUid": "uid-17"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-6"
+            },
+            "dataUid": "uid-15"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 6"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-19"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "7.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-5"
+                },
+                "dataUid": "uid-20"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-5"
+            },
+            "dataUid": "uid-18"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 5"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-22"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "5.0x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-4"
+                },
+                "dataUid": "uid-23"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-4"
+            },
+            "dataUid": "uid-21"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 4"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-25"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "3.5x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-3"
+                },
+                "dataUid": "uid-26"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-3"
+            },
+            "dataUid": "uid-24"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 3"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-28"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "2.5x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-2"
+                },
+                "dataUid": "uid-29"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-2"
+            },
+            "dataUid": "uid-27"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 2"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-31"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "1.8x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-1"
+                },
+                "dataUid": "uid-32"
+              }
+            ],
+            "properties": {
+              "class": "rung",
+              "id": "rung-1"
+            },
+            "dataUid": "uid-30"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "Step 1"
+                ],
+                "properties": {
+                  "class": "rung-label"
+                },
+                "dataUid": "uid-34"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "1.2x"
+                ],
+                "properties": {
+                  "class": "rung-mult",
+                  "id": "rung-val-0"
+                },
+                "dataUid": "uid-35"
+              }
+            ],
+            "properties": {
+              "class": "rung-active",
+              "id": "rung-0"
+            },
+            "dataUid": "uid-33"
+          },
+          {
+            "sourceTag": "view",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "CLIMB"
+                ],
+                "properties": {
+                  "class": "btn",
+                  "id": "btn-ladder-climb"
+                },
+                "dataUid": "uid-37"
+              },
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "COLLECT"
+                ],
+                "properties": {
+                  "class": "btn-danger",
+                  "id": "btn-ladder-collect"
+                },
+                "dataUid": "uid-38"
+              }
+            ],
+            "properties": {
+              "class": "row"
+            },
+            "dataUid": "uid-36"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Win chance: 80%"
+            ],
+            "properties": {
+              "class": "subtitle",
+              "id": "ladder-odds"
+            },
+            "dataUid": "uid-39"
+          }
+        ],
+        "properties": {
+          "class": "root"
+        },
+        "dataUid": "uid-2"
+      }
+    ],
+    "properties": {},
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "root": {
+      "content": {
+        "width": "420",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "padding": "15",
+        "gap": "8",
+        "backgroundColor": "#0a0a2e",
+        "borderRadius": 12
+      }
+    },
+    "title": {
+      "content": {
+        "fontSize": "20",
+        "color": "#ffcc00",
+        "textAlign": "center"
+      }
+    },
+    "subtitle": {
+      "content": {
+        "fontSize": "11",
+        "color": "#aaaacc",
+        "textAlign": "center"
+      }
+    },
+    "row": {
+      "content": {
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "6",
+        "width": "380"
+      }
+    },
+    "rung": {
+      "content": {
+        "width": "360",
+        "height": "28",
+        "backgroundColor": "#1a1a3e",
+        "borderRadius": 6,
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "8"
+      }
+    },
+    "rung-active": {
+      "content": {
+        "width": "360",
+        "height": "32",
+        "backgroundColor": "#2a2a6e",
+        "borderRadius": 8,
+        "borderWidth": "2",
+        "borderColor": "#ffcc00",
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "8"
+      }
+    },
+    "rung-done": {
+      "content": {
+        "width": "360",
+        "height": "28",
+        "backgroundColor": "#003300",
+        "borderRadius": 6,
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": "8"
+      }
+    },
+    "rung-label": {
+      "content": {
+        "fontSize": "11",
+        "color": "#00ffcc"
+      }
+    },
+    "rung-mult": {
+      "content": {
+        "fontSize": "13",
+        "color": "#ffcc00",
+        "fontWeight": "bold"
+      }
+    },
+    "amount": {
+      "content": {
+        "fontSize": "18",
+        "color": "#ffffff",
+        "textAlign": "center"
+      }
+    },
+    "btn": {
+      "content": {
+        "fontSize": "13",
+        "color": "#ffffff",
+        "backgroundColor": "#4444aa",
+        "borderRadius": 6,
+        "padding": "8",
+        "textAlign": "center",
+        "width": "120"
+      }
+    },
+    "btn-danger": {
+      "content": {
+        "fontSize": "13",
+        "color": "#ffffff",
+        "backgroundColor": "#aa2244",
+        "borderRadius": 6,
+        "padding": "8",
+        "textAlign": "center",
+        "width": "120"
+      }
+    }
+  },
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 35,
+        "column": 8
+      }
+    },
+    "root": {
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 9
+      }
+    },
+    "title": {
+      "start": {
+        "line": 3,
+        "column": 4
+      },
+      "end": {
+        "line": 3,
+        "column": 10
+      }
+    },
+    "subtitle": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 13
+      }
+    },
+    "row": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 8
+      }
+    },
+    "rung": {
+      "start": {
+        "line": 6,
+        "column": 4
+      },
+      "end": {
+        "line": 6,
+        "column": 9
+      }
+    },
+    "rung-active": {
+      "start": {
+        "line": 7,
+        "column": 4
+      },
+      "end": {
+        "line": 7,
+        "column": 16
+      }
+    },
+    "rung-done": {
+      "start": {
+        "line": 8,
+        "column": 4
+      },
+      "end": {
+        "line": 8,
+        "column": 14
+      }
+    },
+    "rung-label": {
+      "start": {
+        "line": 9,
+        "column": 4
+      },
+      "end": {
+        "line": 9,
+        "column": 15
+      }
+    },
+    "rung-mult": {
+      "start": {
+        "line": 10,
+        "column": 4
+      },
+      "end": {
+        "line": 10,
+        "column": 14
+      }
+    },
+    "amount": {
+      "start": {
+        "line": 11,
+        "column": 4
+      },
+      "end": {
+        "line": 11,
+        "column": 11
+      }
+    },
+    "btn": {
+      "start": {
+        "line": 12,
+        "column": 4
+      },
+      "end": {
+        "line": 12,
+        "column": 8
+      }
+    },
+    "btn-danger": {
+      "start": {
+        "line": 13,
+        "column": 4
+      },
+      "end": {
+        "line": 13,
+        "column": 15
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 34,
+        "column": 9
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 16,
+        "column": 4
+      },
+      "end": {
+        "line": 16,
+        "column": 42
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 17,
+        "column": 4
+      },
+      "end": {
+        "line": 17,
+        "column": 87
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 18,
+        "column": 4
+      },
+      "end": {
+        "line": 18,
+        "column": 62
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 19,
+        "column": 4
+      },
+      "end": {
+        "line": 19,
+        "column": 133
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 19,
+        "column": 35
+      },
+      "end": {
+        "line": 19,
+        "column": 74
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 19,
+        "column": 74
+      },
+      "end": {
+        "line": 19,
+        "column": 126
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 20,
+        "column": 4
+      },
+      "end": {
+        "line": 20,
+        "column": 132
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 20,
+        "column": 35
+      },
+      "end": {
+        "line": 20,
+        "column": 73
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 20,
+        "column": 73
+      },
+      "end": {
+        "line": 20,
+        "column": 125
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 21,
+        "column": 4
+      },
+      "end": {
+        "line": 21,
+        "column": 132
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 21,
+        "column": 35
+      },
+      "end": {
+        "line": 21,
+        "column": 73
+      }
+    },
+    "uid-14": {
+      "start": {
+        "line": 21,
+        "column": 73
+      },
+      "end": {
+        "line": 21,
+        "column": 125
+      }
+    },
+    "uid-15": {
+      "start": {
+        "line": 22,
+        "column": 4
+      },
+      "end": {
+        "line": 22,
+        "column": 132
+      }
+    },
+    "uid-16": {
+      "start": {
+        "line": 22,
+        "column": 35
+      },
+      "end": {
+        "line": 22,
+        "column": 73
+      }
+    },
+    "uid-17": {
+      "start": {
+        "line": 22,
+        "column": 73
+      },
+      "end": {
+        "line": 22,
+        "column": 125
+      }
+    },
+    "uid-18": {
+      "start": {
+        "line": 23,
+        "column": 4
+      },
+      "end": {
+        "line": 23,
+        "column": 131
+      }
+    },
+    "uid-19": {
+      "start": {
+        "line": 23,
+        "column": 35
+      },
+      "end": {
+        "line": 23,
+        "column": 73
+      }
+    },
+    "uid-20": {
+      "start": {
+        "line": 23,
+        "column": 73
+      },
+      "end": {
+        "line": 23,
+        "column": 124
+      }
+    },
+    "uid-21": {
+      "start": {
+        "line": 24,
+        "column": 4
+      },
+      "end": {
+        "line": 24,
+        "column": 131
+      }
+    },
+    "uid-22": {
+      "start": {
+        "line": 24,
+        "column": 35
+      },
+      "end": {
+        "line": 24,
+        "column": 73
+      }
+    },
+    "uid-23": {
+      "start": {
+        "line": 24,
+        "column": 73
+      },
+      "end": {
+        "line": 24,
+        "column": 124
+      }
+    },
+    "uid-24": {
+      "start": {
+        "line": 25,
+        "column": 4
+      },
+      "end": {
+        "line": 25,
+        "column": 131
+      }
+    },
+    "uid-25": {
+      "start": {
+        "line": 25,
+        "column": 35
+      },
+      "end": {
+        "line": 25,
+        "column": 73
+      }
+    },
+    "uid-26": {
+      "start": {
+        "line": 25,
+        "column": 73
+      },
+      "end": {
+        "line": 25,
+        "column": 124
+      }
+    },
+    "uid-27": {
+      "start": {
+        "line": 26,
+        "column": 4
+      },
+      "end": {
+        "line": 26,
+        "column": 131
+      }
+    },
+    "uid-28": {
+      "start": {
+        "line": 26,
+        "column": 35
+      },
+      "end": {
+        "line": 26,
+        "column": 73
+      }
+    },
+    "uid-29": {
+      "start": {
+        "line": 26,
+        "column": 73
+      },
+      "end": {
+        "line": 26,
+        "column": 124
+      }
+    },
+    "uid-30": {
+      "start": {
+        "line": 27,
+        "column": 4
+      },
+      "end": {
+        "line": 27,
+        "column": 131
+      }
+    },
+    "uid-31": {
+      "start": {
+        "line": 27,
+        "column": 35
+      },
+      "end": {
+        "line": 27,
+        "column": 73
+      }
+    },
+    "uid-32": {
+      "start": {
+        "line": 27,
+        "column": 73
+      },
+      "end": {
+        "line": 27,
+        "column": 124
+      }
+    },
+    "uid-33": {
+      "start": {
+        "line": 28,
+        "column": 4
+      },
+      "end": {
+        "line": 28,
+        "column": 138
+      }
+    },
+    "uid-34": {
+      "start": {
+        "line": 28,
+        "column": 42
+      },
+      "end": {
+        "line": 28,
+        "column": 80
+      }
+    },
+    "uid-35": {
+      "start": {
+        "line": 28,
+        "column": 80
+      },
+      "end": {
+        "line": 28,
+        "column": 131
+      }
+    },
+    "uid-36": {
+      "start": {
+        "line": 29,
+        "column": 4
+      },
+      "end": {
+        "line": 32,
+        "column": 11
+      }
+    },
+    "uid-37": {
+      "start": {
+        "line": 30,
+        "column": 6
+      },
+      "end": {
+        "line": 30,
+        "column": 58
+      }
+    },
+    "uid-38": {
+      "start": {
+        "line": 31,
+        "column": 6
+      },
+      "end": {
+        "line": 31,
+        "column": 69
+      }
+    },
+    "uid-39": {
+      "start": {
+        "line": 33,
+        "column": 4
+      },
+      "end": {
+        "line": 33,
+        "column": 66
+      }
+    }
+  }
+}

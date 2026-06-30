@@ -166,13 +166,25 @@
             "sourceTag": "text",
             "type": "custom",
             "children": [
+              "Wild Reels: 0 | Upgrades: 0 | Ladder: 0"
+            ],
+            "properties": {
+              "id": "stat-extra",
+              "class": "stat"
+            },
+            "dataUid": "uid-16"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
               "BACK"
             ],
             "properties": {
               "id": "btn-stats-back",
               "class": "btn-back"
             },
-            "dataUid": "uid-16"
+            "dataUid": "uid-17"
           }
         ],
         "properties": {
@@ -234,7 +246,7 @@
         "column": 0
       },
       "end": {
-        "line": 23,
+        "line": 24,
         "column": 8
       }
     },
@@ -284,7 +296,7 @@
         "column": 2
       },
       "end": {
-        "line": 22,
+        "line": 23,
         "column": 14
       }
     },
@@ -425,6 +437,16 @@
       },
       "end": {
         "line": 21,
+        "column": 85
+      }
+    },
+    "uid-17": {
+      "start": {
+        "line": 22,
+        "column": 4
+      },
+      "end": {
+        "line": 22,
         "column": 58
       }
     }

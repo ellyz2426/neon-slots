@@ -19,6 +19,7 @@
     <text id="stat-gambles" class="stat">Gambles Won/Lost: 0/0</text>
     <text id="stat-level" class="stat">Level: 1</text>
     <text id="stat-peak" class="stat">Peak Credits: 1000</text>
+    <text id="stat-extra" class="stat">Wild Reels: 0 | Upgrades: 0 | Ladder: 0</text>
     <text id="btn-stats-back" class="btn-back">BACK</text>
   </container>
 </panel>

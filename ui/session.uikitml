@@ -1,0 +1,46 @@
+<panel>
+  <style>
+    .root { width: 400; flexDirection: column; alignItems: center; padding: 15; gap: 8; backgroundColor: #0a0a2e; borderRadius: 12; }
+    .title { fontSize: 20; color: #00ccff; textAlign: center; }
+    .section { fontSize: 14; color: #ffcc00; textAlign: center; marginTop: 6; }
+    .row { flexDirection: row; justifyContent: space-between; width: 360; padding: 4; }
+    .label { fontSize: 11; color: #8888aa; }
+    .value { fontSize: 12; color: #ffffff; }
+    .value-pos { fontSize: 12; color: #00ff88; }
+    .value-neg { fontSize: 12; color: #ff4466; }
+    .divider { width: 360; height: 1; backgroundColor: #333366; }
+    .btn { fontSize: 13; color: #ffffff; backgroundColor: #4444aa; borderRadius: 6; padding: 8; textAlign: center; width: 140; }
+    .btn-danger { fontSize: 13; color: #ffffff; backgroundColor: #aa2244; borderRadius: 6; padding: 8; textAlign: center; width: 140; }
+    .btnrow { flexDirection: row; gap: 10; marginTop: 6; }
+  </style>
+  <view class="root">
+    <text class="title">SESSION STATS</text>
+    <text class="section">Current Session</text>
+    <view class="row"><text class="label">Time Played</text><text class="value" id="sess-time">0m 0s</text></view>
+    <view class="row"><text class="label">Spins</text><text class="value" id="sess-spins">0</text></view>
+    <view class="row"><text class="label">Wins</text><text class="value" id="sess-wins">0</text></view>
+    <view class="row"><text class="label">Win Rate</text><text class="value" id="sess-winrate">0%</text></view>
+    <view class="divider"></view>
+    <view class="row"><text class="label">Starting Credits</text><text class="value" id="sess-start">1000</text></view>
+    <view class="row"><text class="label">Current Credits</text><text class="value" id="sess-current">1000</text></view>
+    <view class="row"><text class="label">Session P/L</text><text class="value" id="sess-pl">0.00</text></view>
+    <view class="divider"></view>
+    <view class="row"><text class="label">Total Wagered</text><text class="value" id="sess-wagered">0.00</text></view>
+    <view class="row"><text class="label">Total Won</text><text class="value" id="sess-won">0.00</text></view>
+    <view class="row"><text class="label">RTP (this session)</text><text class="value" id="sess-rtp">0%</text></view>
+    <view class="divider"></view>
+    <text class="section">Bet Presets</text>
+    <view class="row"><text class="label" id="preset-1-label">Preset 1: Empty</text><text class="btn" id="btn-preset-save-1">SAVE</text></view>
+    <view class="row"><text class="label" id="preset-2-label">Preset 2: Empty</text><text class="btn" id="btn-preset-save-2">SAVE</text></view>
+    <view class="row"><text class="label" id="preset-3-label">Preset 3: Empty</text><text class="btn" id="btn-preset-save-3">SAVE</text></view>
+    <view class="btnrow">
+      <text class="btn" id="btn-preset-load-1">LOAD 1</text>
+      <text class="btn" id="btn-preset-load-2">LOAD 2</text>
+      <text class="btn" id="btn-preset-load-3">LOAD 3</text>
+    </view>
+    <view class="btnrow">
+      <text class="btn" id="btn-session-back">BACK</text>
+      <text class="btn-danger" id="btn-session-reset">RESET SESSION</text>
+    </view>
+  </view>
+</panel>

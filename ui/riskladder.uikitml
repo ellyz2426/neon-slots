@@ -1,0 +1,36 @@
+<panel>
+  <style>
+    .root { width: 420; flexDirection: column; alignItems: center; padding: 15; gap: 8; backgroundColor: #0a0a2e; borderRadius: 12; }
+    .title { fontSize: 20; color: #ffcc00; textAlign: center; }
+    .subtitle { fontSize: 11; color: #aaaacc; textAlign: center; }
+    .row { flexDirection: row; alignItems: center; justifyContent: center; gap: 6; width: 380; }
+    .rung { width: 360; height: 28; backgroundColor: #1a1a3e; borderRadius: 6; flexDirection: row; alignItems: center; justifyContent: center; gap: 8; }
+    .rung-active { width: 360; height: 32; backgroundColor: #2a2a6e; borderRadius: 8; borderWidth: 2; borderColor: #ffcc00; flexDirection: row; alignItems: center; justifyContent: center; gap: 8; }
+    .rung-done { width: 360; height: 28; backgroundColor: #003300; borderRadius: 6; flexDirection: row; alignItems: center; justifyContent: center; gap: 8; }
+    .rung-label { fontSize: 11; color: #00ffcc; }
+    .rung-mult { fontSize: 13; color: #ffcc00; fontWeight: bold; }
+    .amount { fontSize: 18; color: #ffffff; textAlign: center; }
+    .btn { fontSize: 13; color: #ffffff; backgroundColor: #4444aa; borderRadius: 6; padding: 8; textAlign: center; width: 120; }
+    .btn-danger { fontSize: 13; color: #ffffff; backgroundColor: #aa2244; borderRadius: 6; padding: 8; textAlign: center; width: 120; }
+  </style>
+  <view class="root">
+    <text class="title">RISK LADDER</text>
+    <text class="subtitle" id="ladder-subtitle">Climb higher for bigger rewards!</text>
+    <text class="amount" id="ladder-amount">Prize: 0.00</text>
+    <view class="rung" id="rung-9"><text class="rung-label">Step 10</text><text class="rung-mult" id="rung-val-9">50.0x</text></view>
+    <view class="rung" id="rung-8"><text class="rung-label">Step 9</text><text class="rung-mult" id="rung-val-8">25.0x</text></view>
+    <view class="rung" id="rung-7"><text class="rung-label">Step 8</text><text class="rung-mult" id="rung-val-7">15.0x</text></view>
+    <view class="rung" id="rung-6"><text class="rung-label">Step 7</text><text class="rung-mult" id="rung-val-6">10.0x</text></view>
+    <view class="rung" id="rung-5"><text class="rung-label">Step 6</text><text class="rung-mult" id="rung-val-5">7.0x</text></view>
+    <view class="rung" id="rung-4"><text class="rung-label">Step 5</text><text class="rung-mult" id="rung-val-4">5.0x</text></view>
+    <view class="rung" id="rung-3"><text class="rung-label">Step 4</text><text class="rung-mult" id="rung-val-3">3.5x</text></view>
+    <view class="rung" id="rung-2"><text class="rung-label">Step 3</text><text class="rung-mult" id="rung-val-2">2.5x</text></view>
+    <view class="rung" id="rung-1"><text class="rung-label">Step 2</text><text class="rung-mult" id="rung-val-1">1.8x</text></view>
+    <view class="rung-active" id="rung-0"><text class="rung-label">Step 1</text><text class="rung-mult" id="rung-val-0">1.2x</text></view>
+    <view class="row">
+      <text class="btn" id="btn-ladder-climb">CLIMB</text>
+      <text class="btn-danger" id="btn-ladder-collect">COLLECT</text>
+    </view>
+    <text class="subtitle" id="ladder-odds">Win chance: 80%</text>
+  </view>
+</panel>

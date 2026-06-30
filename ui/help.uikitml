@@ -13,6 +13,8 @@
     <text class="text">G - Gamble | H - Hold Respin | Q - Quick Spin</text>
     <text class="text">M - Machines | D - Dailies | B - Buy Bonus</text>
     <text class="text">T - Tournament | V - VIP | I - History | L - Daily Wheel</text>
+    <text class="text">A - Auto Config | P - Prestige | N - Session Stats</text>
+    <text class="text">F - Risk Ladder (after win)</text>
     <text class="section">VR Controls</text>
     <text class="text">Trigger - Spin | B - Pause | A - Hold Respin</text>
     <text class="text">Laser Pointer - All menu interaction</text>
@@ -39,6 +41,11 @@
     <text class="text">Quick Spin - Toggle faster reel stops</text>
     <text class="text">5 Machines | 5 Themes | Tournaments | VIP</text>
     <text class="text">Daily Challenges | Buy Bonus | Spin History</text>
+    <text class="section">Wild Reel + Symbol Upgrade + Risk Ladder</text>
+    <text class="text">Wild Reel - 8% chance: entire reel goes wild!</text>
+    <text class="text">Symbol Upgrade - 10%: symbols upgrade to higher tier!</text>
+    <text class="text">Risk Ladder - Alternative to Gamble: climb 10 steps!</text>
+    <text class="text">Session Stats - Track your session P/L + Bet Presets!</text>
     <text id="btn-help-back" class="btn-back">BACK</text>
   </container>
 </panel>

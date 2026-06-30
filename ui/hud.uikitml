@@ -41,6 +41,7 @@
     <container class="row">
       <text id="btn-spin" class="btn-spin">SPIN</text>
       <text id="btn-gamble" class="btn btn-red">GAMBLE</text>
+      <text id="btn-ladder" class="btn btn-red">LADDER</text>
       <text id="btn-collect" class="btn btn-green">COLLECT</text>
     </container>
     <container class="row">

@@ -111,5 +111,9 @@
       <text id="btn-autoconfig" class="btn-half" style="borderColor: rgba(0, 255, 200, 0.6); backgroundColor: rgba(0, 30, 40, 0.9)">AUTO CONFIG</text>
       <text id="btn-prestige" class="btn-half" style="borderColor: rgba(255, 204, 0, 0.8); backgroundColor: rgba(42, 30, 0, 0.9)">PRESTIGE</text>
     </container>
+    <container class="row">
+      <text id="btn-session" class="btn-half" style="borderColor: rgba(0, 204, 255, 0.8); backgroundColor: rgba(0, 20, 40, 0.9)">SESSION STATS</text>
+      <text id="btn-machines" class="btn-half" style="borderColor: rgba(255, 100, 0, 0.6); backgroundColor: rgba(42, 15, 0, 0.9)">MACHINES</text>
+    </container>
   </container>
 </template>

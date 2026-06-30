@@ -36,7 +36,7 @@ import {
 
 // ─────────────────────── TYPES & CONSTANTS ───────────────────────
 
-type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip' | 'history' | 'daily_wheel' | 'autoconfig' | 'prestige';
+type GameState = 'title' | 'playing' | 'spinning' | 'showing_win' | 'free_spins' | 'bonus_wheel' | 'gamble' | 'paused' | 'paytable' | 'settings' | 'achievements' | 'stats' | 'machines' | 'help' | 'leaderboard' | 'daily' | 'win_celebration' | 'buy_bonus' | 'jackpots' | 'pick_bonus' | 'tournament' | 'vip' | 'history' | 'daily_wheel' | 'autoconfig' | 'prestige' | 'risk_ladder' | 'session_stats';
 
 interface SymbolDef {
   name: string;
@@ -236,6 +236,20 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'streak_7x', name: 'Inferno Streak', desc: 'Earn a 7-win streak multiplier', check: s => s.bestStreakMultiplier >= 1.5 },
   // Milestone
   { id: 'spins_1000', name: 'Eternal Spinner', desc: 'Complete 1,000 spins', check: s => s.totalSpins >= 1000 },
+  // Wild Reel
+  { id: 'wild_reel_first', name: 'Wild Column!', desc: 'Trigger a wild reel', check: s => s.wildReelsTriggered >= 1 },
+  { id: 'wild_reel_5', name: 'Wild Rampage', desc: 'Trigger 5 wild reels', check: s => s.wildReelsTriggered >= 5 },
+  { id: 'wild_reel_win', name: 'Wild Reel Win', desc: 'Win with a wild reel', check: s => s.wildReelWins >= 1 },
+  // Symbol Upgrade
+  { id: 'upgrade_first', name: 'Upgraded!', desc: 'Get your first symbol upgrade', check: s => s.symbolUpgrades >= 1 },
+  { id: 'upgrade_10', name: 'Upgrade Master', desc: 'Get 10 symbol upgrades', check: s => s.symbolUpgrades >= 10 },
+  { id: 'upgrade_win', name: 'Premium Win', desc: 'Win after a symbol upgrade', check: s => s.symbolUpgradeWins >= 1 },
+  // Risk Ladder
+  { id: 'ladder_first', name: 'First Climb', desc: 'Enter the risk ladder', check: s => s.ladderClimbs >= 1 },
+  { id: 'ladder_step5', name: 'High Climber', desc: 'Reach step 5 on the risk ladder', check: s => s.bestLadderStep >= 5 },
+  { id: 'ladder_top', name: 'Summit!', desc: 'Reach the top of the risk ladder', check: s => s.bestLadderStep >= 10 },
+  { id: 'ladder_fall', name: 'Long Way Down', desc: 'Fall from the risk ladder', check: s => s.ladderFalls >= 1 },
+  { id: 'ladder_collect', name: 'Smart Collector', desc: 'Collect from the risk ladder', check: s => s.ladderCollected >= 1 },
 ];
 
 // Daily challenge templates
@@ -340,6 +354,33 @@ const STREAK_MULTIPLIERS: { streak: number; mult: number }[] = [
 const LINKED_REELS_CHANCE = 0.12; // 12% chance per spin
 const MIN_LINKED = 2;
 const MAX_LINKED = 4;
+
+// ─────────────── WILD REEL ───────────────
+const WILD_REEL_CHANCE = 0.08; // 8% chance per spin
+
+// ─────────────── SYMBOL UPGRADE ───────────────
+const SYMBOL_UPGRADE_CHANCE = 0.10; // 10% chance per spin
+
+// ─────────────── RISK LADDER ───────────────
+const RISK_LADDER_RUNGS = [
+  { mult: 1.2, chance: 0.80 },
+  { mult: 1.8, chance: 0.75 },
+  { mult: 2.5, chance: 0.70 },
+  { mult: 3.5, chance: 0.65 },
+  { mult: 5.0, chance: 0.60 },
+  { mult: 7.0, chance: 0.55 },
+  { mult: 10.0, chance: 0.50 },
+  { mult: 15.0, chance: 0.45 },
+  { mult: 25.0, chance: 0.40 },
+  { mult: 50.0, chance: 0.35 },
+];
+
+// ─────────────── BET PRESETS ───────────────
+interface BetPreset {
+  coinIdx: number;
+  lines: number;
+  saved: boolean;
+}
 
 interface SaveData {
   credits: number;
@@ -455,6 +496,26 @@ interface SaveData {
   // Auto-play config
   autoConfig: AutoPlayConfig;
   autoSessionStartCredits: number;
+  // Wild reel
+  wildReelsTriggered: number;
+  wildReelWins: number;
+  // Symbol upgrade
+  symbolUpgrades: number;
+  symbolUpgradeWins: number;
+  // Risk ladder
+  ladderClimbs: number;
+  ladderFalls: number;
+  bestLadderStep: number;
+  ladderCollected: number;
+  // Bet presets
+  betPresets: BetPreset[];
+  // Session tracking
+  sessionStartCredits: number;
+  sessionStartTime: number;
+  sessionSpins: number;
+  sessionWins: number;
+  sessionWagered: number;
+  sessionWon: number;
 }
 
 function defaultSave(): SaveData {
@@ -535,6 +596,30 @@ function defaultSave(): SaveData {
       balanceTarget: 0,
     },
     autoSessionStartCredits: 0,
+    // Wild reel
+    wildReelsTriggered: 0,
+    wildReelWins: 0,
+    // Symbol upgrade
+    symbolUpgrades: 0,
+    symbolUpgradeWins: 0,
+    // Risk ladder
+    ladderClimbs: 0,
+    ladderFalls: 0,
+    bestLadderStep: 0,
+    ladderCollected: 0,
+    // Bet presets
+    betPresets: [
+      { coinIdx: 2, lines: 20, saved: false },
+      { coinIdx: 2, lines: 20, saved: false },
+      { coinIdx: 2, lines: 20, saved: false },
+    ],
+    // Session tracking
+    sessionStartCredits: 1000,
+    sessionStartTime: Date.now(),
+    sessionSpins: 0,
+    sessionWins: 0,
+    sessionWagered: 0,
+    sessionWon: 0,
   };
 }
 
@@ -960,6 +1045,33 @@ async function main() {
   // Auto-play tracking
   let autoSessionLoss = 0;
 
+  // Risk ladder state
+  let ladderActive = false;
+  let ladderCurrentStep = 0;
+  let ladderBaseWin = 0;
+  let ladderCurrentPrize = 0;
+
+  // Wild reel tracking
+  let wildReelActive: number[] = []; // indices of reels that are fully wild this spin
+  let wildReelAnimating = false;
+  let wildReelTimer = 0;
+
+  // Symbol upgrade tracking
+  let symbolUpgradeActive = false;
+  let upgradePositions: { r: number; row: number }[] = [];
+  let upgradeTimer = 0;
+
+  // Session init
+  if (!save.sessionStartTime || save.sessionStartTime === 0) {
+    save.sessionStartTime = Date.now();
+    save.sessionStartCredits = save.credits;
+    save.sessionSpins = 0;
+    save.sessionWins = 0;
+    save.sessionWagered = 0;
+    save.sessionWon = 0;
+    saveSave(save);
+  }
+
   // VIP helpers
   function getVipTier(points: number): number {
     for (let i = VIP_TIERS.length - 1; i >= 0; i--) {
@@ -1337,6 +1449,7 @@ async function main() {
     if (freeSpinsRemaining <= 0 && !isRespin) {
       save.credits -= bet;
       save.totalCreditsBet += bet;
+      save.sessionWagered += bet;
       save.jackpotPool += bet * 0.02;
       earnCompPoints(bet);
     } else if (freeSpinsRemaining > 0) {
@@ -1347,7 +1460,7 @@ async function main() {
       }
     }
 
-    if (!isRespin) save.totalSpins++;
+    if (!isRespin) { save.totalSpins++; save.sessionSpins++; }
     if (tournamentActive) {
       tournamentSpins++;
       if (tournamentSpins >= tournamentMaxSpins) {
@@ -1405,6 +1518,12 @@ async function main() {
       save.bestLinkedReelCount = Math.max(save.bestLinkedReelCount, linkCount);
       audio.holdRespin();
       showToast(`${linkCount} LINKED REELS!`);
+    }
+
+    // Wild Reel: chance for an entire reel to become wild
+    wildReelActive = [];
+    if (!isRespin) {
+      applyWildReel();
     }
 
     // Apply sticky wilds during free spins
@@ -1671,6 +1790,9 @@ async function main() {
     // Resolve mystery symbols first (before evaluating)
     resolveMysterySymbols();
 
+    // Apply symbol upgrade (after mystery resolve, before win evaluation)
+    applySymbolUpgrade();
+
     // Check expanding wilds
     const didExpand = applyExpandingWilds();
     if (didExpand) {
@@ -1883,7 +2005,9 @@ async function main() {
     if (totalWin > 0) {
       save.credits += totalWin;
       save.totalWins++;
+      save.sessionWins++;
       save.totalCreditsWon += totalWin;
+      save.sessionWon += totalWin;
       save.biggestWin = Math.max(save.biggestWin, totalWin);
       const winMult = totalWin / bet;
       save.biggestWinMultiplier = Math.max(save.biggestWinMultiplier, winMult);
@@ -1909,6 +2033,12 @@ async function main() {
         save.linkedReelWins++;
         linkedReelsActive = false;
       }
+
+      // Track wild reel wins
+      if (wildReelActive.length > 0) {
+        save.wildReelWins++;
+      }
+
       save.peakCredits = Math.max(save.peakCredits, save.credits);
       lastWinAmount = totalWin;
       cascadeTotal += totalWin;
@@ -2132,6 +2262,201 @@ async function main() {
     isRespin = true;
     showToast('HOLD & RESPIN!');
     setTimeout(() => spinReels(), 600);
+  }
+
+  // ─────────────── WILD REEL FEATURE ───────────────
+  function applyWildReel(): boolean {
+    if (Math.random() >= WILD_REEL_CHANCE) return false;
+    // Pick a random reel to make fully wild
+    const reelIdx = Math.floor(Math.random() * REELS);
+    wildReelActive = [reelIdx];
+    for (let row = 0; row < ROWS; row++) {
+      targetGrid[reelIdx][row] = 8; // Wild symbol index
+    }
+    save.wildReelsTriggered++;
+    showToast(`WILD REEL on reel ${reelIdx + 1}!`);
+    audio.expandingWild();
+    return true;
+  }
+
+  // ─────────────── SYMBOL UPGRADE FEATURE ───────────────
+  function applySymbolUpgrade(): boolean {
+    if (Math.random() >= SYMBOL_UPGRADE_CHANCE) return false;
+    // Pick 1-3 random positions and upgrade their symbols to the next higher tier
+    upgradePositions = [];
+    const count = 1 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < count; i++) {
+      const r = Math.floor(Math.random() * REELS);
+      const row = Math.floor(Math.random() * ROWS);
+      const symIdx = currentGrid[r][row];
+      // Don't upgrade wilds, scatters, bonus, mystery
+      if (!SYMBOLS[symIdx].isWild && !SYMBOLS[symIdx].isScatter && !SYMBOLS[symIdx].isBonus && SYMBOLS[symIdx].name !== 'Mystery') {
+        // Upgrade to next higher pay symbol (lower index = lower value, so go up)
+        if (symIdx > 0) {
+          const newIdx = Math.max(0, symIdx - 1);
+          if (!SYMBOLS[newIdx].isWild && !SYMBOLS[newIdx].isScatter && !SYMBOLS[newIdx].isBonus) {
+            currentGrid[r][row] = newIdx;
+            updateSymbolMesh(r, row, newIdx);
+            upgradePositions.push({ r, row });
+          }
+        }
+      }
+    }
+    if (upgradePositions.length > 0) {
+      save.symbolUpgrades += upgradePositions.length;
+      symbolUpgradeActive = true;
+      upgradeTimer = 0;
+      showToast(`SYMBOL UPGRADE! ${upgradePositions.length} symbol${upgradePositions.length > 1 ? 's' : ''} upgraded!`);
+      audio.bonusTrigger();
+      return true;
+    }
+    return false;
+  }
+
+  // ─────────────── RISK LADDER ───────────────
+  function startRiskLadder() {
+    if (gambleWinAmount <= 0) return;
+    ladderActive = true;
+    ladderCurrentStep = 0;
+    ladderBaseWin = gambleWinAmount;
+    ladderCurrentPrize = gambleWinAmount;
+    state = 'risk_ladder';
+    save.ladderClimbs++;
+    updateRiskLadderPanel();
+    saveSave(save);
+  }
+
+  function ladderClimb() {
+    if (!ladderActive) return;
+    const rung = RISK_LADDER_RUNGS[ladderCurrentStep];
+    if (Math.random() < rung.chance) {
+      // Success!
+      ladderCurrentPrize = Math.floor(ladderBaseWin * rung.mult * 100) / 100;
+      ladderCurrentStep++;
+      save.bestLadderStep = Math.max(save.bestLadderStep, ladderCurrentStep);
+      audio.gambleWin();
+      particles.burst(0, 1.5, -2, '#ffcc00', 20);
+
+      if (ladderCurrentStep >= RISK_LADDER_RUNGS.length) {
+        // Reached the top! Auto-collect
+        showToast(`SUMMIT! ${ladderCurrentPrize.toFixed(2)} credits!`);
+        save.credits += ladderCurrentPrize;
+        save.totalCreditsWon += ladderCurrentPrize;
+        save.sessionWon += ladderCurrentPrize;
+        save.peakCredits = Math.max(save.peakCredits, save.credits);
+        save.ladderCollected++;
+        ladderActive = false;
+        gambleWinAmount = 0;
+        state = 'playing';
+        audio.ultraWin();
+        updateHUD();
+      } else {
+        showToast(`Step ${ladderCurrentStep}! Prize: ${ladderCurrentPrize.toFixed(2)}`);
+      }
+    } else {
+      // Fall!
+      showToast(`Fell at step ${ladderCurrentStep + 1}! Lost it all!`);
+      save.ladderFalls++;
+      audio.gambleLose();
+      ladderActive = false;
+      gambleWinAmount = 0;
+      state = 'playing';
+      updateHUD();
+    }
+    updateRiskLadderPanel();
+    checkAchievements();
+    saveSave(save);
+  }
+
+  function ladderCollect() {
+    if (!ladderActive) return;
+    save.credits += ladderCurrentPrize;
+    save.totalCreditsWon += ladderCurrentPrize;
+    save.sessionWon += ladderCurrentPrize;
+    save.peakCredits = Math.max(save.peakCredits, save.credits);
+    save.ladderCollected++;
+    showToast(`Collected ${ladderCurrentPrize.toFixed(2)} credits!`);
+    audio.smallWin();
+    ladderActive = false;
+    gambleWinAmount = 0;
+    state = 'playing';
+    updateHUD();
+    checkAchievements();
+    saveSave(save);
+  }
+
+  function updateRiskLadderPanel() {
+    setText(riskLadderEntity, 'ladder-amount', `Prize: ${ladderCurrentPrize.toFixed(2)}`);
+    const nextChance = ladderCurrentStep < RISK_LADDER_RUNGS.length
+      ? (RISK_LADDER_RUNGS[ladderCurrentStep].chance * 100).toFixed(0) : '0';
+    setText(riskLadderEntity, 'ladder-odds', `Win chance: ${nextChance}%`);
+    if (ladderCurrentStep > 0) {
+      setText(riskLadderEntity, 'ladder-subtitle', `Climbed ${ladderCurrentStep} step${ladderCurrentStep > 1 ? 's' : ''}!`);
+    } else {
+      setText(riskLadderEntity, 'ladder-subtitle', 'Climb higher for bigger rewards!');
+    }
+  }
+
+  // ─────────────── SESSION STATS ───────────────
+  function updateSessionPanel() {
+    const elapsed = Date.now() - save.sessionStartTime;
+    const mins = Math.floor(elapsed / 60000);
+    const secs = Math.floor((elapsed % 60000) / 1000);
+    setText(sessionEntity, 'sess-time', `${mins}m ${secs}s`);
+    setText(sessionEntity, 'sess-spins', String(save.sessionSpins));
+    setText(sessionEntity, 'sess-wins', String(save.sessionWins));
+    const winRate = save.sessionSpins > 0 ? (save.sessionWins / save.sessionSpins * 100).toFixed(1) : '0.0';
+    setText(sessionEntity, 'sess-winrate', `${winRate}%`);
+    setText(sessionEntity, 'sess-start', save.sessionStartCredits.toFixed(2));
+    setText(sessionEntity, 'sess-current', save.credits.toFixed(2));
+    const pl = save.credits - save.sessionStartCredits;
+    setText(sessionEntity, 'sess-pl', `${pl >= 0 ? '+' : ''}${pl.toFixed(2)}`);
+    setText(sessionEntity, 'sess-wagered', save.sessionWagered.toFixed(2));
+    setText(sessionEntity, 'sess-won', save.sessionWon.toFixed(2));
+    const rtp = save.sessionWagered > 0 ? (save.sessionWon / save.sessionWagered * 100).toFixed(1) : '0.0';
+    setText(sessionEntity, 'sess-rtp', `${rtp}%`);
+    // Bet presets
+    for (let i = 0; i < 3; i++) {
+      const p = save.betPresets[i];
+      if (p && p.saved) {
+        const coinVal = COIN_VALUES[p.coinIdx] || 0.5;
+        setText(sessionEntity, `preset-${i + 1}-label`, `Preset ${i + 1}: ${coinVal}x${p.lines}L`);
+      } else {
+        setText(sessionEntity, `preset-${i + 1}-label`, `Preset ${i + 1}: Empty`);
+      }
+    }
+  }
+
+  function resetSession() {
+    save.sessionStartCredits = save.credits;
+    save.sessionStartTime = Date.now();
+    save.sessionSpins = 0;
+    save.sessionWins = 0;
+    save.sessionWagered = 0;
+    save.sessionWon = 0;
+    saveSave(save);
+    updateSessionPanel();
+    showToast('Session stats reset!');
+  }
+
+  function saveBetPreset(idx: number) {
+    if (idx < 0 || idx > 2) return;
+    save.betPresets[idx] = { coinIdx: save.coinValueIdx, lines: save.linesActive, saved: true };
+    saveSave(save);
+    updateSessionPanel();
+    showToast(`Preset ${idx + 1} saved!`);
+  }
+
+  function loadBetPreset(idx: number) {
+    if (idx < 0 || idx > 2) return;
+    const p = save.betPresets[idx];
+    if (!p || !p.saved) { showToast('Preset empty!'); return; }
+    save.coinValueIdx = p.coinIdx;
+    save.linesActive = p.lines;
+    saveSave(save);
+    updateHUD();
+    showToast(`Preset ${idx + 1} loaded!`);
+    state = 'playing';
   }
 
   function startGamble() {
@@ -2715,6 +3040,8 @@ async function main() {
     { name: 'dailywheel', config: './ui/dailywheel.json', follower: false },
     { name: 'autoconfig', config: './ui/autoconfig.json', follower: false },
     { name: 'prestige', config: './ui/prestige.json', follower: false },
+    { name: 'riskladder', config: './ui/riskladder.json', follower: false },
+    { name: 'session', config: './ui/session.json', follower: false },
   ];
 
   const panelEntities: Record<string, any> = {};
@@ -2762,6 +3089,8 @@ async function main() {
   const dailyWheelEntity = panelEntities['dailywheel'];
   const autoconfigEntity = panelEntities['autoconfig'];
   const prestigeEntity = panelEntities['prestige'];
+  const riskLadderEntity = panelEntities['riskladder'];
+  const sessionEntity = panelEntities['session'];
 
   // ─────────────── UI SYSTEM ───────────────
 
@@ -2791,6 +3120,8 @@ async function main() {
     dailywheel: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/dailywheel.json')] },
     autoconfig: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/autoconfig.json')] },
     prestige: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/prestige.json')] },
+    riskladder: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/riskladder.json')] },
+    session: { required: [PanelUI, PanelDocument], where: [eq(PanelUI, 'config', './ui/session.json')] },
   }) {
     init() {
       // Title
@@ -2815,6 +3146,8 @@ async function main() {
         wire('btn-dailywheel', () => { state = 'daily_wheel'; updateDailyWheelPanel(); });
         wire('btn-autoconfig', () => { state = 'autoconfig'; updateAutoConfigPanel(); });
         wire('btn-prestige', () => { state = 'prestige'; updatePrestigePanel(); });
+        wire('btn-session', () => { state = 'session_stats'; updateSessionPanel(); });
+        wire('btn-machines', () => { state = 'machines'; updateMachinesPanel(); });
       });
 
       // HUD
@@ -2842,6 +3175,7 @@ async function main() {
           setText(hudEntity, 'btn-quick', quickSpinMode ? 'QUICK*' : 'QUICK');
         });
         wire('btn-gamble', () => { if (gambleWinAmount > 0 && state === 'showing_win') startGamble(); });
+        wire('btn-ladder', () => { if (gambleWinAmount > 0 && (state === 'showing_win' || state === 'win_celebration')) startRiskLadder(); });
         wire('btn-collect', () => { if (state === 'showing_win') { showingWin = false; state = 'playing'; collectAfterWin(); } });
         wire('btn-pause', () => { state = 'paused'; });
       });
@@ -3169,6 +3503,36 @@ async function main() {
         });
         wire('btn-pres-back', () => { state = 'title'; });
       });
+
+      // Risk Ladder
+      this.queries.riskladder.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-ladder-climb', () => { if (ladderActive) ladderClimb(); });
+        wire('btn-ladder-collect', () => { if (ladderActive) ladderCollect(); });
+      });
+
+      // Session Stats
+      this.queries.session.subscribe('qualify', (entity: any) => {
+        const doc = getDoc(entity);
+        if (!doc) return;
+        const wire = (id: string, fn: () => void) => {
+          const el = doc.getElementById(id) as UIKit.Text | undefined;
+          el?.addEventListener('click', () => { audio.click(); fn(); });
+        };
+        wire('btn-session-back', () => { state = 'title'; });
+        wire('btn-session-reset', () => { resetSession(); });
+        wire('btn-preset-save-1', () => { saveBetPreset(0); });
+        wire('btn-preset-save-2', () => { saveBetPreset(1); });
+        wire('btn-preset-save-3', () => { saveBetPreset(2); });
+        wire('btn-preset-load-1', () => { loadBetPreset(0); });
+        wire('btn-preset-load-2', () => { loadBetPreset(1); });
+        wire('btn-preset-load-3', () => { loadBetPreset(2); });
+      });
     }
   }
 
@@ -3208,6 +3572,7 @@ async function main() {
     setText(statsEntity, 'stat-gambles', `Gambles Won/Lost: ${save.gambleWins}/${save.gambleLosses} | Mult Wilds: ${save.multiplierWildsHit}`);
     setText(statsEntity, 'stat-level', `Level: ${save.level} (${save.xp}/${100 + save.level * 50} XP) | Prestige: ${PRESTIGE_TIERS[save.prestigeLevel].name}`);
     setText(statsEntity, 'stat-peak', `Peak: ${save.peakCredits.toFixed(2)} | Linked: ${save.linkedReelsTriggered} (${save.linkedReelWins} won) | Streak Mult: ${save.bestStreakMultiplier}x`);
+    setText(statsEntity, 'stat-extra', `Wild Reels: ${save.wildReelsTriggered} (${save.wildReelWins} won) | Upgrades: ${save.symbolUpgrades} | Ladder: ${save.ladderClimbs} climbs, best step ${save.bestLadderStep}`);
   }
 
   function updateSettings() {
@@ -3387,6 +3752,24 @@ async function main() {
             for (let row = 0; row < ROWS; row++) {
               symbolMeshes[r][row]?.scale.setScalar(1);
             }
+          });
+        }
+      }
+
+      // Symbol upgrade animation
+      if (symbolUpgradeActive) {
+        upgradeTimer += dt;
+        upgradePositions.forEach(pos => {
+          const mesh = symbolMeshes[pos.r][pos.row];
+          if (mesh) {
+            const flashVal = Math.sin(upgradeTimer * 12) * 0.4 + 1.3;
+            mesh.scale.setScalar(flashVal);
+          }
+        });
+        if (upgradeTimer > 1.2) {
+          symbolUpgradeActive = false;
+          upgradePositions.forEach(pos => {
+            symbolMeshes[pos.r][pos.row]?.scale.setScalar(1);
           });
         }
       }
@@ -3633,6 +4016,8 @@ async function main() {
       const dailyWheelVisible = state === 'daily_wheel';
       const autoconfigVisible = state === 'autoconfig';
       const prestigeVisible = state === 'prestige';
+      const riskLadderVisible = state === 'risk_ladder';
+      const sessionVisible = state === 'session_stats';
 
       setEntityVisibility(titleEntity, titleVisible);
       setEntityVisibility(hudEntity, hudVisible);
@@ -3658,6 +4043,8 @@ async function main() {
       setEntityVisibility(dailyWheelEntity, dailyWheelVisible);
       setEntityVisibility(autoconfigEntity, autoconfigVisible);
       setEntityVisibility(prestigeEntity, prestigeVisible);
+      setEntityVisibility(riskLadderEntity, riskLadderVisible);
+      setEntityVisibility(sessionEntity, sessionVisible);
       setEntityVisibility(toastEntity, !!currentToast);
 
       // XR controller input
@@ -3746,6 +4133,12 @@ async function main() {
     }
     if (e.code === 'KeyP') {
       if (state === 'title') { state = 'prestige'; updatePrestigePanel(); }
+    }
+    if (e.code === 'KeyN') {
+      if (state === 'title') { state = 'session_stats'; updateSessionPanel(); }
+    }
+    if (e.code === 'KeyF') {
+      if ((state === 'showing_win' || state === 'win_celebration') && gambleWinAmount > 0) startRiskLadder();
     }
   });
 
